@@ -1,4 +1,4 @@
-{
+VERSION
     procedure F(x)
     {
        t := new();
@@ -9,18 +9,16 @@
 	procedure G(x)
 		modifies {}; 
 	{ }
-}
-{  
+VERSION  
     procedure F(x)
     {
        t := new();
        call G(t);
        s := new();
        call G(s);
-       [x:=null];
+       x.v:=x.f;
     }
     
 	procedure G(x)
 		modifies {}; 
 	{ }
-}

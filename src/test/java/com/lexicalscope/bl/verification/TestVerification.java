@@ -37,7 +37,8 @@ public abstract class TestVerification {
         assertThat(verifyWithBoogie(), verifiedWithNoErrors(3));
     }
 
-    @Test @UseProgram("RecursiveTreeCopyExample.bl") public void recursiveTreeCopyVerifies() throws IOException, InterruptedException {
+    @Ignore
+    @Test @UseProgram("ProcedureReturnsValuesViaFramedTemporary.bl") public void outOfOrderProcedureCallsThatOnlyModifyDisjointHeapVerifies() throws IOException, InterruptedException {
         assertThat(verifyWithBoogie(), verifiedWithNoErrors(3));
     }
 
@@ -96,61 +97,60 @@ public abstract class TestVerification {
         assertThat(verifyWithBoogie(), verifiedWithNoErrors(9));
     }
 
-    @Test @UseProgram("ProcedureReturnsValuesViaFramedTemporary.bl") public void outOfOrderProcedureCallsThatOnlyModifyDisjointHeapVerifies() throws IOException, InterruptedException {
-        assertThat(verifyWithBoogie(), verifiedWithNoErrors(3));
-    }
     ////////////////////////////////// VVVV OLD VVVV
 
     @Test @UseProgram("Swap.bl") public void heapSwapAndStackSwapDifferent() throws IOException, InterruptedException {
         assertThat(verifyWithBoogie(), verifiedWithNoErrors(3));
     }
 
-    @Test @Ignore @UseProgram("Call001.bl") public void justACall() throws IOException, InterruptedException {
+    @Test @UseProgram("Call001.bl") public void justACall() throws IOException, InterruptedException {
         assertThat(verifyWithBoogie(), verifiedWithNoErrors(6));
     }
 
-    @Test @Ignore @UseProgram("Call002.bl") public void twoCalls() throws IOException, InterruptedException {
+    @Test @UseProgram("Call002.bl") public void twoCalls() throws IOException, InterruptedException {
         assertThat(verifyWithBoogie(), verifiedWithNoErrors(6));
     }
 
-    @Test @Ignore @UseProgram("Frame001.bl") public void allocationMovedPastCall() throws IOException, InterruptedException {
+    @Test @UseProgram("Frame001.bl") public void allocationMovedPastCall() throws IOException, InterruptedException {
         assertThat(verifyWithBoogie(), verifiedWithNoErrors(6));
     }
 
-    @Test @Ignore @UseProgram("Frame002.bl") public void allocationsMovedPassedCallThatNeedsFrameInfo() throws IOException, InterruptedException {
+    @Test @UseProgram("Frame002.bl") public void allocationsMovedPassedCallThatNeedsFrameInfo() throws IOException, InterruptedException {
         assertThat(verifyWithBoogie(), verifiedWithNoErrors(6));
     }
 
-    @Test @Ignore @UseProgram("Frame003.bl") public void allocationMovedPassedCallThatIsNotEquivalent() throws IOException, InterruptedException {
+    @Test @UseProgram("Frame003.bl") public void allocationMovedPassedCallThatIsNotEquivalent() throws IOException, InterruptedException {
         assertThat(verifyWithBoogie(), verifiedWith(5, 1));
     }
 
-    @Test @Ignore @UseProgram("Frame004.bl") public void methodReadsToMuch() throws IOException, InterruptedException {
+    @Test @Ignore("removed the reads frame support") @UseProgram("Frame004.bl") public void methodReadsToMuch() throws IOException, InterruptedException {
         assertThat(verifyWithBoogie(), verifiedWith(1, 2));
     }
 
-    @Test @Ignore @UseProgram("Frame005.bl") public void methodWritesToMuch() throws IOException, InterruptedException {
+    @Test @UseProgram("Frame005.bl") public void methodWritesToMuch() throws IOException, InterruptedException {
         assertThat(verifyWithBoogie(), verifiedWith(1, 2));
     }
 
-    @Test @Ignore @UseProgram("Frame006.bl") public void unsoundnessFromInconsistentIsomorphisms() throws IOException, InterruptedException {
-        assertThat(verifyWithBoogie(), verifiedWith(5, 2));
+    @Test @UseProgram("Frame006.bl") public void unsoundnessFromInconsistentIsomorphisms() throws IOException, InterruptedException {
+        assertThat(verifyWithBoogie(), verifiedWith(5, 1));
     }
 
-    @Test @Ignore @UseProgram("NonEquiv001.bl") public void assignsDifferentLocations() throws IOException, InterruptedException {
+    @Test @UseProgram("NonEquiv001.bl") public void assignsDifferentLocations() throws IOException, InterruptedException {
         assertThat(verifyWithBoogie(), verifiedWith(2, 1));
     }
 
-    @Test @Ignore @UseProgram("NonEquiv002.bl") public void createsDifferentLengthLists() throws IOException, InterruptedException {
+    @Test @Ignore("The performance implications of the factorial complexity show up here, we can't actually handle the size of the generated program")
+    @UseProgram("NonEquiv002.bl") public void createsDifferentLengthLists() throws IOException, InterruptedException {
         assertThat(verifyWithBoogie(), verifiedWith(2, 1));
     }
 
-    @Test @Ignore @UseProgram("NonEquiv003.bl") public void aliasedDifferentFromNonAliased() throws IOException, InterruptedException {
+    @Test @Ignore("The performance implications of the factorial complexity show up here, it takes a long time to decide if all if the permutations are not equivalent")
+    @UseProgram("NonEquiv003.bl") public void aliasedDifferentFromNonAliased() throws IOException, InterruptedException {
         assertThat(verifyWithBoogie(), verifiedWith(2, 1));
     }
 
-    @Test @Ignore @UseProgram("DifferentParameters.bl") public void differentParameters() throws IOException, InterruptedException {
-        assertThat(verifyWithBoogie(), verifiedWith(2, 1));
+    @Test @UseProgram("DifferentParameters.bl") public void differentParameters() throws IOException, InterruptedException {
+        assertThat(verifyWithBoogie(), verifiedWith(5, 1));
     }
 
     @Test @Ignore @UseProgram("Conditional001.bl") public void conditionalReversal() throws IOException, InterruptedException {

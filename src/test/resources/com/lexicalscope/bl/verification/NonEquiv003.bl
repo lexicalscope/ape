@@ -1,23 +1,21 @@
-{
+VERSION
 	procedure G(x,y) {
 		xn := new();
-		[x:=xn];
+		x.v:=xn;
 		yn := new();
-		[y:=yn];
+		y.v:=yn;
 		n := new();
-	 	[yn:=n];
-	 	[xn:=n];
+	 	yn.v:=n;
+	 	xn.v:=n;
 	}
-}
-{
+VERSION
 	procedure G(x,y) {
 		xn := new();
-		[x:=xn];
+		x.v:=xn;
 		yn := new();
-		[y:=yn];
+		y.v:=yn;
 		xnn := new();
 		ynn := new();
-	 	[yn:=ynn];
-	 	[xn:=xnn];
+	 	yn.v:=ynn;
+	 	xn.v:=xnn;
 	}
-}

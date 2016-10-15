@@ -161,7 +161,7 @@ ensures (forall <alpha> $a:Ref,$f:Field alpha :: {$Read(%h()%,$a,$f)} $Read($h,$
 >>
 
 inlineModifiesSet(procedure, modifiesClause) ::= << 
-free ensures (forall <alpha> $a:Ref,$f:Field alpha :: {$Read(%h()%,$a,$f)}
+ensures (forall <alpha> $a:Ref,$f:Field alpha :: {$Read(%h()%,$a,$f)}
    $a != $Null && $Allocated($h,$a) 
    ==> 
    $Read($h,$a,$f)==$Read(%h()%,$a,$f) || %modifiesClause.expressions:{expression|$a==%inlineExpression(expression)%};separator=" || "%

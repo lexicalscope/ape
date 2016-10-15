@@ -1,37 +1,35 @@
-{
+VERSION
 	procedure G(x) {
 	   t := x;
 	   n := new();
-	   [t:=n];
+	   t.v:=n;
 	   t:=n;
 	   n := new();
-	   [t:=n];
+	   t.v:=n;
 	   t:=n;
 	   n := new();
-	   [t:=n];
+	   t.v:=n;
 	   t:=n;
 	   n := new();
-	   [t:=n];
+	   t.v:=n;
 	   t:=n;
 	}
-}
-{
+VERSION
 	procedure G(x) {
 	   t := x;
 	   n := new();
-	   [t:=n];
+	   t.v:=n;
 	   t:=n;
 	   n := new();
-	   [t:=n];
+	   t.v:=n;
 	   t:=n;
 	   n := new();
-	   [t:=n];
+	   t.v:=n;
 	   t:=n;
 	   n := new();
-	   [t:=n];
+	   t.v:=n;
 	   t:=n;
 	   n := new();
-	   [t:=n];
+	   t.v:=n;
 	   t:=n;
 	}
-}

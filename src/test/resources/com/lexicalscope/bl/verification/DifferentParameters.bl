@@ -1,4 +1,4 @@
-{
+VERSION
 	procedure G(x,y) {
 	   call F(x);
 	}
@@ -6,14 +6,12 @@
 	procedure F(x) {
 	
 	}
-}
-{
+VERSION
 	procedure G(x,y) {
-		[t=x];
+	   t:=x.v;
 	   call F(t);
 	}
 	
 	procedure F(x) {
 	
 	}
-}

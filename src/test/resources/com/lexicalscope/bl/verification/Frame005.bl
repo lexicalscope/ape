@@ -1,14 +1,12 @@
-{
+VERSION
 	procedure G(x,y)
 		modifies x; 
 	{
-	   [y:=[x]];
+	   y.v := x.v;
 	}
-}
-{  
+VERSION  
 	procedure G(x,y)
 		modifies x; 
 	{
-	   [y:=[x]];
+	   y.v := x.v;
 	}
-}

@@ -1,26 +1,22 @@
-{
+VERSION
 	procedure G(x,y) {
 	   s := new();
 	   call F(x);
 	   t := new();
-	   [y := t];
+	   y.v := t;
 	}
 	
 	procedure F(x)
-		reads x; 
 		modifies x;
 	{ }
-}
-{  
+VERSION  
 	procedure G(x,y) {
 	   s := new();
 	   call F(x);
 	   t := new();
-	   [y := s];
+	   y.v := s;
 	}
 	
 	procedure F(x)
-		reads x;
 		modifies x;
 	{ }
-}

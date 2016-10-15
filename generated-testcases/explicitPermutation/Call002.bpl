@@ -330,10 +330,10 @@ axiom (forall $h_1,$h_2:Heap, $roots:Roots :: {$Isomorphism($h_1, $h_2, $roots)}
 
 
 // abstraction of function behaviour
-function $abs_Callee0_0($strategy:int, $h_pre:Heap, x_0:Ref, $h_post:Heap):bool;
+function $abs_F_0($strategy:int, $h_pre:Heap, x_0:Ref, $h_post:Heap):bool;
 
 // version _0 of the procedure
-procedure Callee0_0($strategy:int, $h:Heap, $roots:Roots, x:Ref) returns ($h_0:Heap)
+procedure F_0($strategy:int, $h:Heap, $roots:Roots, x:Ref) returns ($h_0:Heap)
     requires $Allocated($h, x);
     requires $GoodHeap($h);
     requires $GoodRoots($roots);
@@ -341,7 +341,7 @@ procedure Callee0_0($strategy:int, $h:Heap, $roots:Roots, x:Ref) returns ($h_0:H
     free ensures (forall $a:Ref :: $Reachable($h_0, $roots, $a) ==> $Allocated($h_0, $a)); // should be an axiom of well formed heaps
     free ensures $GoodHeap($h_0);
     free ensures $HeapSucc($h, $h_0); // this maybe introduces performance issues
-    free ensures $abs_Callee0_0($strategy, $h, x, $h_0);
+    free ensures $abs_F_0($strategy, $h, x, $h_0);
     free ensures $Heap#Bigger($h, $h_0);
     free ensures (forall $a:Ref :: // stuff is not pulled out of the garbage
 					$Reachable($h_0, $roots, $a) ==>
@@ -351,25 +351,7 @@ procedure Callee0_0($strategy:int, $h:Heap, $roots:Roots, x:Ref) returns ($h_0:H
 	free ensures (forall <alpha> $a:Ref,$f:Field alpha :: // only reachable stuff is modified 
 					$a != $Null && $Allocated($h,$a) && $Read($h,$a,$f)!=$Read($h_0,$a,$f) ==> 
 						$ReachableFromParams#1($h , x, $a));
-
-    ensures (forall <alpha> $a:Ref,$f:Field alpha :: {$Read($h_0,$a,$f)}
-       $a != $Null && $Allocated($h,$a) 
-       ==> 
-       $Read($h,$a,$f)==$Read($h_0,$a,$f) || $a==x 
-    );
-
-    free ensures (forall $a:Ref :: // stuff is made reachable only if something in the modifies set is reachable
-    				$Reachable($h_0, $roots, $a) && !$Reachable($h, $roots, $a) ==>
-    				    $Allocated($h_0, $a) &&
-    					($Reachable($h, $roots, x ))
-    );
-
-    free ensures (forall $a:Ref :: // stuff is made reachable only if something in the modifies set is reachable
-    				$ReachableFromParams#1($h_0, x, $a) && !$ReachableFromParams#1($h, x, $a) ==>
-    				    $Allocated($h_0, $a) &&
-    					($ReachableFromParams#1($h, x, x ))
-    );
-     
+     /* modifies anything */  
 {
     // declare locals
 	var x_0:Ref;
@@ -385,10 +367,10 @@ procedure Callee0_0($strategy:int, $h:Heap, $roots:Roots, x:Ref) returns ($h_0:H
 }
 
 // abstraction of function behaviour
-function $abs_Callee0_1($strategy:int, $h_pre:Heap, x_1:Ref, $h_post:Heap):bool;
+function $abs_F_1($strategy:int, $h_pre:Heap, x_1:Ref, $h_post:Heap):bool;
 
 // version _1 of the procedure
-procedure Callee0_1($strategy:int, $h:Heap, $roots:Roots, x:Ref) returns ($h_1:Heap)
+procedure F_1($strategy:int, $h:Heap, $roots:Roots, x:Ref) returns ($h_1:Heap)
     requires $Allocated($h, x);
     requires $GoodHeap($h);
     requires $GoodRoots($roots);
@@ -396,7 +378,7 @@ procedure Callee0_1($strategy:int, $h:Heap, $roots:Roots, x:Ref) returns ($h_1:H
     free ensures (forall $a:Ref :: $Reachable($h_1, $roots, $a) ==> $Allocated($h_1, $a)); // should be an axiom of well formed heaps
     free ensures $GoodHeap($h_1);
     free ensures $HeapSucc($h, $h_1); // this maybe introduces performance issues
-    free ensures $abs_Callee0_1($strategy, $h, x, $h_1);
+    free ensures $abs_F_1($strategy, $h, x, $h_1);
     free ensures $Heap#Bigger($h, $h_1);
     free ensures (forall $a:Ref :: // stuff is not pulled out of the garbage
 					$Reachable($h_1, $roots, $a) ==>
@@ -406,25 +388,7 @@ procedure Callee0_1($strategy:int, $h:Heap, $roots:Roots, x:Ref) returns ($h_1:H
 	free ensures (forall <alpha> $a:Ref,$f:Field alpha :: // only reachable stuff is modified 
 					$a != $Null && $Allocated($h,$a) && $Read($h,$a,$f)!=$Read($h_1,$a,$f) ==> 
 						$ReachableFromParams#1($h , x, $a));
-
-    ensures (forall <alpha> $a:Ref,$f:Field alpha :: {$Read($h_1,$a,$f)}
-       $a != $Null && $Allocated($h,$a) 
-       ==> 
-       $Read($h,$a,$f)==$Read($h_1,$a,$f) || $a==x 
-    );
-
-    free ensures (forall $a:Ref :: // stuff is made reachable only if something in the modifies set is reachable
-    				$Reachable($h_1, $roots, $a) && !$Reachable($h, $roots, $a) ==>
-    				    $Allocated($h_1, $a) &&
-    					($Reachable($h, $roots, x ))
-    );
-
-    free ensures (forall $a:Ref :: // stuff is made reachable only if something in the modifies set is reachable
-    				$ReachableFromParams#1($h_1, x, $a) && !$ReachableFromParams#1($h, x, $a) ==>
-    				    $Allocated($h_1, $a) &&
-    					($ReachableFromParams#1($h, x, x ))
-    );
-     
+     /* modifies anything */  
 {
     // declare locals
 	var x_1:Ref;
@@ -445,11 +409,11 @@ axiom (forall
             $h0_0:Heap, x_0:Ref, $hn_0:Heap,
 			$h0_1:Heap, x_1:Ref, $hn_1:Heap ::
 			{
-				$abs_Callee0_0($allocator, $h0_0 , x_0, $hn_0) ,
-				$abs_Callee0_1($allocator, $h0_1 , x_1, $hn_1) 
+				$abs_F_0($allocator, $h0_0 , x_0, $hn_0) ,
+				$abs_F_1($allocator, $h0_1 , x_1, $hn_1) 
 			}
-			$abs_Callee0_0($allocator, $h0_0 , x_0, $hn_0) &&
-			$abs_Callee0_1($allocator, $h0_1 , x_1, $hn_1) &&
+			$abs_F_0($allocator, $h0_0 , x_0, $hn_0) &&
+			$abs_F_1($allocator, $h0_1 , x_1, $hn_1) &&
 			$Heap#EqualFromParams#1($h0_0 , x_0, $h0_1 , x_1) ==>
 			$Heap#EqualFromParams#1($hn_0 , x_0, $hn_1 , x_1) &&
 			$Heap#SameReachableFromParams#1($hn_0 , x_0, $hn_1 , x_1) &&
@@ -457,7 +421,7 @@ axiom (forall
 
 
 // product procedure
-procedure Callee0_Callee0($h:Heap, $roots:Roots, x:Ref)
+procedure F_F($h:Heap, $roots:Roots, x:Ref)
     requires $GoodHeap($h);
     requires $GoodRoots($roots);
 	requires $Roots#Allocated($roots, $h);
@@ -517,138 +481,126 @@ procedure Callee0_Callee0($h:Heap, $roots:Roots, x:Ref)
 }
 
 // abstraction of function behaviour
-function $abs_Callee1_0($strategy:int, $h_pre:Heap, x_0:Ref, $h_post:Heap):bool;
+function $abs_G_0($strategy:int, $h_pre:Heap, x_0:Ref,y_0:Ref, $h_post:Heap):bool;
 
 // version _0 of the procedure
-procedure Callee1_0($strategy:int, $h:Heap, $roots:Roots, x:Ref) returns ($h_0:Heap)
-    requires $Allocated($h, x);
+procedure G_0($strategy:int, $h:Heap, $roots:Roots, x:Ref,y:Ref) returns ($h_0:Heap)
+    requires $Allocated($h, x) && $Allocated($h, y);
     requires $GoodHeap($h);
     requires $GoodRoots($roots);
     requires $Roots#Allocated($roots, $h);
     free ensures (forall $a:Ref :: $Reachable($h_0, $roots, $a) ==> $Allocated($h_0, $a)); // should be an axiom of well formed heaps
     free ensures $GoodHeap($h_0);
     free ensures $HeapSucc($h, $h_0); // this maybe introduces performance issues
-    free ensures $abs_Callee1_0($strategy, $h, x, $h_0);
+    free ensures $abs_G_0($strategy, $h, x, y, $h_0);
     free ensures $Heap#Bigger($h, $h_0);
     free ensures (forall $a:Ref :: // stuff is not pulled out of the garbage
 					$Reachable($h_0, $roots, $a) ==>
 						$Reachable($h, $roots, $a) || 
 						!$Allocated($h, $a) || 
-						$ReachableFromParams#1($h , x, $a)); 
+						$ReachableFromParams#2($h , x, y, $a)); 
 	free ensures (forall <alpha> $a:Ref,$f:Field alpha :: // only reachable stuff is modified 
 					$a != $Null && $Allocated($h,$a) && $Read($h,$a,$f)!=$Read($h_0,$a,$f) ==> 
-						$ReachableFromParams#1($h , x, $a));
-
-    ensures (forall <alpha> $a:Ref,$f:Field alpha :: {$Read($h_0,$a,$f)}
-       $a != $Null && $Allocated($h,$a) 
-       ==> 
-       $Read($h,$a,$f)==$Read($h_0,$a,$f) || $a==x 
-    );
-
-    free ensures (forall $a:Ref :: // stuff is made reachable only if something in the modifies set is reachable
-    				$Reachable($h_0, $roots, $a) && !$Reachable($h, $roots, $a) ==>
-    				    $Allocated($h_0, $a) &&
-    					($Reachable($h, $roots, x ))
-    );
-
-    free ensures (forall $a:Ref :: // stuff is made reachable only if something in the modifies set is reachable
-    				$ReachableFromParams#1($h_0, x, $a) && !$ReachableFromParams#1($h, x, $a) ==>
-    				    $Allocated($h_0, $a) &&
-    					($ReachableFromParams#1($h, x, x ))
-    );
-     
+						$ReachableFromParams#2($h , x, y, $a));
+     /* modifies anything */  
 {
     // declare locals
 	var x_0:Ref;
+	var y_0:Ref;
 	$h_0 := $h;
 
 	// initialise locals
 	x_0 := $Null;
+	y_0 := $Null;
 
 			// inline statements
 			x_0 := x ;
 			assume $ReadObject($h_0, x);
+			y_0 := y ;
+			assume $ReadObject($h_0, y);
+			if(true )
+			{
+				 call $h_0:=F_0(0, $h_0, $roots, x_0); 
+			}
+			if(true )
+			{
+				 call $h_0:=F_0(0, $h_0, $roots, x_0); 
+			}
 
 }
 
 // abstraction of function behaviour
-function $abs_Callee1_1($strategy:int, $h_pre:Heap, x_1:Ref, $h_post:Heap):bool;
+function $abs_G_1($strategy:int, $h_pre:Heap, x_1:Ref,y_1:Ref, $h_post:Heap):bool;
 
 // version _1 of the procedure
-procedure Callee1_1($strategy:int, $h:Heap, $roots:Roots, x:Ref) returns ($h_1:Heap)
-    requires $Allocated($h, x);
+procedure G_1($strategy:int, $h:Heap, $roots:Roots, x:Ref,y:Ref) returns ($h_1:Heap)
+    requires $Allocated($h, x) && $Allocated($h, y);
     requires $GoodHeap($h);
     requires $GoodRoots($roots);
     requires $Roots#Allocated($roots, $h);
     free ensures (forall $a:Ref :: $Reachable($h_1, $roots, $a) ==> $Allocated($h_1, $a)); // should be an axiom of well formed heaps
     free ensures $GoodHeap($h_1);
     free ensures $HeapSucc($h, $h_1); // this maybe introduces performance issues
-    free ensures $abs_Callee1_1($strategy, $h, x, $h_1);
+    free ensures $abs_G_1($strategy, $h, x, y, $h_1);
     free ensures $Heap#Bigger($h, $h_1);
     free ensures (forall $a:Ref :: // stuff is not pulled out of the garbage
 					$Reachable($h_1, $roots, $a) ==>
 						$Reachable($h, $roots, $a) || 
 						!$Allocated($h, $a) || 
-						$ReachableFromParams#1($h , x, $a)); 
+						$ReachableFromParams#2($h , x, y, $a)); 
 	free ensures (forall <alpha> $a:Ref,$f:Field alpha :: // only reachable stuff is modified 
 					$a != $Null && $Allocated($h,$a) && $Read($h,$a,$f)!=$Read($h_1,$a,$f) ==> 
-						$ReachableFromParams#1($h , x, $a));
-
-    ensures (forall <alpha> $a:Ref,$f:Field alpha :: {$Read($h_1,$a,$f)}
-       $a != $Null && $Allocated($h,$a) 
-       ==> 
-       $Read($h,$a,$f)==$Read($h_1,$a,$f) || $a==x 
-    );
-
-    free ensures (forall $a:Ref :: // stuff is made reachable only if something in the modifies set is reachable
-    				$Reachable($h_1, $roots, $a) && !$Reachable($h, $roots, $a) ==>
-    				    $Allocated($h_1, $a) &&
-    					($Reachable($h, $roots, x ))
-    );
-
-    free ensures (forall $a:Ref :: // stuff is made reachable only if something in the modifies set is reachable
-    				$ReachableFromParams#1($h_1, x, $a) && !$ReachableFromParams#1($h, x, $a) ==>
-    				    $Allocated($h_1, $a) &&
-    					($ReachableFromParams#1($h, x, x ))
-    );
-     
+						$ReachableFromParams#2($h , x, y, $a));
+     /* modifies anything */  
 {
     // declare locals
 	var x_1:Ref;
+	var y_1:Ref;
 	$h_1 := $h;
 
 	// initialise locals
 	x_1 := $Null;
+	y_1 := $Null;
 
 			// inline statements
 			x_1 := x ;
 			assume $ReadObject($h_1, x);
+			y_1 := y ;
+			assume $ReadObject($h_1, y);
+			if(true )
+			{
+				 call $h_1:=F_1(0, $h_1, $roots, x_1); 
+			}
+			if(true )
+			{
+				 call $h_1:=F_1(0, $h_1, $roots, x_1); 
+			}
 
 }
 
 // mutual summary class com.lexicalscope.bl.equiv.ProcedurePair
 axiom (forall 
             $allocator:int,
-            $h0_0:Heap, x_0:Ref, $hn_0:Heap,
-			$h0_1:Heap, x_1:Ref, $hn_1:Heap ::
+            $h0_0:Heap, x_0:Ref,y_0:Ref, $hn_0:Heap,
+			$h0_1:Heap, x_1:Ref,y_1:Ref, $hn_1:Heap ::
 			{
-				$abs_Callee1_0($allocator, $h0_0 , x_0, $hn_0) ,
-				$abs_Callee1_1($allocator, $h0_1 , x_1, $hn_1) 
+				$abs_G_0($allocator, $h0_0 , x_0, y_0, $hn_0) ,
+				$abs_G_1($allocator, $h0_1 , x_1, y_1, $hn_1) 
 			}
-			$abs_Callee1_0($allocator, $h0_0 , x_0, $hn_0) &&
-			$abs_Callee1_1($allocator, $h0_1 , x_1, $hn_1) &&
-			$Heap#EqualFromParams#1($h0_0 , x_0, $h0_1 , x_1) ==>
-			$Heap#EqualFromParams#1($hn_0 , x_0, $hn_1 , x_1) &&
-			$Heap#SameReachableFromParams#1($hn_0 , x_0, $hn_1 , x_1) &&
+			$abs_G_0($allocator, $h0_0 , x_0, y_0, $hn_0) &&
+			$abs_G_1($allocator, $h0_1 , x_1, y_1, $hn_1) &&
+			$Heap#EqualFromParams#2($h0_0 , x_0, y_0, $h0_1 , x_1, y_1) ==>
+			$Heap#EqualFromParams#2($hn_0 , x_0, y_0, $hn_1 , x_1, y_1) &&
+			$Heap#SameReachableFromParams#2($hn_0 , x_0, y_0, $hn_1 , x_1, y_1) &&
 			$SameDiff($h0_0, $hn_0, $h0_1, $hn_1));
 
 
 // product procedure
-procedure Callee1_Callee1($h:Heap, $roots:Roots, x:Ref)
+procedure G_G($h:Heap, $roots:Roots, x:Ref,y:Ref)
     requires $GoodHeap($h);
     requires $GoodRoots($roots);
 	requires $Roots#Allocated($roots, $h);
-	requires $Allocated($h, x);
+	requires $Allocated($h, x) && $Allocated($h, y);
 	requires (forall $a:Ref :: $Allocated($h, $a) == $Root($roots, $a));
 	requires $Roots#EverythingAllocatedIsARoot($roots, $h);
 	requires (forall $a:Ref :: $Reachable($h, $roots, $a) ==> $Allocated($h, $a)); // should be an axiom of well formed heaps
@@ -656,25 +608,31 @@ procedure Callee1_Callee1($h:Heap, $roots:Roots, x:Ref)
 			// declare locals for strategy 0
 			// locals for version _0
 			var x_0$0:Ref;
+			var y_0$0:Ref;
 			var $h_0$0:Heap;
 			// locals for version _1
 			var x_1$0:Ref;
+			var y_1$0:Ref;
 			var $h_1$0:Heap;
 
 			// declare copies of parameters for allocation strategy
 			var x$0:Ref;
+			var y$0:Ref;
 
 
 			// initialise locals for strategy 0	
 
 			// initialise locals for version _0
 			x_0$0 := $Null;
+			y_0$0 := $Null;
 
 			// initialise locals for version _1
 			x_1$0 := $Null;
+			y_1$0 := $Null;
 
 
     assume $ReadObject($h,x);
+    assume $ReadObject($h,y);
 
 
 		    // restore heaps
@@ -682,6 +640,7 @@ procedure Callee1_Callee1($h:Heap, $roots:Roots, x:Ref)
 		    $h_1$0 := $h;
 
 		    x$0 := x;
+		    y$0 := y;
 
 		    // prefix start
 
@@ -693,249 +652,29 @@ procedure Callee1_Callee1($h:Heap, $roots:Roots, x:Ref)
 			// procedure body _0 start	
 		    x_0$0 := x$0 ;
 		    assume $ReadObject($h_0$0, x$0);
-
-		    // procedure body _1 start
-		    x_1$0 := x$0 ;
-		    assume $ReadObject($h_1$0, x$0);
-
-
-	assert 
-		$Isomorphism($h_0$0, $h_1$0, $roots);	
-}
-
-// abstraction of function behaviour
-function $abs_Caller_0($strategy:int, $h_pre:Heap, x_0:Ref, $h_post:Heap):bool;
-
-// version _0 of the procedure
-procedure Caller_0($strategy:int, $h:Heap, $roots:Roots, x:Ref) returns ($h_0:Heap)
-    requires $Allocated($h, x);
-    requires $GoodHeap($h);
-    requires $GoodRoots($roots);
-    requires $Roots#Allocated($roots, $h);
-    free ensures (forall $a:Ref :: $Reachable($h_0, $roots, $a) ==> $Allocated($h_0, $a)); // should be an axiom of well formed heaps
-    free ensures $GoodHeap($h_0);
-    free ensures $HeapSucc($h, $h_0); // this maybe introduces performance issues
-    free ensures $abs_Caller_0($strategy, $h, x, $h_0);
-    free ensures $Heap#Bigger($h, $h_0);
-    free ensures (forall $a:Ref :: // stuff is not pulled out of the garbage
-					$Reachable($h_0, $roots, $a) ==>
-						$Reachable($h, $roots, $a) || 
-						!$Allocated($h, $a) || 
-						$ReachableFromParams#1($h , x, $a)); 
-	free ensures (forall <alpha> $a:Ref,$f:Field alpha :: // only reachable stuff is modified 
-					$a != $Null && $Allocated($h,$a) && $Read($h,$a,$f)!=$Read($h_0,$a,$f) ==> 
-						$ReachableFromParams#1($h , x, $a));
-     /* modifies anything */  
-{
-    // declare locals
-	var $a#0_0:Ref;
-	var $t#0_0:Ref;
-	var t_0:Ref;
-	var x_0:Ref;
-	$h_0 := $h;
-
-	// initialise locals
-	$a#0_0 := $Null;
-	$t#0_0 := $Null;
-	t_0 := $Null;
-	x_0 := $Null;
-
-			// inline statements
-			x_0 := x ;
-			assume $ReadObject($h_0, x);
-			if(true )
-			{
-				$t#0_0 := $a#0_0 ;
-				assume $ReadObject($h_0, $a#0_0);
-			}
-			if(true )
-			{
-				t_0 := $t#0_0 ;
-				assume $ReadObject($h_0, $t#0_0);
-			}
-			if(true )
-			{
-				 call $h_0:=Callee0_0(0, $h_0, $roots, t_0); 
-			}
-
-}
-
-// abstraction of function behaviour
-function $abs_Caller_1($strategy:int, $h_pre:Heap, x_1:Ref, $h_post:Heap):bool;
-
-// version _1 of the procedure
-procedure Caller_1($strategy:int, $h:Heap, $roots:Roots, x:Ref) returns ($h_1:Heap)
-    requires $Allocated($h, x);
-    requires $GoodHeap($h);
-    requires $GoodRoots($roots);
-    requires $Roots#Allocated($roots, $h);
-    free ensures (forall $a:Ref :: $Reachable($h_1, $roots, $a) ==> $Allocated($h_1, $a)); // should be an axiom of well formed heaps
-    free ensures $GoodHeap($h_1);
-    free ensures $HeapSucc($h, $h_1); // this maybe introduces performance issues
-    free ensures $abs_Caller_1($strategy, $h, x, $h_1);
-    free ensures $Heap#Bigger($h, $h_1);
-    free ensures (forall $a:Ref :: // stuff is not pulled out of the garbage
-					$Reachable($h_1, $roots, $a) ==>
-						$Reachable($h, $roots, $a) || 
-						!$Allocated($h, $a) || 
-						$ReachableFromParams#1($h , x, $a)); 
-	free ensures (forall <alpha> $a:Ref,$f:Field alpha :: // only reachable stuff is modified 
-					$a != $Null && $Allocated($h,$a) && $Read($h,$a,$f)!=$Read($h_1,$a,$f) ==> 
-						$ReachableFromParams#1($h , x, $a));
-     /* modifies anything */  
-{
-    // declare locals
-	var $a#0_1:Ref;
-	var $t#0_1:Ref;
-	var t_1:Ref;
-	var x_1:Ref;
-	$h_1 := $h;
-
-	// initialise locals
-	$a#0_1 := $Null;
-	$t#0_1 := $Null;
-	t_1 := $Null;
-	x_1 := $Null;
-
-			// inline statements
-			x_1 := x ;
-			assume $ReadObject($h_1, x);
-			if(true )
-			{
-				$t#0_1 := $a#0_1 ;
-				assume $ReadObject($h_1, $a#0_1);
-			}
-			if(true )
-			{
-				t_1 := $t#0_1 ;
-				assume $ReadObject($h_1, $t#0_1);
-			}
-			if(true )
-			{
-				 call $h_1:=Callee1_1(0, $h_1, $roots, t_1); 
-			}
-
-}
-
-// mutual summary class com.lexicalscope.bl.equiv.ProcedurePair
-axiom (forall 
-            $allocator:int,
-            $h0_0:Heap, x_0:Ref, $hn_0:Heap,
-			$h0_1:Heap, x_1:Ref, $hn_1:Heap ::
-			{
-				$abs_Caller_0($allocator, $h0_0 , x_0, $hn_0) ,
-				$abs_Caller_1($allocator, $h0_1 , x_1, $hn_1) 
-			}
-			$abs_Caller_0($allocator, $h0_0 , x_0, $hn_0) &&
-			$abs_Caller_1($allocator, $h0_1 , x_1, $hn_1) &&
-			$Heap#EqualFromParams#1($h0_0 , x_0, $h0_1 , x_1) ==>
-			$Heap#EqualFromParams#1($hn_0 , x_0, $hn_1 , x_1) &&
-			$Heap#SameReachableFromParams#1($hn_0 , x_0, $hn_1 , x_1) &&
-			$SameDiff($h0_0, $hn_0, $h0_1, $hn_1));
-
-
-// product procedure
-procedure Caller_Caller($h:Heap, $roots:Roots, x:Ref)
-    requires $GoodHeap($h);
-    requires $GoodRoots($roots);
-	requires $Roots#Allocated($roots, $h);
-	requires $Allocated($h, x);
-	requires (forall $a:Ref :: $Allocated($h, $a) == $Root($roots, $a));
-	requires $Roots#EverythingAllocatedIsARoot($roots, $h);
-	requires (forall $a:Ref :: $Reachable($h, $roots, $a) ==> $Allocated($h, $a)); // should be an axiom of well formed heaps
-{
-			// declare locals for strategy 0
-			// locals for version _0
-			var $a#0_0$0:Ref;
-			var $t#0_0$0:Ref;
-			var t_0$0:Ref;
-			var x_0$0:Ref;
-			var $h_0$0:Heap;
-			// locals for version _1
-			var $a#0_1$0:Ref;
-			var $t#0_1$0:Ref;
-			var t_1$0:Ref;
-			var x_1$0:Ref;
-			var $h_1$0:Heap;
-
-			// declare copies of parameters for allocation strategy
-			var x$0:Ref;
-
-
-			// initialise locals for strategy 0	
-
-			// initialise locals for version _0
-			$a#0_0$0 := $Null;
-			$t#0_0$0 := $Null;
-			t_0$0 := $Null;
-			x_0$0 := $Null;
-
-			// initialise locals for version _1
-			$a#0_1$0 := $Null;
-			$t#0_1$0 := $Null;
-			t_1$0 := $Null;
-			x_1$0 := $Null;
-
-
-    assume $ReadObject($h,x);
-
-
-		    // restore heaps
-		    $h_0$0 := $h;
-		    $h_1$0 := $h;
-
-		    x$0 := x;
-
-		    // prefix start
-			havoc $a#0_0$0; assume !$Allocated($h_0$0,$a#0_0$0);
-			$h_0$0:=$Allocate($h_0$0,$a#0_0$0); assume $GoodHeap($h_0$0);
-			assume $AllocatedObject($h_0$0, $a#0_0$0);
-			assert $FieldsNull($h_0$0, $a#0_0$0);
-			assert $ReachNull($h_0$0, $a#0_0$0);
-			havoc $a#0_1$0; assume !$Allocated($h_1$0,$a#0_1$0);
-			$h_1$0:=$Allocate($h_1$0,$a#0_1$0); assume $GoodHeap($h_1$0);
-			assume $AllocatedObject($h_1$0, $a#0_1$0);
-			assert $FieldsNull($h_1$0, $a#0_1$0);
-			assert $ReachNull($h_1$0, $a#0_1$0);
-
-			// assert (forall $a:Ref :: $ReachableFromParams#1($h_0$0, $a#0_0$0, $a) ==> $a==$Null);
-
-				assume $a#0_0$0 == $a#0_1$0;
-
-			// procedure body _0 start	
-		    x_0$0 := x$0 ;
-		    assume $ReadObject($h_0$0, x$0);
+		    y_0$0 := y$0 ;
+		    assume $ReadObject($h_0$0, y$0);
 		    if(true )
 		    {
-		    	$t#0_0$0 := $a#0_0$0 ;
-		    	assume $ReadObject($h_0$0, $a#0_0$0);
+		    	 call $h_0$0:=F_0(0, $h_0$0, $roots, x_0$0); 
 		    }
 		    if(true )
 		    {
-		    	t_0$0 := $t#0_0$0 ;
-		    	assume $ReadObject($h_0$0, $t#0_0$0);
-		    }
-		    if(true )
-		    {
-		    	 call $h_0$0:=Callee0_0(0, $h_0$0, $roots, t_0$0); 
+		    	 call $h_0$0:=F_0(0, $h_0$0, $roots, x_0$0); 
 		    }
 
 		    // procedure body _1 start
 		    x_1$0 := x$0 ;
 		    assume $ReadObject($h_1$0, x$0);
+		    y_1$0 := y$0 ;
+		    assume $ReadObject($h_1$0, y$0);
 		    if(true )
 		    {
-		    	$t#0_1$0 := $a#0_1$0 ;
-		    	assume $ReadObject($h_1$0, $a#0_1$0);
+		    	 call $h_1$0:=F_1(0, $h_1$0, $roots, x_1$0); 
 		    }
 		    if(true )
 		    {
-		    	t_1$0 := $t#0_1$0 ;
-		    	assume $ReadObject($h_1$0, $t#0_1$0);
-		    }
-		    if(true )
-		    {
-		    	 call $h_1$0:=Callee1_1(0, $h_1$0, $roots, t_1$0); 
+		    	 call $h_1$0:=F_1(0, $h_1$0, $roots, x_1$0); 
 		    }
 
 

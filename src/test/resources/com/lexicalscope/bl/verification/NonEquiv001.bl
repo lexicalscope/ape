@@ -1,10 +1,8 @@
-{
+VERSION
 	procedure G(x,y) {
-	   [x:=y];
+	   x.v:=y.v;
 	}
-}
-{
+VERSION
 	procedure G(x,y) {
-	   [y:=x];
+	   y.v:=x.v;
 	}
-}
