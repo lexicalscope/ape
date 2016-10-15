@@ -1,0 +1,15 @@
+VERSION
+	procedure DifferentShapedGarbage(x) {
+		t := new();
+		u := new();
+		t.f := x;
+		x.f := x;
+		x.g := t;
+		x.g := new();
+	}
+VERSION
+    procedure DifferentShapedGarbage(x) {
+        t := new();
+        x.f := x;
+        x.g := new();
+	}

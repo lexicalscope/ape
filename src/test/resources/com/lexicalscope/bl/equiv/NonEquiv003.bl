@@ -1,0 +1,23 @@
+{
+	procedure G(x,y) {
+		xn := new();
+		[x:=xn];
+		yn := new();
+		[y:=yn];
+		n := new();
+	 	[yn:=n];
+	 	[xn:=n];
+	}
+}
+{
+	procedure G(x,y) {
+		xn := new();
+		[x:=xn];
+		yn := new();
+		[y:=yn];
+		xnn := new();
+		ynn := new();
+	 	[yn:=ynn];
+	 	[xn:=xnn];
+	}
+}

@@ -1,0 +1,19 @@
+VERSION
+	procedure WalkList(x)
+	{
+	   	if(x!=null) 
+		{
+		    xn := x.n;
+			call WalkList(xn);
+		}
+	}
+
+VERSION
+	procedure WalkList(x)
+	{
+	   	if(x!=null) 
+		{
+		    xn := x.n;
+			call WalkList(xn);
+		}
+	}

@@ -1,0 +1,16 @@
+VERSION
+	procedure Caller(x) {
+		call Callee(x);
+	}
+	
+	procedure Callee(x) {
+	
+	}
+VERSION
+    procedure Caller(x) {
+		call Callee(x);
+	}
+	
+	procedure Callee(x) {
+	
+	}

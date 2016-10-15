@@ -1,0 +1,7 @@
+VERSION
+	procedure SingleGarbageAllocation(x) {
+		t := new();
+	}
+VERSION
+    procedure SingleGarbageAllocation(x) {
+	}

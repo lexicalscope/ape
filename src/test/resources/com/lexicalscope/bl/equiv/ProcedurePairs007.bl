@@ -1,0 +1,27 @@
+VERSION
+	procedure MyProcedure1(x,y)
+	{ 
+		t := new();
+		if(x == null) 
+		{
+			x.f := t;
+		}
+		else
+		{
+			y.f := t;
+		} 
+	}
+
+VERSION
+	procedure MyProcedure1(x,y)
+	{
+		t := new();
+		if(x != null)
+		{
+			y.f := t;
+		}
+		else
+		{
+			x.f := t;
+		}
+	}

@@ -1,0 +1,12 @@
+VERSION
+	procedure MyProcedure (x) 
+	{ 
+		t:=x;
+		s:=new();
+	}
+
+VERSION
+	procedure MyProcedure (x)
+	{ 
+		t:=x;
+	}

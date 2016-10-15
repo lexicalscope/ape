@@ -1,0 +1,62 @@
+VERSION
+procedure Conditional(x,y) {
+   if(x==y) {
+     
+   }
+}
+
+procedure TwoConditional(x,y) {
+   if(x==y) {
+     
+   }
+   
+   if(x==x) {
+     
+   }
+}
+
+procedure NestedConditional(x,y) {
+   if(x==y) {
+	   if(x==x) {
+	     
+	   }
+   }
+}
+
+procedure ElseNestedConditional(x,y) {
+   if(x==y) {
+   
+   } else {   
+	   if(x==x) {
+	     
+	   }
+   }
+}
+
+procedure ConditionalWithTwoStatements(x,y) {
+   if(x==y) {
+      x.f := x;
+      y.f := y;    
+   }
+}
+
+procedure ConditionalWithStatementsInBothBranches(x,y) {
+   if(x==y) {
+      x.f := x;
+      y.f := y;    
+   } else {
+      y.f := x;
+      x.f := y;
+   }
+}
+
+procedure ConditionalStatementsInNestedBranches(x,y) {
+   if(x==y) {
+      x.f := x;
+      y.f := y;    
+      if(x==x) {
+         y.f := x;
+         x.f := y;
+      }
+   }
+}

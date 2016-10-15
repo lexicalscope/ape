@@ -1,0 +1,14 @@
+VERSION
+	procedure Swap(x,y) {
+	   z := new();
+	   z.v := x.v;
+	   x.v := y.v;
+	   y.v := z.v;
+	}
+
+VERSION
+	procedure Swap(x,y) {
+	   z := x.v;
+	   x.v:=y.v;
+	   y.v:=z;
+	}

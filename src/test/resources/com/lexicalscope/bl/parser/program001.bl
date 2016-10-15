@@ -1,0 +1,6 @@
+procedure HeapSwap(x,y) {
+   z := new();
+   z.f:=x.f;
+   x.f:=y.f;
+   y.f:=z.f;
+}

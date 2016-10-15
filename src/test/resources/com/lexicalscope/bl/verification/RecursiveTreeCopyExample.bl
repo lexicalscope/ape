@@ -1,0 +1,38 @@
+VERSION
+	procedure TreeCopy(t,r)
+		modifies {r};
+	{
+	    n := new();
+	    if(t != null) {
+	    	rr := new();
+			tr := t.r;
+			call TreeCopy(tr, rr);
+			n.r := rr.v;
+			
+		    rl := new();
+	    	tl := t.l;
+			call TreeCopy(tl, rl);
+			n.l := rl.v;
+			
+			r.v := n;
+		}
+	}
+VERSION
+	procedure TreeCopy(t,r)
+		modifies {r};
+	{
+	    n := new();
+	    if(t != null) {
+		    rl := new();
+	    	tl := t.l;
+			call TreeCopy(tl, rl);
+			n.l := rl.v;
+		
+			rr := new();
+			tr := t.r;
+			call TreeCopy(tr, rr);
+			n.r := rr.v;
+			
+			r.v := n;
+		}
+	}

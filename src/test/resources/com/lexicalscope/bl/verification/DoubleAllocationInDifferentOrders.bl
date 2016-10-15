@@ -1,0 +1,16 @@
+VERSION
+	procedure DoubleAllocation(x) {
+		t := new();
+		u := new();
+		
+		x.f := t;
+		x.g := u;
+	}
+VERSION
+    procedure DoubleAllocation(x) {
+		t := new();
+		u := new();
+		
+		x.g := t;
+		x.f := u;
+	}

@@ -1,0 +1,5 @@
+function $Trivial($a:bool) : bool 
+	ensures $Trivial($a)==$a;
+{
+	$a
+}

@@ -1,0 +1,24 @@
+{
+	procedure G(x,y,z) 
+	{
+	    ta := new();
+	    tb := new();
+	    [z:=tb];
+	    call H(y);
+		[x:=[tb]];
+	}
+	
+	procedure H(x) { }
+}
+{
+	procedure G(x,y,z) 
+	{
+	   	ta := new();
+	    tb := new();
+	    [z:=ta];
+	    call H(y);
+		[x:=[ta]];
+	}
+	
+	procedure H(x) { }
+}

@@ -1,0 +1,318 @@
+mutualVerifyDecl(pair, name, params, ver0, ver1) ::= <<
+%\n%
+%generateProcedure(ver0)%
+	
+%generateProcedure(ver1)%
+
+%generateProductProcedure(pair, ver0, ver1)%
+>>
+
+listParams(params, ver) ::= <<
+%params:{param|, %param%%ver%}%
+>>
+
+///////////////////////////////////////////////////////////
+// PRODUCT PROCEDURES
+///////////////////////////////////////////////////////////
+generateProductProcedure(pair, ver0, ver1) ::= <<
+
+// mutual summary %pair.class%
+axiom (forall 
+            $allocator:int,
+            $h0%ver0%:Heap, %declareParams(params, ver0)%, $hn%ver0%:Heap,
+			$h0%ver1%:Heap, %declareParams(params, ver1)%, $hn%ver1%:Heap ::
+			{
+				$abs_%name%%ver0%($allocator, $h0%ver0% %listParams(params,ver0)%, $hn%ver0%) ,
+				$abs_%name%%ver1%($allocator, $h0%ver1% %listParams(params,ver1)%, $hn%ver1%) 
+			}
+			$abs_%name%%ver0%($allocator, $h0%ver0% %listParams(params,ver0)%, $hn%ver0%) &&
+			$abs_%name%%ver1%($allocator, $h0%ver1% %listParams(params,ver1)%, $hn%ver1%) &&
+			$Heap#EqualFromParams#%pair.paramsCount%($h0%ver0% %listParams(params,ver0)%, $h0%ver1% %listParams(params,ver1)%) ==>
+			$Heap#EqualFromParams#%pair.paramsCount%($hn%ver0% %listParams(params,ver0)%, $hn%ver1% %listParams(params,ver1)%) &&
+			$Heap#SameReachableFromParams#%pair.paramsCount%($hn%ver0% %listParams(params,ver0)%, $hn%ver1% %listParams(params,ver1)%) &&
+			$SameDiff($h0%ver0%, $hn%ver0%, $h0%ver1%, $hn%ver1%));
+			
+			
+
+// product procedure
+procedure %name%_%name%($h:Heap, $roots:Roots, %declareParams(params)%)
+    requires $GoodHeap($h);
+    requires $GoodRoots($roots);
+	requires $Roots#Allocated($roots, $h);
+	requires %allocated(params, {$h})%;
+	requires (forall $a:Ref :: $Allocated($h, $a) == $Root($roots, $a));
+	requires $Roots#EverythingAllocatedIsARoot($roots, $h);
+	requires (forall $a:Ref :: $Reachable($h, $roots, $a) ==> $Allocated($h, $a)); // should be an axiom of well formed heaps
+{
+	%pair.permutedAllocationsIterator:{strategy|
+		// declare locals for strategy %strategy.strategyNumber%
+		// locals for version %ver0%
+		%declareLocals(ver0.procedure.locals, {$%strategy.strategyNumber%})%
+		var $h%ver0%$%strategy.strategyNumber%:Heap;
+		// locals for version %ver1%
+		%declareLocals(ver1.procedure.locals, {$%strategy.strategyNumber%})%
+		var $h%ver1%$%strategy.strategyNumber%:Heap;
+		
+		// declare copies of parameters for allocation strategy
+		%params:{param|var %param%$%strategy.strategyNumber%:Ref;};separator="\n"%
+	}%
+	
+	%pair.permutedAllocationsIterator:{strategy|
+		// initialise locals for strategy %strategy.strategyNumber%	
+		
+		// initialise locals for version %ver0%
+		%initialiseLocals(ver0.procedure.locals, {$%strategy.strategyNumber%})%
+		
+		// initialise locals for version %ver1%
+		%initialiseLocals(ver1.procedure.locals, {$%strategy.strategyNumber%})%
+	}%
+
+    %params:{param|assume $ReadObject($h,%param%);};separator="\n"%
+
+	%pair.permutedAllocationsIterator:{strategy|
+	
+	    // restore heaps
+	    $h%ver0%$%strategy.strategyNumber% := $h;
+	    $h%ver1%$%strategy.strategyNumber% := $h;
+	    
+	    %params:{param|%param%$%strategy.strategyNumber% := %param%;};separator="\n"%
+	         
+	    // prefix start
+		%inlineStatements(ver0.procedure.prefix, ver0, {$%strategy.strategyNumber%})%
+		%inlineStatements(ver1.procedure.prefix, ver1, {$%strategy.strategyNumber%})%
+		
+		// assert (forall $a:Ref :: $ReachableFromParams#1($h_0$0, $a#0_0$0, $a) ==> $a==$Null);
+		
+		%assumeAllocationStategy(strategy, {$%strategy.strategyNumber%})%
+		
+		// procedure body %ver0% start	
+	    %inlineStatements(ver0.procedure.statements, ver0, {$%strategy.strategyNumber%})%
+	
+	    // procedure body %ver1% start
+	    %inlineStatements(ver1.procedure.statements, ver1, {$%strategy.strategyNumber%})%
+	}%
+	
+	assert 
+		%pair.permutedAllocationsIterator:{strategy|$Isomorphism($h%ver0%$%strategy.strategyNumber%, $h%ver1%$%strategy.strategyNumber%, $roots)};separator=" ||\n"%;	
+}
+>>
+
+
+
+///////////////////////////////////////////////////////////
+// PROCEDURES
+///////////////////////////////////////////////////////////
+generateProcedure(ver) ::= <<
+
+// abstraction of function behaviour
+function $abs_%name%%ver%($strategy:int, $h_pre:Heap, %declareParams(params, ver)%, $h_post:Heap):bool;
+
+// version %ver% of the procedure
+procedure %name%%ver%($strategy:int, $h:Heap, $roots:Roots, %declareParams(params)%) returns (%h()%:Heap)
+    requires %allocated(params, {$h}, {})%;
+    requires $GoodHeap($h);
+    requires $GoodRoots($roots);
+    requires $Roots#Allocated($roots, $h);
+    free ensures (forall $a:Ref :: $Reachable(%h()%, $roots, $a) ==> $Allocated(%h()%, $a)); // should be an axiom of well formed heaps
+    free ensures $GoodHeap(%h()%);
+    free ensures $HeapSucc($h, %h()%); // this maybe introduces performance issues
+    free ensures $abs_%name%%ver%($strategy, $h%params:{param|, %param%};separator=""%, %h()%);
+    free ensures $Heap#Bigger($h, %h()%);
+    free ensures (forall $a:Ref :: // stuff is not pulled out of the garbage
+					$Reachable(%h()%, $roots, $a) ==>
+						$Reachable($h, $roots, $a) || 
+						!$Allocated($h, $a) || 
+						$ReachableFromParams#%pair.paramsCount%($h %listParams(params,{})%, $a)); 
+	free ensures (forall <alpha> $a:Ref,$f:Field alpha :: // only reachable stuff is modified 
+					$a != $Null && $Allocated($h,$a) && $Read($h,$a,$f)!=$Read(%h()%,$a,$f) ==> 
+						$ReachableFromParams#%pair.paramsCount%($h %listParams(params,{})%, $a));
+    %inlineModifies(ver.procedure, ver.procedure.modifies)%
+{
+    // declare locals
+	%declareLocals(ver.procedure.locals, {})%
+	%h()% := $h;
+	
+	// initialise locals
+	%initialiseLocals(ver.procedure.locals, {})%
+	
+	%first(pair.permutedAllocationsIterator):{strategy|
+		// inline statements
+		%inlineStatements(ver.procedure.statements, ver, {})%
+	}%
+}
+>>
+
+///////////////////////////////////////////////////////////
+// ALLOCATION STRATEGY
+///////////////////////////////////////////////////////////
+assumeAllocationStategy(permutation, suffix) ::= <<
+	%permutation.iterator:{allocationPair|assume %var(allocationPair.var0)% == %var(allocationPair.var1)%;};separator="\n"%
+>>
+
+///////////////////////////////////////////////////////////
+// MODIFIES POST CONDITION
+///////////////////////////////////////////////////////////
+inlineModifies(procedure, modifiesClause) ::= <<%({inline%modifiesClause.type%})(procedure, modifiesClause)% >>
+
+inlineAnyModifies(procedure, modifiesClause) ::= << /* modifies anything */ >>
+
+inlineEmptyModifies(procedure, modifiesClause) ::= <<
+ensures (forall <alpha> $a:Ref,$f:Field alpha :: {$Read(%h()%,$a,$f)} $Read($h,$a,$f)==$Read(%h()%,$a,$f));
+>>
+
+inlineModifiesSet(procedure, modifiesClause) ::= << 
+free ensures (forall <alpha> $a:Ref,$f:Field alpha :: {$Read(%h()%,$a,$f)}
+   $a != $Null && $Allocated($h,$a) 
+   ==> 
+   $Read($h,$a,$f)==$Read(%h()%,$a,$f) || %modifiesClause.expressions:{expression|$a==%inlineExpression(expression)%};separator=" || "%
+);
+
+free ensures (forall $a:Ref :: // stuff is made reachable only if something in the modifies set is reachable
+				$Reachable(%h()%, $roots, $a) && !$Reachable($h, $roots, $a) ==>
+				    $Allocated(%h()%, $a) &&
+					(%modifiesClause.expressions:{expression|$Reachable($h, $roots, %inlineExpression(expression)%)};separator=" || "%)
+);
+
+%params:{param|
+free ensures (forall $a:Ref :: // stuff is made reachable only if something in the modifies set is reachable
+				$ReachableFromParams#1(%h()%, %param%, $a) && !$ReachableFromParams#1($h, %param%, $a) ==>
+				    $Allocated(%h()%, $a) &&
+					(%modifiesClause.expressions:{expression|$ReachableFromParams#1($h, %param%, %inlineExpression(expression)%)};separator=" || "%)
+);
+}%
+>>
+
+///////////////////////////////////////////////////////////
+// STATEMENTS
+///////////////////////////////////////////////////////////
+
+inlineStatements(statements, ver, suffix) ::= <<
+%inlineStatementsNested(statements)%
+>>
+
+inlineStatementsNested(statements) ::= <<
+%statements:inlineStatement();separator="\n"%
+>>
+
+inlineStatement(statement) ::= <<
+%({inline%statement.type%})(statement)%
+>>
+
+inlineBlock(statement) ::= <<
+%inlineStatementsNested(statement.statements)%
+>>
+
+inlinePredicated(statement) ::= <<
+if(%inlineExpression(statement.condition)%)
+{
+	%inlineStatementsNested(statement.predicatedStatement)%
+}
+>>
+
+inlineLocalUpdate(statement) ::= <<
+%var(statement.lhsVar)% := %inlineExpression(statement.expression)%;
+%assumeExpressionComponentsAreRead(statement.expression)%
+>>
+
+inlineHeapAlloc(statement) ::= <<
+havoc %var(statement.lhsVar)%; assume !$Allocated(%h()%,%var(statement.lhsVar)%);
+%h()%:=$Allocate(%h()%,%var(statement.lhsVar)%); assume $GoodHeap(%h()%);
+assume $AllocatedObject(%h()%, %var(statement.lhsVar)%);
+assert $FieldsNull(%h()%, %var(statement.lhsVar)%);
+assert $ReachNull(%h()%, %var(statement.lhsVar)%);
+>>
+
+inlineHeapUpdate(statement) ::= <<
+%h()%:=$Write(%h()%,%var(statement.lhs)%,%field(statement.field)%,%var(statement.rhs)%); assume $GoodHeap(%h()%);
+>>
+
+inlineConditional(statement) ::= <<
+if(%inlineExpression(statement.condition)%)
+{
+	%inlineStatementsNested(statement.thenStatements)%
+}
+%if(statement.elseStatements)%
+else
+{
+	%inlineStatementsNested(statement.elseStatements)%
+}
+%endif%
+>>
+
+inlineConditionVariable(statement) ::= <<
+%var(statement.lhsVar)% := %inlineExpression(statement.expression)%;
+>>
+
+h() ::= <<
+$h%ver%%suffix%
+>>
+
+///////////////////////////////////////////////////////////
+// Assumptions for EXPRESSION read triggers
+///////////////////////////////////////////////////////////
+assumeExpressionComponentsAreRead(expression) ::= <<
+%({assume%expression.type%ComponentsAreRead})(expression)%
+>>
+
+assumeLocalReadComponentsAreRead(expression) ::= <<
+assume $ReadObject(%h()%, %var(expression.var)%);
+>>
+
+assumeHeapReadComponentsAreRead(expression) ::= <<
+assume $ReadObject(%h()%, %var(expression.path.local)%);
+assume $ReadObject(%h()%, %inlineHeapRead(expression)%);
+>>
+///////////////////////////////////////////////////////////
+// EXPRESSIONS
+///////////////////////////////////////////////////////////
+
+inlineExpression(expression) ::= <<
+%({inline%expression.type%})(expression)%
+>>
+
+inlineLocalRead(expression) ::= << %var(expression.var)% >>
+
+inlineHeapRead(expression) ::= << $Read(%h()%,%var(expression.path.local)%,%expression.path.fields:field();separator="."%) >>
+
+inlineProcedureCall(expression) ::= << call %h()%:=%expression.name%%ver%(%strategy.strategyNumber%, %h()%, $roots, %expression.params:{param|%var(param)%};separator=", "%); >>
+
+inlineEqualTo(expression) ::= << (%inlineExpression(expression.lhs)% == %inlineExpression(expression.rhs)%) >>
+
+inlineNotEqualTo(expression) ::= << (%inlineExpression(expression.lhs)% != %inlineExpression(expression.rhs)%) >>
+
+inlineNullValue(expression) ::= << $Null >>
+
+inlineTrueValue(expression) ::= << true >>
+
+inlineAnd(expression) ::= << (%inlineExpression(expression.lhs)% && %inlineExpression(expression.rhs)%) >>
+
+///////////////////////////////////////////////////////////
+// DECLARATIONS
+///////////////////////////////////////////////////////////
+
+declareParams(params,suffix="") ::= <<
+%params:{param|%var(param)%:Ref};separator=","%
+>>
+
+declareLocals(locals, suffix) ::= <<
+%locals:declareLocal();separator="\n"%
+>>
+
+declareLocal(local) ::= <<
+var %var(local)%:%local.type%;
+>>
+
+initialiseLocals(locals, suffix) ::= <<
+%locals:initialiseLocal();separator="\n"%
+>>
+
+initialiseLocal(local) ::= <<
+%var(local)% := %({initialise%local.type.type%})()%;
+>>
+
+initialiseRefType() ::= <<$Null>>
+initialiseBoolType() ::= <<false>>
+
+field(name) ::= <<
+$field#%name%
+>>

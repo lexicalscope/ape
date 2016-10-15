@@ -1,0 +1,7 @@
+VERSION
+	procedure MyProcedure1(x)
+	{ y0 := new(); y1 := new(); y2 := new(); }
+
+VERSION
+	procedure MyProcedure1(x)
+	{ y0 := new(); y1 := new(); }

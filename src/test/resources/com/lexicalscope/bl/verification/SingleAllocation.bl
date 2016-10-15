@@ -1,0 +1,10 @@
+VERSION
+	procedure SingleAllocation(x) {
+		t := new();
+		x.f := t;
+	}
+VERSION
+    procedure SingleAllocation(x) {
+		t := new();
+		x.f := t;
+	}

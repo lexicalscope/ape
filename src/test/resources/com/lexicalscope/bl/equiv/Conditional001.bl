@@ -1,0 +1,31 @@
+{
+	procedure G(x,y) {
+	   	if(x!=y) 
+		{
+			call H(x,y);
+		}
+		else
+		{
+			call F(x);
+		}
+	}
+	
+	procedure F(x) { }
+	procedure H(x,y) { }
+}
+{
+	procedure G(x,y) 
+	{
+		if(x==y) 
+		{
+			call F(x);
+		}
+		else
+		{
+			call H(x,y);
+		}
+	}
+	
+	procedure F(x) { }
+	procedure H(x,y) { }
+}

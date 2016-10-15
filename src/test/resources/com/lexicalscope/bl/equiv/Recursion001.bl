@@ -1,0 +1,42 @@
+{
+	procedure CopyList(x,y) 
+	{
+	   	if(x!=null) 
+		{
+			if(y!=null)
+			{
+			    r := new();
+			    
+			    xn := [x];
+				call CopyList(xn, r);
+				
+				t := new();
+				// copy head data here
+				
+				[t := [r]];
+				[y := t];
+			}
+		}
+	}
+}
+{
+	procedure CopyList(x,y)
+	{
+	   	if(x!=null) 
+		{
+			t := new();
+			// copy head data here
+			
+			xn := [x];
+			
+			if(y!=null)
+			{
+			    r := new();    
+				call CopyList(xn, r);
+				
+				[y := t];
+				[t := [r]];
+			}
+		}
+	}
+}

@@ -1,0 +1,29 @@
+{
+	procedure G(x) 
+	{
+	    ta := new();
+	    tb := new();
+	    
+	    call H(ta,tb);
+		if([ta]!=[tb])
+		{
+			[x:=[ta]];
+		}
+	}
+	
+	procedure H(x,y) { }
+}
+{
+	procedure G(x) 
+	{
+	    ta := new();
+	    tb := new();
+	    call H(tb,ta);
+		if([ta]!=[tb])
+		{
+			[x:=[ta]];
+		}
+	}
+	
+	procedure H(x,y) { }
+}

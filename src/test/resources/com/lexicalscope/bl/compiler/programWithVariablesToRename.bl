@@ -1,0 +1,9 @@
+VERSION
+procedure OneLocal(x,y) {
+   t := x.f;
+}
+
+VERSION
+procedure OneLocal(x,y) {
+   t := x.f;
+}

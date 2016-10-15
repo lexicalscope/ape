@@ -1,0 +1,14 @@
+{
+	procedure G(x,y)
+		reads x; 
+	{
+	   [y:=[x]];
+	}
+}
+{  
+	procedure G(x,y)
+		reads x; 
+	{
+	   [y:=[x]];
+	}
+}

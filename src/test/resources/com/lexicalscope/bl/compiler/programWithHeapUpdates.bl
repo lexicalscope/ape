@@ -1,0 +1,8 @@
+VERSION
+procedure HeapUpdateWithLhsPath(x,y) {
+   x.f.f := y;
+}
+
+procedure HeapUpdateWithRhsPath(x,y) {
+   x.f := y.f;
+}

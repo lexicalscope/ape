@@ -1,0 +1,37 @@
+{
+	procedure G(x) {
+	   t := x;
+	   n := new();
+	   [t:=n];
+	   t:=n;
+	   n := new();
+	   [t:=n];
+	   t:=n;
+	   n := new();
+	   [t:=n];
+	   t:=n;
+	   n := new();
+	   [t:=n];
+	   t:=n;
+	}
+}
+{
+	procedure G(x) {
+	   t := x;
+	   n := new();
+	   [t:=n];
+	   t:=n;
+	   n := new();
+	   [t:=n];
+	   t:=n;
+	   n := new();
+	   [t:=n];
+	   t:=n;
+	   n := new();
+	   [t:=n];
+	   t:=n;
+	   n := new();
+	   [t:=n];
+	   t:=n;
+	}
+}

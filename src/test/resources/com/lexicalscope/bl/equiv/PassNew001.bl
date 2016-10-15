@@ -1,0 +1,31 @@
+{
+	procedure G(x) 
+	{
+	    ta := new();
+	    tb := new();
+	    call H(ta,tb);
+	    // these procedures are equivalent for a subtle reason.
+	    // the conditional checks that [ta] and [tb] in fact
+	    // contain the same value before updating the heap at x 
+		if([ta]==[tb])
+		{
+			[x:=[ta]];
+		}
+	}
+	
+	procedure H(x,y) { }
+}
+{
+	procedure G(x) 
+	{
+	    ta := new();
+	    tb := new();
+	    call H(tb,ta);
+		if([ta]==[tb])
+		{
+			[x:=[ta]];
+		}
+	}
+	
+	procedure H(x,y) { }
+}

@@ -1,0 +1,10 @@
+{
+	procedure G(x,y) {
+	   [x:=y];
+	}
+}
+{
+	procedure G(x,y) {
+	   [y:=x];
+	}
+}

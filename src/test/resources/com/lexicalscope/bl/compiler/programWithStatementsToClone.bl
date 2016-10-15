@@ -1,0 +1,14 @@
+VERSION
+procedure Statements(x,y) {
+   if(x==y) {
+     x:=y.f;
+     t:=x;
+   }
+}
+
+VERSION
+procedure Statements(x,y) {
+   if(x==y) {
+     
+   }
+}

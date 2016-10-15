@@ -1,0 +1,9 @@
+VERSION
+	procedure FirstProcedure (x,y,z) { z.f:=y; }
+	procedure SecondProcedure (x,y,z) { z.f:=y; }
+	procedure ThirdProcedure (x,y,z) { z.f:=y; }
+
+VERSION
+	procedure FirstProcedure (x,y,z) { z.f:=x; }
+	procedure SecondProcedure (x,y,z) { z.f:=x; }
+	procedure ThirdProcedure (x,y,z) { z.f:=x; }

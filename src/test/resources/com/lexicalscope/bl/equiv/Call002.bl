@@ -1,0 +1,16 @@
+{
+	procedure G(x,y) {
+	   call F(x);
+	   call F(x);
+	}
+	
+	procedure F(x) { }
+}
+{
+	procedure G(x,y) {
+	   call F(x);
+	   call F(x);
+	}
+	
+	procedure F(x) { }
+}

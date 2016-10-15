@@ -1,0 +1,9 @@
+VERSION
+	procedure F(x,y)
+	   modifies {x,y};
+	{ }
+
+VERSION
+	procedure F(x,y)
+	   modifies {x,y};
+	{ }

@@ -1,0 +1,16 @@
+VERSION
+	procedure MyProcedure (x) 
+	{ 
+		t:=x;
+		t.f:=x;
+		t.f:=x.f;
+		t:=x.f;
+		t:=new();
+		call Foo(t);
+	}
+
+VERSION
+	procedure MyProcedure (x)
+	{ 
+		t:=x;
+	}

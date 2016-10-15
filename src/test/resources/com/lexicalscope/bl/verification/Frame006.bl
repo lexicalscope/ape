@@ -1,0 +1,26 @@
+{
+    procedure F(x)
+    {
+       t := new();
+       call G(t);
+       call G(t);
+    }
+    
+	procedure G(x)
+		modifies {}; 
+	{ }
+}
+{  
+    procedure F(x)
+    {
+       t := new();
+       call G(t);
+       s := new();
+       call G(s);
+       [x:=null];
+    }
+    
+	procedure G(x)
+		modifies {}; 
+	{ }
+}

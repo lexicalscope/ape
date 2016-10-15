@@ -1,0 +1,28 @@
+VERSION
+	procedure Caller(x)
+	{
+	    t := new();
+	    u := new();
+		call Callee(x);
+		x.f := t;
+		x.g := u;
+	}
+	
+	procedure Callee(x)
+	{
+		
+	}
+VERSION
+	procedure Caller(x)
+	{
+	    u := new();
+	    t := new();
+		call Callee(x);
+		x.f := t;
+		x.g := u;
+	}
+	
+	procedure Callee(x)
+	{
+		
+	}

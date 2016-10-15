@@ -1,0 +1,36 @@
+VERSION
+procedure OneAllocation(x,y) {
+   y.f := x;
+   t := new();
+}
+
+procedure ConditionalAllocation(x,y) {
+   y.f := x;
+   if(x == y) {
+      t := new();
+   }
+}
+
+procedure DifferentNumberOfAllocationSites(x,y) {
+   t1 := new();
+   t2 := new();
+}
+
+VERSION
+procedure OneAllocation(x,y) {
+   y.f := x;
+   t := new();
+}
+
+procedure ConditionalAllocation(x,y) {
+   y.f := x;
+   if(x == y) {
+      t := new();
+   }
+}
+
+procedure DifferentNumberOfAllocationSites(x,y) {
+   t1 := new();
+   t2 := new();
+   t3 := new();
+}

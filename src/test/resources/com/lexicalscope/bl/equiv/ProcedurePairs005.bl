@@ -1,0 +1,9 @@
+VERSION
+	procedure MyProcedure (x)
+		reads x; 
+	{ }
+
+VERSION
+	procedure MyProcedure (x)
+		reads x;
+	{ }

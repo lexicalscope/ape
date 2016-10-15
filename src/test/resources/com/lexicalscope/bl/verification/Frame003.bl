@@ -1,0 +1,27 @@
+{
+	procedure G(x,y) {
+	   s := new();
+	   call F(x);
+	   t := new();
+	   [y := t];
+	}
+	
+	procedure F(x)
+		reads x; 
+		modifies x;
+	{ }
+}
+{  
+	procedure G(x,y) {
+	   s := new();
+	   call F(x);
+	   t := new();
+	   [s := t];
+	   [y := s];
+	}
+	
+	procedure F(x)
+		reads x;
+		modifies x;
+	{ }
+}

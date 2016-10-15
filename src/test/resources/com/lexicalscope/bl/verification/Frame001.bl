@@ -1,0 +1,20 @@
+{
+	procedure G(x,y) {
+	   z := new();
+	   call F(x);
+	   [y := z];
+	}
+	
+	procedure F(x) 
+	{ }
+}
+{  
+	procedure G(x,y) {
+	   call F(x);
+	   z := new();
+	   [y := z];
+	}
+	
+	procedure F(x)
+	{ }
+}

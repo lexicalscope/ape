@@ -1,0 +1,5 @@
+procedure CallAnother(x,y,z) {
+   t := new();
+   call Another(x,y,t);
+   z.f:=t.f;
+}
