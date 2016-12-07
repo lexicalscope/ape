@@ -1,0 +1,42 @@
+VERSION
+	procedure CopyRing(x,r) {
+	    if(x!=null) {
+	       f := new();  // copy of the first element of the ring
+	       n := x.n;    // advance the ring
+		   call CopyRingUntil(n,x,f,r);	// copy until the first element is reached again   
+		}
+	}
+	
+	procedure CopyRingUntil(x,y,f,r) {
+	    if(x==y) {
+	       r.v := f;
+	    } else {
+	       l := new();
+	       g := new();
+	       n := x.n;
+	       call CopyRingUntil(n,y,f,l);
+	       g.n := l.v;
+	       r.v := g;
+	    }
+	}
+VERSION
+	procedure CopyRing(x,r) {
+	    if(x!=null) {
+	       f := new();
+	       n := x.n;
+		   call CopyRingUntil(n,x,f,r);	   
+		}
+	}
+	
+	procedure CopyRingUntil(x,y,f,r) {
+	     if(x!=y) {
+	       l := new();
+	       n := x.n;
+	       call CopyRingUntil(n,y,f,l);
+	       g := new();
+	       r.v := g;
+	       g.n := l.v;
+	    } else {
+	       r.v := f;
+	    }
+	}

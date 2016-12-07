@@ -97,6 +97,10 @@ public abstract class TestVerification {
         assertThat(verifyWithBoogie(), verifiedWithNoErrors(9));
     }
 
+    @Test @UseProgram("CopyCycle.bl") public void copyingACyclicalStructureWorks() throws IOException, InterruptedException {
+        assertThat(verifyWithBoogie(), verifiedWithNoErrors(6));
+    }
+
     ////////////////////////////////// VVVV OLD VVVV
 
     @Test @UseProgram("Swap.bl") public void heapSwapAndStackSwapDifferent() throws IOException, InterruptedException {

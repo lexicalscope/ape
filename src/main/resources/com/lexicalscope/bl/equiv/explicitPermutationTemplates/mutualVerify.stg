@@ -286,6 +286,8 @@ inlineTrueValue(expression) ::= << true >>
 
 inlineAnd(expression) ::= << (%inlineExpression(expression.lhs)% && %inlineExpression(expression.rhs)%) >>
 
+inlineNot(expression) ::= << !(%inlineExpression(expression.expression)%)>>
+
 ///////////////////////////////////////////////////////////
 // DECLARATIONS
 ///////////////////////////////////////////////////////////
