@@ -60,6 +60,12 @@ public class ReplaceConditionalsWithPredicatedExecution {
             return statements().predicated(condition, singleton(statement)).mk();
         }
 
+//        @Override public List<Statement> visitConditionVariable(final ConditionVariableStatement statement) {
+//            return singleton(new ConditionVariableStatement(
+//                    cloneVariable(statement.getLhsVar()),
+//                    statement.getExpression().accept(this)));
+//        }
+
         @Override public List<Statement> visitConditional(final ConditionalStatement statement) {
             conditions.push(statement.getCondition());
             final List<Statement> thenStatements = cloneBlockStatements(statement.getThenStatements());

@@ -242,6 +242,14 @@ function $ReachableFromParams#2($h:Heap, $x0,$x1:Ref, $a:Ref) : bool
    $ReachableFromParams#1($h, $x0, $a) || $ReachableFromParams#1($h, $x1, $a)
 }
 
+function $ReachableFromParams#4($h:Heap, $x0,$x1,$x2,$x3:Ref, $a:Ref) : bool
+{
+      $ReachableFromParams#1($h, $x0, $a) 
+   || $ReachableFromParams#1($h, $x1, $a)
+   || $ReachableFromParams#1($h, $x2, $a)
+   || $ReachableFromParams#1($h, $x3, $a)
+}
+
 /////////////////////////////////////////////////////////////////////////////
 // Extensional Equality
 function $Heap#Equal($h_1, $h_2:Heap) : bool
@@ -287,6 +295,22 @@ function $Heap#EqualFromParams#2($h_0:Heap, $x0_0,$x1_0:Ref, $h_1:Heap, $x0_1,$x
 {
     $Heap#EqualFromParams#1($h_0, $x0_0, $h_1, $x0_1) &&
     $Heap#EqualFromParams#1($h_0, $x1_0, $h_1, $x1_1)
+}
+
+function $Heap#EqualFromParams#4($h_0:Heap, $x0_0,$x1_0,$x2_0,$x3_0:Ref, $h_1:Heap, $x0_1,$x1_1,$x2_1,$x3_1:Ref) : bool 
+{
+    $Heap#EqualFromParams#1($h_0, $x0_0, $h_1, $x0_1) &&
+    $Heap#EqualFromParams#1($h_0, $x1_0, $h_1, $x1_1) &&
+    $Heap#EqualFromParams#1($h_0, $x2_0, $h_1, $x2_1) &&
+    $Heap#EqualFromParams#1($h_0, $x3_0, $h_1, $x3_1)
+}
+
+function $Heap#SameReachableFromParams#4($h_0:Heap, $x0_0,$x1_0,$x2_0,$x3_0:Ref, $h_1:Heap, $x0_1,$x1_1,$x2_1,$x3_1:Ref) : bool
+{
+	$Heap#SameReachableFromParams#1($h_0, $x0_0, $h_1, $x0_1) &&
+    $Heap#SameReachableFromParams#1($h_0, $x1_0, $h_1, $x1_1) &&
+    $Heap#SameReachableFromParams#1($h_0, $x2_0, $h_1, $x2_1) &&
+    $Heap#SameReachableFromParams#1($h_0, $x3_0, $h_1, $x3_1)
 }
 
 function $Heap#SameReachableFromParams#2($h_0:Heap, $x0_0,$x1_0:Ref, $h_1:Heap, $x0_1,$x1_1:Ref) : bool
@@ -379,47 +403,20 @@ procedure DifferentShapedGarbage_0($strategy:int, $h:Heap, $roots:Roots, x:Ref) 
 			// inline statements
 			x_0 := x ;
 			assume $ReadObject($h_0, x);
-			if(true )
-			{
-				$t#0_0 := $a#0_0 ;
-				assume $ReadObject($h_0, $a#0_0);
-			}
-			if(true )
-			{
-				t_0 := $t#0_0 ;
-				assume $ReadObject($h_0, $t#0_0);
-			}
-			if(true )
-			{
-				$t#1_0 := $a#1_0 ;
-				assume $ReadObject($h_0, $a#1_0);
-			}
-			if(true )
-			{
-				u_0 := $t#1_0 ;
-				assume $ReadObject($h_0, $t#1_0);
-			}
-			if(true )
-			{
-				$h_0:=$Write($h_0,t_0,$field#f,x_0); assume $GoodHeap($h_0);
-			}
-			if(true )
-			{
-				$h_0:=$Write($h_0,x_0,$field#f,x_0); assume $GoodHeap($h_0);
-			}
-			if(true )
-			{
-				$h_0:=$Write($h_0,x_0,$field#g,t_0); assume $GoodHeap($h_0);
-			}
-			if(true )
-			{
-				$t#2_0 := $a#2_0 ;
-				assume $ReadObject($h_0, $a#2_0);
-			}
-			if(true )
-			{
-				$h_0:=$Write($h_0,x_0,$field#g,$t#2_0); assume $GoodHeap($h_0);
-			}
+			$t#0_0 := $a#0_0 ;
+			assume $ReadObject($h_0, $a#0_0);
+			t_0 := $t#0_0 ;
+			assume $ReadObject($h_0, $t#0_0);
+			$t#1_0 := $a#1_0 ;
+			assume $ReadObject($h_0, $a#1_0);
+			u_0 := $t#1_0 ;
+			assume $ReadObject($h_0, $t#1_0);
+			$h_0:=$Write($h_0,t_0,$field#f,x_0); assume $GoodHeap($h_0);
+			$h_0:=$Write($h_0,x_0,$field#f,x_0); assume $GoodHeap($h_0);
+			$h_0:=$Write($h_0,x_0,$field#g,t_0); assume $GoodHeap($h_0);
+			$t#2_0 := $a#2_0 ;
+			assume $ReadObject($h_0, $a#2_0);
+			$h_0:=$Write($h_0,x_0,$field#g,$t#2_0); assume $GoodHeap($h_0);
 
 }
 
@@ -469,29 +466,14 @@ procedure DifferentShapedGarbage_1($strategy:int, $h:Heap, $roots:Roots, x:Ref) 
 			// inline statements
 			x_1 := x ;
 			assume $ReadObject($h_1, x);
-			if(true )
-			{
-				$t#0_1 := $a#0_1 ;
-				assume $ReadObject($h_1, $a#0_1);
-			}
-			if(true )
-			{
-				t_1 := $t#0_1 ;
-				assume $ReadObject($h_1, $t#0_1);
-			}
-			if(true )
-			{
-				$h_1:=$Write($h_1,x_1,$field#f,x_1); assume $GoodHeap($h_1);
-			}
-			if(true )
-			{
-				$t#1_1 := $a#1_1 ;
-				assume $ReadObject($h_1, $a#1_1);
-			}
-			if(true )
-			{
-				$h_1:=$Write($h_1,x_1,$field#g,$t#1_1); assume $GoodHeap($h_1);
-			}
+			$t#0_1 := $a#0_1 ;
+			assume $ReadObject($h_1, $a#0_1);
+			t_1 := $t#0_1 ;
+			assume $ReadObject($h_1, $t#0_1);
+			$h_1:=$Write($h_1,x_1,$field#f,x_1); assume $GoodHeap($h_1);
+			$t#1_1 := $a#1_1 ;
+			assume $ReadObject($h_1, $a#1_1);
+			$h_1:=$Write($h_1,x_1,$field#g,$t#1_1); assume $GoodHeap($h_1);
 
 }
 
@@ -846,74 +828,32 @@ procedure DifferentShapedGarbage_DifferentShapedGarbage($h:Heap, $roots:Roots, x
 			// procedure body _0 start	
 		    x_0$0 := x$0 ;
 		    assume $ReadObject($h_0$0, x$0);
-		    if(true )
-		    {
-		    	$t#0_0$0 := $a#0_0$0 ;
-		    	assume $ReadObject($h_0$0, $a#0_0$0);
-		    }
-		    if(true )
-		    {
-		    	t_0$0 := $t#0_0$0 ;
-		    	assume $ReadObject($h_0$0, $t#0_0$0);
-		    }
-		    if(true )
-		    {
-		    	$t#1_0$0 := $a#1_0$0 ;
-		    	assume $ReadObject($h_0$0, $a#1_0$0);
-		    }
-		    if(true )
-		    {
-		    	u_0$0 := $t#1_0$0 ;
-		    	assume $ReadObject($h_0$0, $t#1_0$0);
-		    }
-		    if(true )
-		    {
-		    	$h_0$0:=$Write($h_0$0,t_0$0,$field#f,x_0$0); assume $GoodHeap($h_0$0);
-		    }
-		    if(true )
-		    {
-		    	$h_0$0:=$Write($h_0$0,x_0$0,$field#f,x_0$0); assume $GoodHeap($h_0$0);
-		    }
-		    if(true )
-		    {
-		    	$h_0$0:=$Write($h_0$0,x_0$0,$field#g,t_0$0); assume $GoodHeap($h_0$0);
-		    }
-		    if(true )
-		    {
-		    	$t#2_0$0 := $a#2_0$0 ;
-		    	assume $ReadObject($h_0$0, $a#2_0$0);
-		    }
-		    if(true )
-		    {
-		    	$h_0$0:=$Write($h_0$0,x_0$0,$field#g,$t#2_0$0); assume $GoodHeap($h_0$0);
-		    }
+		    $t#0_0$0 := $a#0_0$0 ;
+		    assume $ReadObject($h_0$0, $a#0_0$0);
+		    t_0$0 := $t#0_0$0 ;
+		    assume $ReadObject($h_0$0, $t#0_0$0);
+		    $t#1_0$0 := $a#1_0$0 ;
+		    assume $ReadObject($h_0$0, $a#1_0$0);
+		    u_0$0 := $t#1_0$0 ;
+		    assume $ReadObject($h_0$0, $t#1_0$0);
+		    $h_0$0:=$Write($h_0$0,t_0$0,$field#f,x_0$0); assume $GoodHeap($h_0$0);
+		    $h_0$0:=$Write($h_0$0,x_0$0,$field#f,x_0$0); assume $GoodHeap($h_0$0);
+		    $h_0$0:=$Write($h_0$0,x_0$0,$field#g,t_0$0); assume $GoodHeap($h_0$0);
+		    $t#2_0$0 := $a#2_0$0 ;
+		    assume $ReadObject($h_0$0, $a#2_0$0);
+		    $h_0$0:=$Write($h_0$0,x_0$0,$field#g,$t#2_0$0); assume $GoodHeap($h_0$0);
 
 		    // procedure body _1 start
 		    x_1$0 := x$0 ;
 		    assume $ReadObject($h_1$0, x$0);
-		    if(true )
-		    {
-		    	$t#0_1$0 := $a#0_1$0 ;
-		    	assume $ReadObject($h_1$0, $a#0_1$0);
-		    }
-		    if(true )
-		    {
-		    	t_1$0 := $t#0_1$0 ;
-		    	assume $ReadObject($h_1$0, $t#0_1$0);
-		    }
-		    if(true )
-		    {
-		    	$h_1$0:=$Write($h_1$0,x_1$0,$field#f,x_1$0); assume $GoodHeap($h_1$0);
-		    }
-		    if(true )
-		    {
-		    	$t#1_1$0 := $a#1_1$0 ;
-		    	assume $ReadObject($h_1$0, $a#1_1$0);
-		    }
-		    if(true )
-		    {
-		    	$h_1$0:=$Write($h_1$0,x_1$0,$field#g,$t#1_1$0); assume $GoodHeap($h_1$0);
-		    }
+		    $t#0_1$0 := $a#0_1$0 ;
+		    assume $ReadObject($h_1$0, $a#0_1$0);
+		    t_1$0 := $t#0_1$0 ;
+		    assume $ReadObject($h_1$0, $t#0_1$0);
+		    $h_1$0:=$Write($h_1$0,x_1$0,$field#f,x_1$0); assume $GoodHeap($h_1$0);
+		    $t#1_1$0 := $a#1_1$0 ;
+		    assume $ReadObject($h_1$0, $a#1_1$0);
+		    $h_1$0:=$Write($h_1$0,x_1$0,$field#g,$t#1_1$0); assume $GoodHeap($h_1$0);
 
 		    // restore heaps
 		    $h_0$1 := $h;
@@ -962,74 +902,32 @@ procedure DifferentShapedGarbage_DifferentShapedGarbage($h:Heap, $roots:Roots, x
 			// procedure body _0 start	
 		    x_0$1 := x$1 ;
 		    assume $ReadObject($h_0$1, x$1);
-		    if(true )
-		    {
-		    	$t#0_0$1 := $a#0_0$1 ;
-		    	assume $ReadObject($h_0$1, $a#0_0$1);
-		    }
-		    if(true )
-		    {
-		    	t_0$1 := $t#0_0$1 ;
-		    	assume $ReadObject($h_0$1, $t#0_0$1);
-		    }
-		    if(true )
-		    {
-		    	$t#1_0$1 := $a#1_0$1 ;
-		    	assume $ReadObject($h_0$1, $a#1_0$1);
-		    }
-		    if(true )
-		    {
-		    	u_0$1 := $t#1_0$1 ;
-		    	assume $ReadObject($h_0$1, $t#1_0$1);
-		    }
-		    if(true )
-		    {
-		    	$h_0$1:=$Write($h_0$1,t_0$1,$field#f,x_0$1); assume $GoodHeap($h_0$1);
-		    }
-		    if(true )
-		    {
-		    	$h_0$1:=$Write($h_0$1,x_0$1,$field#f,x_0$1); assume $GoodHeap($h_0$1);
-		    }
-		    if(true )
-		    {
-		    	$h_0$1:=$Write($h_0$1,x_0$1,$field#g,t_0$1); assume $GoodHeap($h_0$1);
-		    }
-		    if(true )
-		    {
-		    	$t#2_0$1 := $a#2_0$1 ;
-		    	assume $ReadObject($h_0$1, $a#2_0$1);
-		    }
-		    if(true )
-		    {
-		    	$h_0$1:=$Write($h_0$1,x_0$1,$field#g,$t#2_0$1); assume $GoodHeap($h_0$1);
-		    }
+		    $t#0_0$1 := $a#0_0$1 ;
+		    assume $ReadObject($h_0$1, $a#0_0$1);
+		    t_0$1 := $t#0_0$1 ;
+		    assume $ReadObject($h_0$1, $t#0_0$1);
+		    $t#1_0$1 := $a#1_0$1 ;
+		    assume $ReadObject($h_0$1, $a#1_0$1);
+		    u_0$1 := $t#1_0$1 ;
+		    assume $ReadObject($h_0$1, $t#1_0$1);
+		    $h_0$1:=$Write($h_0$1,t_0$1,$field#f,x_0$1); assume $GoodHeap($h_0$1);
+		    $h_0$1:=$Write($h_0$1,x_0$1,$field#f,x_0$1); assume $GoodHeap($h_0$1);
+		    $h_0$1:=$Write($h_0$1,x_0$1,$field#g,t_0$1); assume $GoodHeap($h_0$1);
+		    $t#2_0$1 := $a#2_0$1 ;
+		    assume $ReadObject($h_0$1, $a#2_0$1);
+		    $h_0$1:=$Write($h_0$1,x_0$1,$field#g,$t#2_0$1); assume $GoodHeap($h_0$1);
 
 		    // procedure body _1 start
 		    x_1$1 := x$1 ;
 		    assume $ReadObject($h_1$1, x$1);
-		    if(true )
-		    {
-		    	$t#0_1$1 := $a#0_1$1 ;
-		    	assume $ReadObject($h_1$1, $a#0_1$1);
-		    }
-		    if(true )
-		    {
-		    	t_1$1 := $t#0_1$1 ;
-		    	assume $ReadObject($h_1$1, $t#0_1$1);
-		    }
-		    if(true )
-		    {
-		    	$h_1$1:=$Write($h_1$1,x_1$1,$field#f,x_1$1); assume $GoodHeap($h_1$1);
-		    }
-		    if(true )
-		    {
-		    	$t#1_1$1 := $a#1_1$1 ;
-		    	assume $ReadObject($h_1$1, $a#1_1$1);
-		    }
-		    if(true )
-		    {
-		    	$h_1$1:=$Write($h_1$1,x_1$1,$field#g,$t#1_1$1); assume $GoodHeap($h_1$1);
-		    }
+		    $t#0_1$1 := $a#0_1$1 ;
+		    assume $ReadObject($h_1$1, $a#0_1$1);
+		    t_1$1 := $t#0_1$1 ;
+		    assume $ReadObject($h_1$1, $t#0_1$1);
+		    $h_1$1:=$Write($h_1$1,x_1$1,$field#f,x_1$1); assume $GoodHeap($h_1$1);
+		    $t#1_1$1 := $a#1_1$1 ;
+		    assume $ReadObject($h_1$1, $a#1_1$1);
+		    $h_1$1:=$Write($h_1$1,x_1$1,$field#g,$t#1_1$1); assume $GoodHeap($h_1$1);
 
 		    // restore heaps
 		    $h_0$2 := $h;
@@ -1078,74 +976,32 @@ procedure DifferentShapedGarbage_DifferentShapedGarbage($h:Heap, $roots:Roots, x
 			// procedure body _0 start	
 		    x_0$2 := x$2 ;
 		    assume $ReadObject($h_0$2, x$2);
-		    if(true )
-		    {
-		    	$t#0_0$2 := $a#0_0$2 ;
-		    	assume $ReadObject($h_0$2, $a#0_0$2);
-		    }
-		    if(true )
-		    {
-		    	t_0$2 := $t#0_0$2 ;
-		    	assume $ReadObject($h_0$2, $t#0_0$2);
-		    }
-		    if(true )
-		    {
-		    	$t#1_0$2 := $a#1_0$2 ;
-		    	assume $ReadObject($h_0$2, $a#1_0$2);
-		    }
-		    if(true )
-		    {
-		    	u_0$2 := $t#1_0$2 ;
-		    	assume $ReadObject($h_0$2, $t#1_0$2);
-		    }
-		    if(true )
-		    {
-		    	$h_0$2:=$Write($h_0$2,t_0$2,$field#f,x_0$2); assume $GoodHeap($h_0$2);
-		    }
-		    if(true )
-		    {
-		    	$h_0$2:=$Write($h_0$2,x_0$2,$field#f,x_0$2); assume $GoodHeap($h_0$2);
-		    }
-		    if(true )
-		    {
-		    	$h_0$2:=$Write($h_0$2,x_0$2,$field#g,t_0$2); assume $GoodHeap($h_0$2);
-		    }
-		    if(true )
-		    {
-		    	$t#2_0$2 := $a#2_0$2 ;
-		    	assume $ReadObject($h_0$2, $a#2_0$2);
-		    }
-		    if(true )
-		    {
-		    	$h_0$2:=$Write($h_0$2,x_0$2,$field#g,$t#2_0$2); assume $GoodHeap($h_0$2);
-		    }
+		    $t#0_0$2 := $a#0_0$2 ;
+		    assume $ReadObject($h_0$2, $a#0_0$2);
+		    t_0$2 := $t#0_0$2 ;
+		    assume $ReadObject($h_0$2, $t#0_0$2);
+		    $t#1_0$2 := $a#1_0$2 ;
+		    assume $ReadObject($h_0$2, $a#1_0$2);
+		    u_0$2 := $t#1_0$2 ;
+		    assume $ReadObject($h_0$2, $t#1_0$2);
+		    $h_0$2:=$Write($h_0$2,t_0$2,$field#f,x_0$2); assume $GoodHeap($h_0$2);
+		    $h_0$2:=$Write($h_0$2,x_0$2,$field#f,x_0$2); assume $GoodHeap($h_0$2);
+		    $h_0$2:=$Write($h_0$2,x_0$2,$field#g,t_0$2); assume $GoodHeap($h_0$2);
+		    $t#2_0$2 := $a#2_0$2 ;
+		    assume $ReadObject($h_0$2, $a#2_0$2);
+		    $h_0$2:=$Write($h_0$2,x_0$2,$field#g,$t#2_0$2); assume $GoodHeap($h_0$2);
 
 		    // procedure body _1 start
 		    x_1$2 := x$2 ;
 		    assume $ReadObject($h_1$2, x$2);
-		    if(true )
-		    {
-		    	$t#0_1$2 := $a#0_1$2 ;
-		    	assume $ReadObject($h_1$2, $a#0_1$2);
-		    }
-		    if(true )
-		    {
-		    	t_1$2 := $t#0_1$2 ;
-		    	assume $ReadObject($h_1$2, $t#0_1$2);
-		    }
-		    if(true )
-		    {
-		    	$h_1$2:=$Write($h_1$2,x_1$2,$field#f,x_1$2); assume $GoodHeap($h_1$2);
-		    }
-		    if(true )
-		    {
-		    	$t#1_1$2 := $a#1_1$2 ;
-		    	assume $ReadObject($h_1$2, $a#1_1$2);
-		    }
-		    if(true )
-		    {
-		    	$h_1$2:=$Write($h_1$2,x_1$2,$field#g,$t#1_1$2); assume $GoodHeap($h_1$2);
-		    }
+		    $t#0_1$2 := $a#0_1$2 ;
+		    assume $ReadObject($h_1$2, $a#0_1$2);
+		    t_1$2 := $t#0_1$2 ;
+		    assume $ReadObject($h_1$2, $t#0_1$2);
+		    $h_1$2:=$Write($h_1$2,x_1$2,$field#f,x_1$2); assume $GoodHeap($h_1$2);
+		    $t#1_1$2 := $a#1_1$2 ;
+		    assume $ReadObject($h_1$2, $a#1_1$2);
+		    $h_1$2:=$Write($h_1$2,x_1$2,$field#g,$t#1_1$2); assume $GoodHeap($h_1$2);
 
 		    // restore heaps
 		    $h_0$3 := $h;
@@ -1194,74 +1050,32 @@ procedure DifferentShapedGarbage_DifferentShapedGarbage($h:Heap, $roots:Roots, x
 			// procedure body _0 start	
 		    x_0$3 := x$3 ;
 		    assume $ReadObject($h_0$3, x$3);
-		    if(true )
-		    {
-		    	$t#0_0$3 := $a#0_0$3 ;
-		    	assume $ReadObject($h_0$3, $a#0_0$3);
-		    }
-		    if(true )
-		    {
-		    	t_0$3 := $t#0_0$3 ;
-		    	assume $ReadObject($h_0$3, $t#0_0$3);
-		    }
-		    if(true )
-		    {
-		    	$t#1_0$3 := $a#1_0$3 ;
-		    	assume $ReadObject($h_0$3, $a#1_0$3);
-		    }
-		    if(true )
-		    {
-		    	u_0$3 := $t#1_0$3 ;
-		    	assume $ReadObject($h_0$3, $t#1_0$3);
-		    }
-		    if(true )
-		    {
-		    	$h_0$3:=$Write($h_0$3,t_0$3,$field#f,x_0$3); assume $GoodHeap($h_0$3);
-		    }
-		    if(true )
-		    {
-		    	$h_0$3:=$Write($h_0$3,x_0$3,$field#f,x_0$3); assume $GoodHeap($h_0$3);
-		    }
-		    if(true )
-		    {
-		    	$h_0$3:=$Write($h_0$3,x_0$3,$field#g,t_0$3); assume $GoodHeap($h_0$3);
-		    }
-		    if(true )
-		    {
-		    	$t#2_0$3 := $a#2_0$3 ;
-		    	assume $ReadObject($h_0$3, $a#2_0$3);
-		    }
-		    if(true )
-		    {
-		    	$h_0$3:=$Write($h_0$3,x_0$3,$field#g,$t#2_0$3); assume $GoodHeap($h_0$3);
-		    }
+		    $t#0_0$3 := $a#0_0$3 ;
+		    assume $ReadObject($h_0$3, $a#0_0$3);
+		    t_0$3 := $t#0_0$3 ;
+		    assume $ReadObject($h_0$3, $t#0_0$3);
+		    $t#1_0$3 := $a#1_0$3 ;
+		    assume $ReadObject($h_0$3, $a#1_0$3);
+		    u_0$3 := $t#1_0$3 ;
+		    assume $ReadObject($h_0$3, $t#1_0$3);
+		    $h_0$3:=$Write($h_0$3,t_0$3,$field#f,x_0$3); assume $GoodHeap($h_0$3);
+		    $h_0$3:=$Write($h_0$3,x_0$3,$field#f,x_0$3); assume $GoodHeap($h_0$3);
+		    $h_0$3:=$Write($h_0$3,x_0$3,$field#g,t_0$3); assume $GoodHeap($h_0$3);
+		    $t#2_0$3 := $a#2_0$3 ;
+		    assume $ReadObject($h_0$3, $a#2_0$3);
+		    $h_0$3:=$Write($h_0$3,x_0$3,$field#g,$t#2_0$3); assume $GoodHeap($h_0$3);
 
 		    // procedure body _1 start
 		    x_1$3 := x$3 ;
 		    assume $ReadObject($h_1$3, x$3);
-		    if(true )
-		    {
-		    	$t#0_1$3 := $a#0_1$3 ;
-		    	assume $ReadObject($h_1$3, $a#0_1$3);
-		    }
-		    if(true )
-		    {
-		    	t_1$3 := $t#0_1$3 ;
-		    	assume $ReadObject($h_1$3, $t#0_1$3);
-		    }
-		    if(true )
-		    {
-		    	$h_1$3:=$Write($h_1$3,x_1$3,$field#f,x_1$3); assume $GoodHeap($h_1$3);
-		    }
-		    if(true )
-		    {
-		    	$t#1_1$3 := $a#1_1$3 ;
-		    	assume $ReadObject($h_1$3, $a#1_1$3);
-		    }
-		    if(true )
-		    {
-		    	$h_1$3:=$Write($h_1$3,x_1$3,$field#g,$t#1_1$3); assume $GoodHeap($h_1$3);
-		    }
+		    $t#0_1$3 := $a#0_1$3 ;
+		    assume $ReadObject($h_1$3, $a#0_1$3);
+		    t_1$3 := $t#0_1$3 ;
+		    assume $ReadObject($h_1$3, $t#0_1$3);
+		    $h_1$3:=$Write($h_1$3,x_1$3,$field#f,x_1$3); assume $GoodHeap($h_1$3);
+		    $t#1_1$3 := $a#1_1$3 ;
+		    assume $ReadObject($h_1$3, $a#1_1$3);
+		    $h_1$3:=$Write($h_1$3,x_1$3,$field#g,$t#1_1$3); assume $GoodHeap($h_1$3);
 
 		    // restore heaps
 		    $h_0$4 := $h;
@@ -1310,74 +1124,32 @@ procedure DifferentShapedGarbage_DifferentShapedGarbage($h:Heap, $roots:Roots, x
 			// procedure body _0 start	
 		    x_0$4 := x$4 ;
 		    assume $ReadObject($h_0$4, x$4);
-		    if(true )
-		    {
-		    	$t#0_0$4 := $a#0_0$4 ;
-		    	assume $ReadObject($h_0$4, $a#0_0$4);
-		    }
-		    if(true )
-		    {
-		    	t_0$4 := $t#0_0$4 ;
-		    	assume $ReadObject($h_0$4, $t#0_0$4);
-		    }
-		    if(true )
-		    {
-		    	$t#1_0$4 := $a#1_0$4 ;
-		    	assume $ReadObject($h_0$4, $a#1_0$4);
-		    }
-		    if(true )
-		    {
-		    	u_0$4 := $t#1_0$4 ;
-		    	assume $ReadObject($h_0$4, $t#1_0$4);
-		    }
-		    if(true )
-		    {
-		    	$h_0$4:=$Write($h_0$4,t_0$4,$field#f,x_0$4); assume $GoodHeap($h_0$4);
-		    }
-		    if(true )
-		    {
-		    	$h_0$4:=$Write($h_0$4,x_0$4,$field#f,x_0$4); assume $GoodHeap($h_0$4);
-		    }
-		    if(true )
-		    {
-		    	$h_0$4:=$Write($h_0$4,x_0$4,$field#g,t_0$4); assume $GoodHeap($h_0$4);
-		    }
-		    if(true )
-		    {
-		    	$t#2_0$4 := $a#2_0$4 ;
-		    	assume $ReadObject($h_0$4, $a#2_0$4);
-		    }
-		    if(true )
-		    {
-		    	$h_0$4:=$Write($h_0$4,x_0$4,$field#g,$t#2_0$4); assume $GoodHeap($h_0$4);
-		    }
+		    $t#0_0$4 := $a#0_0$4 ;
+		    assume $ReadObject($h_0$4, $a#0_0$4);
+		    t_0$4 := $t#0_0$4 ;
+		    assume $ReadObject($h_0$4, $t#0_0$4);
+		    $t#1_0$4 := $a#1_0$4 ;
+		    assume $ReadObject($h_0$4, $a#1_0$4);
+		    u_0$4 := $t#1_0$4 ;
+		    assume $ReadObject($h_0$4, $t#1_0$4);
+		    $h_0$4:=$Write($h_0$4,t_0$4,$field#f,x_0$4); assume $GoodHeap($h_0$4);
+		    $h_0$4:=$Write($h_0$4,x_0$4,$field#f,x_0$4); assume $GoodHeap($h_0$4);
+		    $h_0$4:=$Write($h_0$4,x_0$4,$field#g,t_0$4); assume $GoodHeap($h_0$4);
+		    $t#2_0$4 := $a#2_0$4 ;
+		    assume $ReadObject($h_0$4, $a#2_0$4);
+		    $h_0$4:=$Write($h_0$4,x_0$4,$field#g,$t#2_0$4); assume $GoodHeap($h_0$4);
 
 		    // procedure body _1 start
 		    x_1$4 := x$4 ;
 		    assume $ReadObject($h_1$4, x$4);
-		    if(true )
-		    {
-		    	$t#0_1$4 := $a#0_1$4 ;
-		    	assume $ReadObject($h_1$4, $a#0_1$4);
-		    }
-		    if(true )
-		    {
-		    	t_1$4 := $t#0_1$4 ;
-		    	assume $ReadObject($h_1$4, $t#0_1$4);
-		    }
-		    if(true )
-		    {
-		    	$h_1$4:=$Write($h_1$4,x_1$4,$field#f,x_1$4); assume $GoodHeap($h_1$4);
-		    }
-		    if(true )
-		    {
-		    	$t#1_1$4 := $a#1_1$4 ;
-		    	assume $ReadObject($h_1$4, $a#1_1$4);
-		    }
-		    if(true )
-		    {
-		    	$h_1$4:=$Write($h_1$4,x_1$4,$field#g,$t#1_1$4); assume $GoodHeap($h_1$4);
-		    }
+		    $t#0_1$4 := $a#0_1$4 ;
+		    assume $ReadObject($h_1$4, $a#0_1$4);
+		    t_1$4 := $t#0_1$4 ;
+		    assume $ReadObject($h_1$4, $t#0_1$4);
+		    $h_1$4:=$Write($h_1$4,x_1$4,$field#f,x_1$4); assume $GoodHeap($h_1$4);
+		    $t#1_1$4 := $a#1_1$4 ;
+		    assume $ReadObject($h_1$4, $a#1_1$4);
+		    $h_1$4:=$Write($h_1$4,x_1$4,$field#g,$t#1_1$4); assume $GoodHeap($h_1$4);
 
 		    // restore heaps
 		    $h_0$5 := $h;
@@ -1426,74 +1198,32 @@ procedure DifferentShapedGarbage_DifferentShapedGarbage($h:Heap, $roots:Roots, x
 			// procedure body _0 start	
 		    x_0$5 := x$5 ;
 		    assume $ReadObject($h_0$5, x$5);
-		    if(true )
-		    {
-		    	$t#0_0$5 := $a#0_0$5 ;
-		    	assume $ReadObject($h_0$5, $a#0_0$5);
-		    }
-		    if(true )
-		    {
-		    	t_0$5 := $t#0_0$5 ;
-		    	assume $ReadObject($h_0$5, $t#0_0$5);
-		    }
-		    if(true )
-		    {
-		    	$t#1_0$5 := $a#1_0$5 ;
-		    	assume $ReadObject($h_0$5, $a#1_0$5);
-		    }
-		    if(true )
-		    {
-		    	u_0$5 := $t#1_0$5 ;
-		    	assume $ReadObject($h_0$5, $t#1_0$5);
-		    }
-		    if(true )
-		    {
-		    	$h_0$5:=$Write($h_0$5,t_0$5,$field#f,x_0$5); assume $GoodHeap($h_0$5);
-		    }
-		    if(true )
-		    {
-		    	$h_0$5:=$Write($h_0$5,x_0$5,$field#f,x_0$5); assume $GoodHeap($h_0$5);
-		    }
-		    if(true )
-		    {
-		    	$h_0$5:=$Write($h_0$5,x_0$5,$field#g,t_0$5); assume $GoodHeap($h_0$5);
-		    }
-		    if(true )
-		    {
-		    	$t#2_0$5 := $a#2_0$5 ;
-		    	assume $ReadObject($h_0$5, $a#2_0$5);
-		    }
-		    if(true )
-		    {
-		    	$h_0$5:=$Write($h_0$5,x_0$5,$field#g,$t#2_0$5); assume $GoodHeap($h_0$5);
-		    }
+		    $t#0_0$5 := $a#0_0$5 ;
+		    assume $ReadObject($h_0$5, $a#0_0$5);
+		    t_0$5 := $t#0_0$5 ;
+		    assume $ReadObject($h_0$5, $t#0_0$5);
+		    $t#1_0$5 := $a#1_0$5 ;
+		    assume $ReadObject($h_0$5, $a#1_0$5);
+		    u_0$5 := $t#1_0$5 ;
+		    assume $ReadObject($h_0$5, $t#1_0$5);
+		    $h_0$5:=$Write($h_0$5,t_0$5,$field#f,x_0$5); assume $GoodHeap($h_0$5);
+		    $h_0$5:=$Write($h_0$5,x_0$5,$field#f,x_0$5); assume $GoodHeap($h_0$5);
+		    $h_0$5:=$Write($h_0$5,x_0$5,$field#g,t_0$5); assume $GoodHeap($h_0$5);
+		    $t#2_0$5 := $a#2_0$5 ;
+		    assume $ReadObject($h_0$5, $a#2_0$5);
+		    $h_0$5:=$Write($h_0$5,x_0$5,$field#g,$t#2_0$5); assume $GoodHeap($h_0$5);
 
 		    // procedure body _1 start
 		    x_1$5 := x$5 ;
 		    assume $ReadObject($h_1$5, x$5);
-		    if(true )
-		    {
-		    	$t#0_1$5 := $a#0_1$5 ;
-		    	assume $ReadObject($h_1$5, $a#0_1$5);
-		    }
-		    if(true )
-		    {
-		    	t_1$5 := $t#0_1$5 ;
-		    	assume $ReadObject($h_1$5, $t#0_1$5);
-		    }
-		    if(true )
-		    {
-		    	$h_1$5:=$Write($h_1$5,x_1$5,$field#f,x_1$5); assume $GoodHeap($h_1$5);
-		    }
-		    if(true )
-		    {
-		    	$t#1_1$5 := $a#1_1$5 ;
-		    	assume $ReadObject($h_1$5, $a#1_1$5);
-		    }
-		    if(true )
-		    {
-		    	$h_1$5:=$Write($h_1$5,x_1$5,$field#g,$t#1_1$5); assume $GoodHeap($h_1$5);
-		    }
+		    $t#0_1$5 := $a#0_1$5 ;
+		    assume $ReadObject($h_1$5, $a#0_1$5);
+		    t_1$5 := $t#0_1$5 ;
+		    assume $ReadObject($h_1$5, $t#0_1$5);
+		    $h_1$5:=$Write($h_1$5,x_1$5,$field#f,x_1$5); assume $GoodHeap($h_1$5);
+		    $t#1_1$5 := $a#1_1$5 ;
+		    assume $ReadObject($h_1$5, $a#1_1$5);
+		    $h_1$5:=$Write($h_1$5,x_1$5,$field#g,$t#1_1$5); assume $GoodHeap($h_1$5);
 
 
 	assert 

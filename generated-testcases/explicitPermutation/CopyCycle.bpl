@@ -379,7 +379,6 @@ procedure CopyRing_0($strategy:int, $h:Heap, $roots:Roots, x:Ref,r:Ref) returns 
 {
     // declare locals
 	var $a#0_0:Ref;
-	var $c#0_0:bool;
 	var $t#0_0:Ref;
 	var $t#1_0:Ref;
 	var f_0:Ref;
@@ -390,7 +389,6 @@ procedure CopyRing_0($strategy:int, $h:Heap, $roots:Roots, x:Ref,r:Ref) returns 
 
 	// initialise locals
 	$a#0_0 := $Null;
-	$c#0_0 := false;
 	$t#0_0 := $Null;
 	$t#1_0 := $Null;
 	f_0 := $Null;
@@ -403,35 +401,24 @@ procedure CopyRing_0($strategy:int, $h:Heap, $roots:Roots, x:Ref,r:Ref) returns 
 			assume $ReadObject($h_0, x);
 			r_0 := r ;
 			assume $ReadObject($h_0, r);
-			if(true )
-			{
-				$c#0_0 := (x_0  != $Null ) ;
-			}
-			if($c#0_0 )
+			if((x_0  != $Null ) )
 			{
 				$t#0_0 := $a#0_0 ;
 				assume $ReadObject($h_0, $a#0_0);
-			}
-			if($c#0_0 )
-			{
 				f_0 := $t#0_0 ;
 				assume $ReadObject($h_0, $t#0_0);
-			}
-			if($c#0_0 )
-			{
 				$t#1_0 := $Read($h_0,x_0,$field#n) ;
 				assume $ReadObject($h_0, x_0);
 				assume $ReadObject($h_0, $Read($h_0,x_0,$field#n) );
-			}
-			if($c#0_0 )
-			{
 				n_0 := $t#1_0 ;
 				assume $ReadObject($h_0, $t#1_0);
-			}
-			if($c#0_0 )
-			{
 				 call $h_0:=CopyRingUntil_0(0, $h_0, $roots, n_0, x_0, f_0, r_0); 
 			}
+			else
+			{
+
+			}
+
 
 }
 
@@ -461,7 +448,6 @@ procedure CopyRing_1($strategy:int, $h:Heap, $roots:Roots, x:Ref,r:Ref) returns 
 {
     // declare locals
 	var $a#0_1:Ref;
-	var $c#0_1:bool;
 	var $t#0_1:Ref;
 	var $t#1_1:Ref;
 	var f_1:Ref;
@@ -472,7 +458,6 @@ procedure CopyRing_1($strategy:int, $h:Heap, $roots:Roots, x:Ref,r:Ref) returns 
 
 	// initialise locals
 	$a#0_1 := $Null;
-	$c#0_1 := false;
 	$t#0_1 := $Null;
 	$t#1_1 := $Null;
 	f_1 := $Null;
@@ -485,35 +470,24 @@ procedure CopyRing_1($strategy:int, $h:Heap, $roots:Roots, x:Ref,r:Ref) returns 
 			assume $ReadObject($h_1, x);
 			r_1 := r ;
 			assume $ReadObject($h_1, r);
-			if(true )
-			{
-				$c#0_1 := (x_1  != $Null ) ;
-			}
-			if($c#0_1 )
+			if((x_1  != $Null ) )
 			{
 				$t#0_1 := $a#0_1 ;
 				assume $ReadObject($h_1, $a#0_1);
-			}
-			if($c#0_1 )
-			{
 				f_1 := $t#0_1 ;
 				assume $ReadObject($h_1, $t#0_1);
-			}
-			if($c#0_1 )
-			{
 				$t#1_1 := $Read($h_1,x_1,$field#n) ;
 				assume $ReadObject($h_1, x_1);
 				assume $ReadObject($h_1, $Read($h_1,x_1,$field#n) );
-			}
-			if($c#0_1 )
-			{
 				n_1 := $t#1_1 ;
 				assume $ReadObject($h_1, $t#1_1);
-			}
-			if($c#0_1 )
-			{
 				 call $h_1:=CopyRingUntil_1(0, $h_1, $roots, n_1, x_1, f_1, r_1); 
 			}
+			else
+			{
+
+			}
+
 
 }
 
@@ -547,7 +521,6 @@ procedure CopyRing_CopyRing($h:Heap, $roots:Roots, x:Ref,r:Ref)
 			// declare locals for strategy 0
 			// locals for version _0
 			var $a#0_0$0:Ref;
-			var $c#0_0$0:bool;
 			var $t#0_0$0:Ref;
 			var $t#1_0$0:Ref;
 			var f_0$0:Ref;
@@ -557,7 +530,6 @@ procedure CopyRing_CopyRing($h:Heap, $roots:Roots, x:Ref,r:Ref)
 			var $h_0$0:Heap;
 			// locals for version _1
 			var $a#0_1$0:Ref;
-			var $c#0_1$0:bool;
 			var $t#0_1$0:Ref;
 			var $t#1_1$0:Ref;
 			var f_1$0:Ref;
@@ -575,7 +547,6 @@ procedure CopyRing_CopyRing($h:Heap, $roots:Roots, x:Ref,r:Ref)
 
 			// initialise locals for version _0
 			$a#0_0$0 := $Null;
-			$c#0_0$0 := false;
 			$t#0_0$0 := $Null;
 			$t#1_0$0 := $Null;
 			f_0$0 := $Null;
@@ -585,7 +556,6 @@ procedure CopyRing_CopyRing($h:Heap, $roots:Roots, x:Ref,r:Ref)
 
 			// initialise locals for version _1
 			$a#0_1$0 := $Null;
-			$c#0_1$0 := false;
 			$t#0_1$0 := $Null;
 			$t#1_1$0 := $Null;
 			f_1$0 := $Null;
@@ -626,70 +596,48 @@ procedure CopyRing_CopyRing($h:Heap, $roots:Roots, x:Ref,r:Ref)
 		    assume $ReadObject($h_0$0, x$0);
 		    r_0$0 := r$0 ;
 		    assume $ReadObject($h_0$0, r$0);
-		    if(true )
-		    {
-		    	$c#0_0$0 := (x_0$0  != $Null ) ;
-		    }
-		    if($c#0_0$0 )
+		    if((x_0$0  != $Null ) )
 		    {
 		    	$t#0_0$0 := $a#0_0$0 ;
 		    	assume $ReadObject($h_0$0, $a#0_0$0);
-		    }
-		    if($c#0_0$0 )
-		    {
 		    	f_0$0 := $t#0_0$0 ;
 		    	assume $ReadObject($h_0$0, $t#0_0$0);
-		    }
-		    if($c#0_0$0 )
-		    {
 		    	$t#1_0$0 := $Read($h_0$0,x_0$0,$field#n) ;
 		    	assume $ReadObject($h_0$0, x_0$0);
 		    	assume $ReadObject($h_0$0, $Read($h_0$0,x_0$0,$field#n) );
-		    }
-		    if($c#0_0$0 )
-		    {
 		    	n_0$0 := $t#1_0$0 ;
 		    	assume $ReadObject($h_0$0, $t#1_0$0);
-		    }
-		    if($c#0_0$0 )
-		    {
 		    	 call $h_0$0:=CopyRingUntil_0(0, $h_0$0, $roots, n_0$0, x_0$0, f_0$0, r_0$0); 
 		    }
+		    else
+		    {
+
+		    }
+
 
 		    // procedure body _1 start
 		    x_1$0 := x$0 ;
 		    assume $ReadObject($h_1$0, x$0);
 		    r_1$0 := r$0 ;
 		    assume $ReadObject($h_1$0, r$0);
-		    if(true )
-		    {
-		    	$c#0_1$0 := (x_1$0  != $Null ) ;
-		    }
-		    if($c#0_1$0 )
+		    if((x_1$0  != $Null ) )
 		    {
 		    	$t#0_1$0 := $a#0_1$0 ;
 		    	assume $ReadObject($h_1$0, $a#0_1$0);
-		    }
-		    if($c#0_1$0 )
-		    {
 		    	f_1$0 := $t#0_1$0 ;
 		    	assume $ReadObject($h_1$0, $t#0_1$0);
-		    }
-		    if($c#0_1$0 )
-		    {
 		    	$t#1_1$0 := $Read($h_1$0,x_1$0,$field#n) ;
 		    	assume $ReadObject($h_1$0, x_1$0);
 		    	assume $ReadObject($h_1$0, $Read($h_1$0,x_1$0,$field#n) );
-		    }
-		    if($c#0_1$0 )
-		    {
 		    	n_1$0 := $t#1_1$0 ;
 		    	assume $ReadObject($h_1$0, $t#1_1$0);
-		    }
-		    if($c#0_1$0 )
-		    {
 		    	 call $h_1$0:=CopyRingUntil_1(0, $h_1$0, $roots, n_1$0, x_1$0, f_1$0, r_1$0); 
 		    }
+		    else
+		    {
+
+		    }
+
 
 
 	assert 
@@ -723,11 +671,9 @@ procedure CopyRingUntil_0($strategy:int, $h:Heap, $roots:Roots, x:Ref,y:Ref,f:Re
     // declare locals
 	var $a#0_0:Ref;
 	var $a#1_0:Ref;
-	var $c#0_0:bool;
 	var $t#0_0:Ref;
 	var $t#1_0:Ref;
 	var $t#2_0:Ref;
-	var $t#3_0:Ref;
 	var f_0:Ref;
 	var g_0:Ref;
 	var l_0:Ref;
@@ -740,11 +686,9 @@ procedure CopyRingUntil_0($strategy:int, $h:Heap, $roots:Roots, x:Ref,y:Ref,f:Re
 	// initialise locals
 	$a#0_0 := $Null;
 	$a#1_0 := $Null;
-	$c#0_0 := false;
 	$t#0_0 := $Null;
 	$t#1_0 := $Null;
 	$t#2_0 := $Null;
-	$t#3_0 := $Null;
 	f_0 := $Null;
 	g_0 := $Null;
 	l_0 := $Null;
@@ -762,63 +706,33 @@ procedure CopyRingUntil_0($strategy:int, $h:Heap, $roots:Roots, x:Ref,y:Ref,f:Re
 			assume $ReadObject($h_0, f);
 			r_0 := r ;
 			assume $ReadObject($h_0, r);
-			if(true )
-			{
-				$c#0_0 := (x_0  == y_0 ) ;
-			}
-			if($c#0_0 )
+			$t#0_0 := $a#0_0 ;
+			assume $ReadObject($h_0, $a#0_0);
+			g_0 := $t#0_0 ;
+			assume $ReadObject($h_0, $t#0_0);
+			if((x_0  == y_0 ) )
 			{
 				$h_0:=$Write($h_0,r_0,$field#v,f_0); assume $GoodHeap($h_0);
 			}
-			if(!($c#0_0 ))
+			else
 			{
-				$t#0_0 := $a#0_0 ;
-				assume $ReadObject($h_0, $a#0_0);
-			}
-			if(!($c#0_0 ))
-			{
-				l_0 := $t#0_0 ;
-				assume $ReadObject($h_0, $t#0_0);
-			}
-			if(!($c#0_0 ))
-			{
-				$t#1_0 := $a#1_0 ;
-				assume $ReadObject($h_0, $a#1_0);
-			}
-			if(!($c#0_0 ))
-			{
-				g_0 := $t#1_0 ;
-				assume $ReadObject($h_0, $t#1_0);
-			}
-			if(!($c#0_0 ))
-			{
-				$t#2_0 := $Read($h_0,x_0,$field#n) ;
+				$t#0_0 := $Read($h_0,x_0,$field#n) ;
 				assume $ReadObject($h_0, x_0);
 				assume $ReadObject($h_0, $Read($h_0,x_0,$field#n) );
-			}
-			if(!($c#0_0 ))
-			{
-				n_0 := $t#2_0 ;
-				assume $ReadObject($h_0, $t#2_0);
-			}
-			if(!($c#0_0 ))
-			{
+				n_0 := $t#0_0 ;
+				assume $ReadObject($h_0, $t#0_0);
+				$t#1_0 := $a#1_0 ;
+				assume $ReadObject($h_0, $a#1_0);
+				l_0 := $t#1_0 ;
+				assume $ReadObject($h_0, $t#1_0);
 				 call $h_0:=CopyRingUntil_0(0, $h_0, $roots, n_0, y_0, f_0, l_0); 
-			}
-			if(!($c#0_0 ))
-			{
-				$t#3_0 := $Read($h_0,l_0,$field#v) ;
+				$t#2_0 := $Read($h_0,l_0,$field#v) ;
 				assume $ReadObject($h_0, l_0);
 				assume $ReadObject($h_0, $Read($h_0,l_0,$field#v) );
-			}
-			if(!($c#0_0 ))
-			{
-				$h_0:=$Write($h_0,g_0,$field#n,$t#3_0); assume $GoodHeap($h_0);
-			}
-			if(!($c#0_0 ))
-			{
+				$h_0:=$Write($h_0,g_0,$field#n,$t#2_0); assume $GoodHeap($h_0);
 				$h_0:=$Write($h_0,r_0,$field#v,g_0); assume $GoodHeap($h_0);
 			}
+
 
 }
 
@@ -849,7 +763,6 @@ procedure CopyRingUntil_1($strategy:int, $h:Heap, $roots:Roots, x:Ref,y:Ref,f:Re
     // declare locals
 	var $a#0_1:Ref;
 	var $a#1_1:Ref;
-	var $c#0_1:bool;
 	var $t#0_1:Ref;
 	var $t#1_1:Ref;
 	var $t#2_1:Ref;
@@ -866,7 +779,6 @@ procedure CopyRingUntil_1($strategy:int, $h:Heap, $roots:Roots, x:Ref,y:Ref,f:Re
 	// initialise locals
 	$a#0_1 := $Null;
 	$a#1_1 := $Null;
-	$c#0_1 := false;
 	$t#0_1 := $Null;
 	$t#1_1 := $Null;
 	$t#2_1 := $Null;
@@ -888,63 +800,33 @@ procedure CopyRingUntil_1($strategy:int, $h:Heap, $roots:Roots, x:Ref,y:Ref,f:Re
 			assume $ReadObject($h_1, f);
 			r_1 := r ;
 			assume $ReadObject($h_1, r);
-			if(true )
-			{
-				$c#0_1 := (x_1  != y_1 ) ;
-			}
-			if($c#0_1 )
+			if((x_1  != y_1 ) )
 			{
 				$t#0_1 := $a#0_1 ;
 				assume $ReadObject($h_1, $a#0_1);
-			}
-			if($c#0_1 )
-			{
 				l_1 := $t#0_1 ;
 				assume $ReadObject($h_1, $t#0_1);
-			}
-			if($c#0_1 )
-			{
 				$t#1_1 := $Read($h_1,x_1,$field#n) ;
 				assume $ReadObject($h_1, x_1);
 				assume $ReadObject($h_1, $Read($h_1,x_1,$field#n) );
-			}
-			if($c#0_1 )
-			{
 				n_1 := $t#1_1 ;
 				assume $ReadObject($h_1, $t#1_1);
-			}
-			if($c#0_1 )
-			{
 				 call $h_1:=CopyRingUntil_1(0, $h_1, $roots, n_1, y_1, f_1, l_1); 
-			}
-			if($c#0_1 )
-			{
 				$t#2_1 := $a#1_1 ;
 				assume $ReadObject($h_1, $a#1_1);
-			}
-			if($c#0_1 )
-			{
 				g_1 := $t#2_1 ;
 				assume $ReadObject($h_1, $t#2_1);
-			}
-			if($c#0_1 )
-			{
 				$h_1:=$Write($h_1,r_1,$field#v,g_1); assume $GoodHeap($h_1);
-			}
-			if($c#0_1 )
-			{
 				$t#3_1 := $Read($h_1,l_1,$field#v) ;
 				assume $ReadObject($h_1, l_1);
 				assume $ReadObject($h_1, $Read($h_1,l_1,$field#v) );
-			}
-			if($c#0_1 )
-			{
 				$h_1:=$Write($h_1,g_1,$field#n,$t#3_1); assume $GoodHeap($h_1);
 			}
-			if(!($c#0_1 ))
+			else
 			{
 				$h_1:=$Write($h_1,r_1,$field#v,f_1); assume $GoodHeap($h_1);
 			}
+
 
 }
 
@@ -979,11 +861,9 @@ procedure CopyRingUntil_CopyRingUntil($h:Heap, $roots:Roots, x:Ref,y:Ref,f:Ref,r
 			// locals for version _0
 			var $a#0_0$0:Ref;
 			var $a#1_0$0:Ref;
-			var $c#0_0$0:bool;
 			var $t#0_0$0:Ref;
 			var $t#1_0$0:Ref;
 			var $t#2_0$0:Ref;
-			var $t#3_0$0:Ref;
 			var f_0$0:Ref;
 			var g_0$0:Ref;
 			var l_0$0:Ref;
@@ -995,7 +875,6 @@ procedure CopyRingUntil_CopyRingUntil($h:Heap, $roots:Roots, x:Ref,y:Ref,f:Ref,r
 			// locals for version _1
 			var $a#0_1$0:Ref;
 			var $a#1_1$0:Ref;
-			var $c#0_1$0:bool;
 			var $t#0_1$0:Ref;
 			var $t#1_1$0:Ref;
 			var $t#2_1$0:Ref;
@@ -1018,11 +897,9 @@ procedure CopyRingUntil_CopyRingUntil($h:Heap, $roots:Roots, x:Ref,y:Ref,f:Ref,r
 			// locals for version _0
 			var $a#0_0$1:Ref;
 			var $a#1_0$1:Ref;
-			var $c#0_0$1:bool;
 			var $t#0_0$1:Ref;
 			var $t#1_0$1:Ref;
 			var $t#2_0$1:Ref;
-			var $t#3_0$1:Ref;
 			var f_0$1:Ref;
 			var g_0$1:Ref;
 			var l_0$1:Ref;
@@ -1034,7 +911,6 @@ procedure CopyRingUntil_CopyRingUntil($h:Heap, $roots:Roots, x:Ref,y:Ref,f:Ref,r
 			// locals for version _1
 			var $a#0_1$1:Ref;
 			var $a#1_1$1:Ref;
-			var $c#0_1$1:bool;
 			var $t#0_1$1:Ref;
 			var $t#1_1$1:Ref;
 			var $t#2_1$1:Ref;
@@ -1060,11 +936,9 @@ procedure CopyRingUntil_CopyRingUntil($h:Heap, $roots:Roots, x:Ref,y:Ref,f:Ref,r
 			// initialise locals for version _0
 			$a#0_0$0 := $Null;
 			$a#1_0$0 := $Null;
-			$c#0_0$0 := false;
 			$t#0_0$0 := $Null;
 			$t#1_0$0 := $Null;
 			$t#2_0$0 := $Null;
-			$t#3_0$0 := $Null;
 			f_0$0 := $Null;
 			g_0$0 := $Null;
 			l_0$0 := $Null;
@@ -1076,7 +950,6 @@ procedure CopyRingUntil_CopyRingUntil($h:Heap, $roots:Roots, x:Ref,y:Ref,f:Ref,r
 			// initialise locals for version _1
 			$a#0_1$0 := $Null;
 			$a#1_1$0 := $Null;
-			$c#0_1$0 := false;
 			$t#0_1$0 := $Null;
 			$t#1_1$0 := $Null;
 			$t#2_1$0 := $Null;
@@ -1093,11 +966,9 @@ procedure CopyRingUntil_CopyRingUntil($h:Heap, $roots:Roots, x:Ref,y:Ref,f:Ref,r
 			// initialise locals for version _0
 			$a#0_0$1 := $Null;
 			$a#1_0$1 := $Null;
-			$c#0_0$1 := false;
 			$t#0_0$1 := $Null;
 			$t#1_0$1 := $Null;
 			$t#2_0$1 := $Null;
-			$t#3_0$1 := $Null;
 			f_0$1 := $Null;
 			g_0$1 := $Null;
 			l_0$1 := $Null;
@@ -1109,7 +980,6 @@ procedure CopyRingUntil_CopyRingUntil($h:Heap, $roots:Roots, x:Ref,y:Ref,f:Ref,r
 			// initialise locals for version _1
 			$a#0_1$1 := $Null;
 			$a#1_1$1 := $Null;
-			$c#0_1$1 := false;
 			$t#0_1$1 := $Null;
 			$t#1_1$1 := $Null;
 			$t#2_1$1 := $Null;
@@ -1174,63 +1044,33 @@ procedure CopyRingUntil_CopyRingUntil($h:Heap, $roots:Roots, x:Ref,y:Ref,f:Ref,r
 		    assume $ReadObject($h_0$0, f$0);
 		    r_0$0 := r$0 ;
 		    assume $ReadObject($h_0$0, r$0);
-		    if(true )
-		    {
-		    	$c#0_0$0 := (x_0$0  == y_0$0 ) ;
-		    }
-		    if($c#0_0$0 )
+		    $t#0_0$0 := $a#0_0$0 ;
+		    assume $ReadObject($h_0$0, $a#0_0$0);
+		    g_0$0 := $t#0_0$0 ;
+		    assume $ReadObject($h_0$0, $t#0_0$0);
+		    if((x_0$0  == y_0$0 ) )
 		    {
 		    	$h_0$0:=$Write($h_0$0,r_0$0,$field#v,f_0$0); assume $GoodHeap($h_0$0);
 		    }
-		    if(!($c#0_0$0 ))
+		    else
 		    {
-		    	$t#0_0$0 := $a#0_0$0 ;
-		    	assume $ReadObject($h_0$0, $a#0_0$0);
-		    }
-		    if(!($c#0_0$0 ))
-		    {
-		    	l_0$0 := $t#0_0$0 ;
-		    	assume $ReadObject($h_0$0, $t#0_0$0);
-		    }
-		    if(!($c#0_0$0 ))
-		    {
-		    	$t#1_0$0 := $a#1_0$0 ;
-		    	assume $ReadObject($h_0$0, $a#1_0$0);
-		    }
-		    if(!($c#0_0$0 ))
-		    {
-		    	g_0$0 := $t#1_0$0 ;
-		    	assume $ReadObject($h_0$0, $t#1_0$0);
-		    }
-		    if(!($c#0_0$0 ))
-		    {
-		    	$t#2_0$0 := $Read($h_0$0,x_0$0,$field#n) ;
+		    	$t#0_0$0 := $Read($h_0$0,x_0$0,$field#n) ;
 		    	assume $ReadObject($h_0$0, x_0$0);
 		    	assume $ReadObject($h_0$0, $Read($h_0$0,x_0$0,$field#n) );
-		    }
-		    if(!($c#0_0$0 ))
-		    {
-		    	n_0$0 := $t#2_0$0 ;
-		    	assume $ReadObject($h_0$0, $t#2_0$0);
-		    }
-		    if(!($c#0_0$0 ))
-		    {
+		    	n_0$0 := $t#0_0$0 ;
+		    	assume $ReadObject($h_0$0, $t#0_0$0);
+		    	$t#1_0$0 := $a#1_0$0 ;
+		    	assume $ReadObject($h_0$0, $a#1_0$0);
+		    	l_0$0 := $t#1_0$0 ;
+		    	assume $ReadObject($h_0$0, $t#1_0$0);
 		    	 call $h_0$0:=CopyRingUntil_0(0, $h_0$0, $roots, n_0$0, y_0$0, f_0$0, l_0$0); 
-		    }
-		    if(!($c#0_0$0 ))
-		    {
-		    	$t#3_0$0 := $Read($h_0$0,l_0$0,$field#v) ;
+		    	$t#2_0$0 := $Read($h_0$0,l_0$0,$field#v) ;
 		    	assume $ReadObject($h_0$0, l_0$0);
 		    	assume $ReadObject($h_0$0, $Read($h_0$0,l_0$0,$field#v) );
-		    }
-		    if(!($c#0_0$0 ))
-		    {
-		    	$h_0$0:=$Write($h_0$0,g_0$0,$field#n,$t#3_0$0); assume $GoodHeap($h_0$0);
-		    }
-		    if(!($c#0_0$0 ))
-		    {
+		    	$h_0$0:=$Write($h_0$0,g_0$0,$field#n,$t#2_0$0); assume $GoodHeap($h_0$0);
 		    	$h_0$0:=$Write($h_0$0,r_0$0,$field#v,g_0$0); assume $GoodHeap($h_0$0);
 		    }
+
 
 		    // procedure body _1 start
 		    x_1$0 := x$0 ;
@@ -1241,63 +1081,33 @@ procedure CopyRingUntil_CopyRingUntil($h:Heap, $roots:Roots, x:Ref,y:Ref,f:Ref,r
 		    assume $ReadObject($h_1$0, f$0);
 		    r_1$0 := r$0 ;
 		    assume $ReadObject($h_1$0, r$0);
-		    if(true )
-		    {
-		    	$c#0_1$0 := (x_1$0  != y_1$0 ) ;
-		    }
-		    if($c#0_1$0 )
+		    if((x_1$0  != y_1$0 ) )
 		    {
 		    	$t#0_1$0 := $a#0_1$0 ;
 		    	assume $ReadObject($h_1$0, $a#0_1$0);
-		    }
-		    if($c#0_1$0 )
-		    {
 		    	l_1$0 := $t#0_1$0 ;
 		    	assume $ReadObject($h_1$0, $t#0_1$0);
-		    }
-		    if($c#0_1$0 )
-		    {
 		    	$t#1_1$0 := $Read($h_1$0,x_1$0,$field#n) ;
 		    	assume $ReadObject($h_1$0, x_1$0);
 		    	assume $ReadObject($h_1$0, $Read($h_1$0,x_1$0,$field#n) );
-		    }
-		    if($c#0_1$0 )
-		    {
 		    	n_1$0 := $t#1_1$0 ;
 		    	assume $ReadObject($h_1$0, $t#1_1$0);
-		    }
-		    if($c#0_1$0 )
-		    {
 		    	 call $h_1$0:=CopyRingUntil_1(0, $h_1$0, $roots, n_1$0, y_1$0, f_1$0, l_1$0); 
-		    }
-		    if($c#0_1$0 )
-		    {
 		    	$t#2_1$0 := $a#1_1$0 ;
 		    	assume $ReadObject($h_1$0, $a#1_1$0);
-		    }
-		    if($c#0_1$0 )
-		    {
 		    	g_1$0 := $t#2_1$0 ;
 		    	assume $ReadObject($h_1$0, $t#2_1$0);
-		    }
-		    if($c#0_1$0 )
-		    {
 		    	$h_1$0:=$Write($h_1$0,r_1$0,$field#v,g_1$0); assume $GoodHeap($h_1$0);
-		    }
-		    if($c#0_1$0 )
-		    {
 		    	$t#3_1$0 := $Read($h_1$0,l_1$0,$field#v) ;
 		    	assume $ReadObject($h_1$0, l_1$0);
 		    	assume $ReadObject($h_1$0, $Read($h_1$0,l_1$0,$field#v) );
-		    }
-		    if($c#0_1$0 )
-		    {
 		    	$h_1$0:=$Write($h_1$0,g_1$0,$field#n,$t#3_1$0); assume $GoodHeap($h_1$0);
 		    }
-		    if(!($c#0_1$0 ))
+		    else
 		    {
 		    	$h_1$0:=$Write($h_1$0,r_1$0,$field#v,f_1$0); assume $GoodHeap($h_1$0);
 		    }
+
 
 		    // restore heaps
 		    $h_0$1 := $h;
@@ -1344,63 +1154,33 @@ procedure CopyRingUntil_CopyRingUntil($h:Heap, $roots:Roots, x:Ref,y:Ref,f:Ref,r
 		    assume $ReadObject($h_0$1, f$1);
 		    r_0$1 := r$1 ;
 		    assume $ReadObject($h_0$1, r$1);
-		    if(true )
-		    {
-		    	$c#0_0$1 := (x_0$1  == y_0$1 ) ;
-		    }
-		    if($c#0_0$1 )
+		    $t#0_0$1 := $a#0_0$1 ;
+		    assume $ReadObject($h_0$1, $a#0_0$1);
+		    g_0$1 := $t#0_0$1 ;
+		    assume $ReadObject($h_0$1, $t#0_0$1);
+		    if((x_0$1  == y_0$1 ) )
 		    {
 		    	$h_0$1:=$Write($h_0$1,r_0$1,$field#v,f_0$1); assume $GoodHeap($h_0$1);
 		    }
-		    if(!($c#0_0$1 ))
+		    else
 		    {
-		    	$t#0_0$1 := $a#0_0$1 ;
-		    	assume $ReadObject($h_0$1, $a#0_0$1);
-		    }
-		    if(!($c#0_0$1 ))
-		    {
-		    	l_0$1 := $t#0_0$1 ;
-		    	assume $ReadObject($h_0$1, $t#0_0$1);
-		    }
-		    if(!($c#0_0$1 ))
-		    {
-		    	$t#1_0$1 := $a#1_0$1 ;
-		    	assume $ReadObject($h_0$1, $a#1_0$1);
-		    }
-		    if(!($c#0_0$1 ))
-		    {
-		    	g_0$1 := $t#1_0$1 ;
-		    	assume $ReadObject($h_0$1, $t#1_0$1);
-		    }
-		    if(!($c#0_0$1 ))
-		    {
-		    	$t#2_0$1 := $Read($h_0$1,x_0$1,$field#n) ;
+		    	$t#0_0$1 := $Read($h_0$1,x_0$1,$field#n) ;
 		    	assume $ReadObject($h_0$1, x_0$1);
 		    	assume $ReadObject($h_0$1, $Read($h_0$1,x_0$1,$field#n) );
-		    }
-		    if(!($c#0_0$1 ))
-		    {
-		    	n_0$1 := $t#2_0$1 ;
-		    	assume $ReadObject($h_0$1, $t#2_0$1);
-		    }
-		    if(!($c#0_0$1 ))
-		    {
+		    	n_0$1 := $t#0_0$1 ;
+		    	assume $ReadObject($h_0$1, $t#0_0$1);
+		    	$t#1_0$1 := $a#1_0$1 ;
+		    	assume $ReadObject($h_0$1, $a#1_0$1);
+		    	l_0$1 := $t#1_0$1 ;
+		    	assume $ReadObject($h_0$1, $t#1_0$1);
 		    	 call $h_0$1:=CopyRingUntil_0(1, $h_0$1, $roots, n_0$1, y_0$1, f_0$1, l_0$1); 
-		    }
-		    if(!($c#0_0$1 ))
-		    {
-		    	$t#3_0$1 := $Read($h_0$1,l_0$1,$field#v) ;
+		    	$t#2_0$1 := $Read($h_0$1,l_0$1,$field#v) ;
 		    	assume $ReadObject($h_0$1, l_0$1);
 		    	assume $ReadObject($h_0$1, $Read($h_0$1,l_0$1,$field#v) );
-		    }
-		    if(!($c#0_0$1 ))
-		    {
-		    	$h_0$1:=$Write($h_0$1,g_0$1,$field#n,$t#3_0$1); assume $GoodHeap($h_0$1);
-		    }
-		    if(!($c#0_0$1 ))
-		    {
+		    	$h_0$1:=$Write($h_0$1,g_0$1,$field#n,$t#2_0$1); assume $GoodHeap($h_0$1);
 		    	$h_0$1:=$Write($h_0$1,r_0$1,$field#v,g_0$1); assume $GoodHeap($h_0$1);
 		    }
+
 
 		    // procedure body _1 start
 		    x_1$1 := x$1 ;
@@ -1411,63 +1191,33 @@ procedure CopyRingUntil_CopyRingUntil($h:Heap, $roots:Roots, x:Ref,y:Ref,f:Ref,r
 		    assume $ReadObject($h_1$1, f$1);
 		    r_1$1 := r$1 ;
 		    assume $ReadObject($h_1$1, r$1);
-		    if(true )
-		    {
-		    	$c#0_1$1 := (x_1$1  != y_1$1 ) ;
-		    }
-		    if($c#0_1$1 )
+		    if((x_1$1  != y_1$1 ) )
 		    {
 		    	$t#0_1$1 := $a#0_1$1 ;
 		    	assume $ReadObject($h_1$1, $a#0_1$1);
-		    }
-		    if($c#0_1$1 )
-		    {
 		    	l_1$1 := $t#0_1$1 ;
 		    	assume $ReadObject($h_1$1, $t#0_1$1);
-		    }
-		    if($c#0_1$1 )
-		    {
 		    	$t#1_1$1 := $Read($h_1$1,x_1$1,$field#n) ;
 		    	assume $ReadObject($h_1$1, x_1$1);
 		    	assume $ReadObject($h_1$1, $Read($h_1$1,x_1$1,$field#n) );
-		    }
-		    if($c#0_1$1 )
-		    {
 		    	n_1$1 := $t#1_1$1 ;
 		    	assume $ReadObject($h_1$1, $t#1_1$1);
-		    }
-		    if($c#0_1$1 )
-		    {
 		    	 call $h_1$1:=CopyRingUntil_1(1, $h_1$1, $roots, n_1$1, y_1$1, f_1$1, l_1$1); 
-		    }
-		    if($c#0_1$1 )
-		    {
 		    	$t#2_1$1 := $a#1_1$1 ;
 		    	assume $ReadObject($h_1$1, $a#1_1$1);
-		    }
-		    if($c#0_1$1 )
-		    {
 		    	g_1$1 := $t#2_1$1 ;
 		    	assume $ReadObject($h_1$1, $t#2_1$1);
-		    }
-		    if($c#0_1$1 )
-		    {
 		    	$h_1$1:=$Write($h_1$1,r_1$1,$field#v,g_1$1); assume $GoodHeap($h_1$1);
-		    }
-		    if($c#0_1$1 )
-		    {
 		    	$t#3_1$1 := $Read($h_1$1,l_1$1,$field#v) ;
 		    	assume $ReadObject($h_1$1, l_1$1);
 		    	assume $ReadObject($h_1$1, $Read($h_1$1,l_1$1,$field#v) );
-		    }
-		    if($c#0_1$1 )
-		    {
 		    	$h_1$1:=$Write($h_1$1,g_1$1,$field#n,$t#3_1$1); assume $GoodHeap($h_1$1);
 		    }
-		    if(!($c#0_1$1 ))
+		    else
 		    {
 		    	$h_1$1:=$Write($h_1$1,r_1$1,$field#v,f_1$1); assume $GoodHeap($h_1$1);
 		    }
+
 
 
 	assert 

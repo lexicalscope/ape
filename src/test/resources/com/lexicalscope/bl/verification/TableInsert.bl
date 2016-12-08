@@ -1,0 +1,57 @@
+VERSION
+    // x == table,f=key,g=value,r=old value
+	procedure Put(x,f,g,r) {
+	    if(x!=null) {
+	       if(x.f == f) {
+	          r.v := x.g;
+	          x.g := g;
+	       } else {
+	          l := new();
+	          n := x.n;
+	          call Last(n,l);
+	          if(l.v != null) {
+	             x.n := new();
+	             x.n.f := f;
+	             x.n.g := g;  
+	          } else {
+	             call Put(n,f,g,r);
+	          }
+	       }
+		}
+	}
+	
+	procedure Last(x,r)
+	{
+	   if(x == null) {
+	     r.v := new();
+	   }
+	}
+VERSION
+	procedure Put(x,f,g,r) {
+        e := new();
+        e.f := f;
+        e.g := g;
+        
+	    if(x!=null) {
+	       n := x.n;
+	       if(x.f == f) {
+	          r.v := x.g;
+	          x.g := g;
+	       } else {
+	          l := new();
+	          call Last(n,l);
+	          if(l.v != null) {
+	             x.n := e; 
+	          } else {
+	             call Put(n,f,g,r);
+	          }
+	       }
+		}
+	}
+	
+	procedure Last(x,r)
+	{
+	   if(x == null) {
+	     r.v := new();
+	   }
+	}

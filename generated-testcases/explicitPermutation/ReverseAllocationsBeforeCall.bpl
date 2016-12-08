@@ -242,6 +242,14 @@ function $ReachableFromParams#2($h:Heap, $x0,$x1:Ref, $a:Ref) : bool
    $ReachableFromParams#1($h, $x0, $a) || $ReachableFromParams#1($h, $x1, $a)
 }
 
+function $ReachableFromParams#4($h:Heap, $x0,$x1,$x2,$x3:Ref, $a:Ref) : bool
+{
+      $ReachableFromParams#1($h, $x0, $a) 
+   || $ReachableFromParams#1($h, $x1, $a)
+   || $ReachableFromParams#1($h, $x2, $a)
+   || $ReachableFromParams#1($h, $x3, $a)
+}
+
 /////////////////////////////////////////////////////////////////////////////
 // Extensional Equality
 function $Heap#Equal($h_1, $h_2:Heap) : bool
@@ -287,6 +295,22 @@ function $Heap#EqualFromParams#2($h_0:Heap, $x0_0,$x1_0:Ref, $h_1:Heap, $x0_1,$x
 {
     $Heap#EqualFromParams#1($h_0, $x0_0, $h_1, $x0_1) &&
     $Heap#EqualFromParams#1($h_0, $x1_0, $h_1, $x1_1)
+}
+
+function $Heap#EqualFromParams#4($h_0:Heap, $x0_0,$x1_0,$x2_0,$x3_0:Ref, $h_1:Heap, $x0_1,$x1_1,$x2_1,$x3_1:Ref) : bool 
+{
+    $Heap#EqualFromParams#1($h_0, $x0_0, $h_1, $x0_1) &&
+    $Heap#EqualFromParams#1($h_0, $x1_0, $h_1, $x1_1) &&
+    $Heap#EqualFromParams#1($h_0, $x2_0, $h_1, $x2_1) &&
+    $Heap#EqualFromParams#1($h_0, $x3_0, $h_1, $x3_1)
+}
+
+function $Heap#SameReachableFromParams#4($h_0:Heap, $x0_0,$x1_0,$x2_0,$x3_0:Ref, $h_1:Heap, $x0_1,$x1_1,$x2_1,$x3_1:Ref) : bool
+{
+	$Heap#SameReachableFromParams#1($h_0, $x0_0, $h_1, $x0_1) &&
+    $Heap#SameReachableFromParams#1($h_0, $x1_0, $h_1, $x1_1) &&
+    $Heap#SameReachableFromParams#1($h_0, $x2_0, $h_1, $x2_1) &&
+    $Heap#SameReachableFromParams#1($h_0, $x3_0, $h_1, $x3_1)
 }
 
 function $Heap#SameReachableFromParams#2($h_0:Heap, $x0_0,$x1_0:Ref, $h_1:Heap, $x0_1,$x1_1:Ref) : bool
@@ -526,38 +550,17 @@ procedure Caller_0($strategy:int, $h:Heap, $roots:Roots, x:Ref) returns ($h_0:He
 			// inline statements
 			x_0 := x ;
 			assume $ReadObject($h_0, x);
-			if(true )
-			{
-				$t#0_0 := $a#0_0 ;
-				assume $ReadObject($h_0, $a#0_0);
-			}
-			if(true )
-			{
-				t_0 := $t#0_0 ;
-				assume $ReadObject($h_0, $t#0_0);
-			}
-			if(true )
-			{
-				$t#1_0 := $a#1_0 ;
-				assume $ReadObject($h_0, $a#1_0);
-			}
-			if(true )
-			{
-				u_0 := $t#1_0 ;
-				assume $ReadObject($h_0, $t#1_0);
-			}
-			if(true )
-			{
-				 call $h_0:=Callee_0(0, $h_0, $roots, x_0); 
-			}
-			if(true )
-			{
-				$h_0:=$Write($h_0,x_0,$field#f,t_0); assume $GoodHeap($h_0);
-			}
-			if(true )
-			{
-				$h_0:=$Write($h_0,x_0,$field#g,u_0); assume $GoodHeap($h_0);
-			}
+			$t#0_0 := $a#0_0 ;
+			assume $ReadObject($h_0, $a#0_0);
+			t_0 := $t#0_0 ;
+			assume $ReadObject($h_0, $t#0_0);
+			$t#1_0 := $a#1_0 ;
+			assume $ReadObject($h_0, $a#1_0);
+			u_0 := $t#1_0 ;
+			assume $ReadObject($h_0, $t#1_0);
+			 call $h_0:=Callee_0(0, $h_0, $roots, x_0); 
+			$h_0:=$Write($h_0,x_0,$field#f,t_0); assume $GoodHeap($h_0);
+			$h_0:=$Write($h_0,x_0,$field#g,u_0); assume $GoodHeap($h_0);
 
 }
 
@@ -607,38 +610,17 @@ procedure Caller_1($strategy:int, $h:Heap, $roots:Roots, x:Ref) returns ($h_1:He
 			// inline statements
 			x_1 := x ;
 			assume $ReadObject($h_1, x);
-			if(true )
-			{
-				$t#0_1 := $a#0_1 ;
-				assume $ReadObject($h_1, $a#0_1);
-			}
-			if(true )
-			{
-				u_1 := $t#0_1 ;
-				assume $ReadObject($h_1, $t#0_1);
-			}
-			if(true )
-			{
-				$t#1_1 := $a#1_1 ;
-				assume $ReadObject($h_1, $a#1_1);
-			}
-			if(true )
-			{
-				t_1 := $t#1_1 ;
-				assume $ReadObject($h_1, $t#1_1);
-			}
-			if(true )
-			{
-				 call $h_1:=Callee_1(0, $h_1, $roots, x_1); 
-			}
-			if(true )
-			{
-				$h_1:=$Write($h_1,x_1,$field#f,t_1); assume $GoodHeap($h_1);
-			}
-			if(true )
-			{
-				$h_1:=$Write($h_1,x_1,$field#g,u_1); assume $GoodHeap($h_1);
-			}
+			$t#0_1 := $a#0_1 ;
+			assume $ReadObject($h_1, $a#0_1);
+			u_1 := $t#0_1 ;
+			assume $ReadObject($h_1, $t#0_1);
+			$t#1_1 := $a#1_1 ;
+			assume $ReadObject($h_1, $a#1_1);
+			t_1 := $t#1_1 ;
+			assume $ReadObject($h_1, $t#1_1);
+			 call $h_1:=Callee_1(0, $h_1, $roots, x_1); 
+			$h_1:=$Write($h_1,x_1,$field#f,t_1); assume $GoodHeap($h_1);
+			$h_1:=$Write($h_1,x_1,$field#g,u_1); assume $GoodHeap($h_1);
 
 }
 
@@ -794,74 +776,32 @@ procedure Caller_Caller($h:Heap, $roots:Roots, x:Ref)
 			// procedure body _0 start	
 		    x_0$0 := x$0 ;
 		    assume $ReadObject($h_0$0, x$0);
-		    if(true )
-		    {
-		    	$t#0_0$0 := $a#0_0$0 ;
-		    	assume $ReadObject($h_0$0, $a#0_0$0);
-		    }
-		    if(true )
-		    {
-		    	t_0$0 := $t#0_0$0 ;
-		    	assume $ReadObject($h_0$0, $t#0_0$0);
-		    }
-		    if(true )
-		    {
-		    	$t#1_0$0 := $a#1_0$0 ;
-		    	assume $ReadObject($h_0$0, $a#1_0$0);
-		    }
-		    if(true )
-		    {
-		    	u_0$0 := $t#1_0$0 ;
-		    	assume $ReadObject($h_0$0, $t#1_0$0);
-		    }
-		    if(true )
-		    {
-		    	 call $h_0$0:=Callee_0(0, $h_0$0, $roots, x_0$0); 
-		    }
-		    if(true )
-		    {
-		    	$h_0$0:=$Write($h_0$0,x_0$0,$field#f,t_0$0); assume $GoodHeap($h_0$0);
-		    }
-		    if(true )
-		    {
-		    	$h_0$0:=$Write($h_0$0,x_0$0,$field#g,u_0$0); assume $GoodHeap($h_0$0);
-		    }
+		    $t#0_0$0 := $a#0_0$0 ;
+		    assume $ReadObject($h_0$0, $a#0_0$0);
+		    t_0$0 := $t#0_0$0 ;
+		    assume $ReadObject($h_0$0, $t#0_0$0);
+		    $t#1_0$0 := $a#1_0$0 ;
+		    assume $ReadObject($h_0$0, $a#1_0$0);
+		    u_0$0 := $t#1_0$0 ;
+		    assume $ReadObject($h_0$0, $t#1_0$0);
+		     call $h_0$0:=Callee_0(0, $h_0$0, $roots, x_0$0); 
+		    $h_0$0:=$Write($h_0$0,x_0$0,$field#f,t_0$0); assume $GoodHeap($h_0$0);
+		    $h_0$0:=$Write($h_0$0,x_0$0,$field#g,u_0$0); assume $GoodHeap($h_0$0);
 
 		    // procedure body _1 start
 		    x_1$0 := x$0 ;
 		    assume $ReadObject($h_1$0, x$0);
-		    if(true )
-		    {
-		    	$t#0_1$0 := $a#0_1$0 ;
-		    	assume $ReadObject($h_1$0, $a#0_1$0);
-		    }
-		    if(true )
-		    {
-		    	u_1$0 := $t#0_1$0 ;
-		    	assume $ReadObject($h_1$0, $t#0_1$0);
-		    }
-		    if(true )
-		    {
-		    	$t#1_1$0 := $a#1_1$0 ;
-		    	assume $ReadObject($h_1$0, $a#1_1$0);
-		    }
-		    if(true )
-		    {
-		    	t_1$0 := $t#1_1$0 ;
-		    	assume $ReadObject($h_1$0, $t#1_1$0);
-		    }
-		    if(true )
-		    {
-		    	 call $h_1$0:=Callee_1(0, $h_1$0, $roots, x_1$0); 
-		    }
-		    if(true )
-		    {
-		    	$h_1$0:=$Write($h_1$0,x_1$0,$field#f,t_1$0); assume $GoodHeap($h_1$0);
-		    }
-		    if(true )
-		    {
-		    	$h_1$0:=$Write($h_1$0,x_1$0,$field#g,u_1$0); assume $GoodHeap($h_1$0);
-		    }
+		    $t#0_1$0 := $a#0_1$0 ;
+		    assume $ReadObject($h_1$0, $a#0_1$0);
+		    u_1$0 := $t#0_1$0 ;
+		    assume $ReadObject($h_1$0, $t#0_1$0);
+		    $t#1_1$0 := $a#1_1$0 ;
+		    assume $ReadObject($h_1$0, $a#1_1$0);
+		    t_1$0 := $t#1_1$0 ;
+		    assume $ReadObject($h_1$0, $t#1_1$0);
+		     call $h_1$0:=Callee_1(0, $h_1$0, $roots, x_1$0); 
+		    $h_1$0:=$Write($h_1$0,x_1$0,$field#f,t_1$0); assume $GoodHeap($h_1$0);
+		    $h_1$0:=$Write($h_1$0,x_1$0,$field#g,u_1$0); assume $GoodHeap($h_1$0);
 
 		    // restore heaps
 		    $h_0$1 := $h;
@@ -899,74 +839,32 @@ procedure Caller_Caller($h:Heap, $roots:Roots, x:Ref)
 			// procedure body _0 start	
 		    x_0$1 := x$1 ;
 		    assume $ReadObject($h_0$1, x$1);
-		    if(true )
-		    {
-		    	$t#0_0$1 := $a#0_0$1 ;
-		    	assume $ReadObject($h_0$1, $a#0_0$1);
-		    }
-		    if(true )
-		    {
-		    	t_0$1 := $t#0_0$1 ;
-		    	assume $ReadObject($h_0$1, $t#0_0$1);
-		    }
-		    if(true )
-		    {
-		    	$t#1_0$1 := $a#1_0$1 ;
-		    	assume $ReadObject($h_0$1, $a#1_0$1);
-		    }
-		    if(true )
-		    {
-		    	u_0$1 := $t#1_0$1 ;
-		    	assume $ReadObject($h_0$1, $t#1_0$1);
-		    }
-		    if(true )
-		    {
-		    	 call $h_0$1:=Callee_0(1, $h_0$1, $roots, x_0$1); 
-		    }
-		    if(true )
-		    {
-		    	$h_0$1:=$Write($h_0$1,x_0$1,$field#f,t_0$1); assume $GoodHeap($h_0$1);
-		    }
-		    if(true )
-		    {
-		    	$h_0$1:=$Write($h_0$1,x_0$1,$field#g,u_0$1); assume $GoodHeap($h_0$1);
-		    }
+		    $t#0_0$1 := $a#0_0$1 ;
+		    assume $ReadObject($h_0$1, $a#0_0$1);
+		    t_0$1 := $t#0_0$1 ;
+		    assume $ReadObject($h_0$1, $t#0_0$1);
+		    $t#1_0$1 := $a#1_0$1 ;
+		    assume $ReadObject($h_0$1, $a#1_0$1);
+		    u_0$1 := $t#1_0$1 ;
+		    assume $ReadObject($h_0$1, $t#1_0$1);
+		     call $h_0$1:=Callee_0(1, $h_0$1, $roots, x_0$1); 
+		    $h_0$1:=$Write($h_0$1,x_0$1,$field#f,t_0$1); assume $GoodHeap($h_0$1);
+		    $h_0$1:=$Write($h_0$1,x_0$1,$field#g,u_0$1); assume $GoodHeap($h_0$1);
 
 		    // procedure body _1 start
 		    x_1$1 := x$1 ;
 		    assume $ReadObject($h_1$1, x$1);
-		    if(true )
-		    {
-		    	$t#0_1$1 := $a#0_1$1 ;
-		    	assume $ReadObject($h_1$1, $a#0_1$1);
-		    }
-		    if(true )
-		    {
-		    	u_1$1 := $t#0_1$1 ;
-		    	assume $ReadObject($h_1$1, $t#0_1$1);
-		    }
-		    if(true )
-		    {
-		    	$t#1_1$1 := $a#1_1$1 ;
-		    	assume $ReadObject($h_1$1, $a#1_1$1);
-		    }
-		    if(true )
-		    {
-		    	t_1$1 := $t#1_1$1 ;
-		    	assume $ReadObject($h_1$1, $t#1_1$1);
-		    }
-		    if(true )
-		    {
-		    	 call $h_1$1:=Callee_1(1, $h_1$1, $roots, x_1$1); 
-		    }
-		    if(true )
-		    {
-		    	$h_1$1:=$Write($h_1$1,x_1$1,$field#f,t_1$1); assume $GoodHeap($h_1$1);
-		    }
-		    if(true )
-		    {
-		    	$h_1$1:=$Write($h_1$1,x_1$1,$field#g,u_1$1); assume $GoodHeap($h_1$1);
-		    }
+		    $t#0_1$1 := $a#0_1$1 ;
+		    assume $ReadObject($h_1$1, $a#0_1$1);
+		    u_1$1 := $t#0_1$1 ;
+		    assume $ReadObject($h_1$1, $t#0_1$1);
+		    $t#1_1$1 := $a#1_1$1 ;
+		    assume $ReadObject($h_1$1, $a#1_1$1);
+		    t_1$1 := $t#1_1$1 ;
+		    assume $ReadObject($h_1$1, $t#1_1$1);
+		     call $h_1$1:=Callee_1(1, $h_1$1, $roots, x_1$1); 
+		    $h_1$1:=$Write($h_1$1,x_1$1,$field#f,t_1$1); assume $GoodHeap($h_1$1);
+		    $h_1$1:=$Write($h_1$1,x_1$1,$field#g,u_1$1); assume $GoodHeap($h_1$1);
 
 
 	assert 

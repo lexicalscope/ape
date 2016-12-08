@@ -242,6 +242,14 @@ function $ReachableFromParams#2($h:Heap, $x0,$x1:Ref, $a:Ref) : bool
    $ReachableFromParams#1($h, $x0, $a) || $ReachableFromParams#1($h, $x1, $a)
 }
 
+function $ReachableFromParams#4($h:Heap, $x0,$x1,$x2,$x3:Ref, $a:Ref) : bool
+{
+      $ReachableFromParams#1($h, $x0, $a) 
+   || $ReachableFromParams#1($h, $x1, $a)
+   || $ReachableFromParams#1($h, $x2, $a)
+   || $ReachableFromParams#1($h, $x3, $a)
+}
+
 /////////////////////////////////////////////////////////////////////////////
 // Extensional Equality
 function $Heap#Equal($h_1, $h_2:Heap) : bool
@@ -287,6 +295,22 @@ function $Heap#EqualFromParams#2($h_0:Heap, $x0_0,$x1_0:Ref, $h_1:Heap, $x0_1,$x
 {
     $Heap#EqualFromParams#1($h_0, $x0_0, $h_1, $x0_1) &&
     $Heap#EqualFromParams#1($h_0, $x1_0, $h_1, $x1_1)
+}
+
+function $Heap#EqualFromParams#4($h_0:Heap, $x0_0,$x1_0,$x2_0,$x3_0:Ref, $h_1:Heap, $x0_1,$x1_1,$x2_1,$x3_1:Ref) : bool 
+{
+    $Heap#EqualFromParams#1($h_0, $x0_0, $h_1, $x0_1) &&
+    $Heap#EqualFromParams#1($h_0, $x1_0, $h_1, $x1_1) &&
+    $Heap#EqualFromParams#1($h_0, $x2_0, $h_1, $x2_1) &&
+    $Heap#EqualFromParams#1($h_0, $x3_0, $h_1, $x3_1)
+}
+
+function $Heap#SameReachableFromParams#4($h_0:Heap, $x0_0,$x1_0,$x2_0,$x3_0:Ref, $h_1:Heap, $x0_1,$x1_1,$x2_1,$x3_1:Ref) : bool
+{
+	$Heap#SameReachableFromParams#1($h_0, $x0_0, $h_1, $x0_1) &&
+    $Heap#SameReachableFromParams#1($h_0, $x1_0, $h_1, $x1_1) &&
+    $Heap#SameReachableFromParams#1($h_0, $x2_0, $h_1, $x2_1) &&
+    $Heap#SameReachableFromParams#1($h_0, $x3_0, $h_1, $x3_1)
 }
 
 function $Heap#SameReachableFromParams#2($h_0:Heap, $x0_0,$x1_0:Ref, $h_1:Heap, $x0_1,$x1_1:Ref) : bool
@@ -354,14 +378,12 @@ procedure WalkList_0($strategy:int, $h:Heap, $roots:Roots, x:Ref) returns ($h_0:
      /* modifies anything */  
 {
     // declare locals
-	var $c#0_0:bool;
 	var $t#0_0:Ref;
 	var x_0:Ref;
 	var xn_0:Ref;
 	$h_0 := $h;
 
 	// initialise locals
-	$c#0_0 := false;
 	$t#0_0 := $Null;
 	x_0 := $Null;
 	xn_0 := $Null;
@@ -369,25 +391,20 @@ procedure WalkList_0($strategy:int, $h:Heap, $roots:Roots, x:Ref) returns ($h_0:
 			// inline statements
 			x_0 := x ;
 			assume $ReadObject($h_0, x);
-			if(true )
-			{
-				$c#0_0 := (x_0  != $Null ) ;
-			}
-			if($c#0_0 )
+			if((x_0  != $Null ) )
 			{
 				$t#0_0 := $Read($h_0,x_0,$field#n) ;
 				assume $ReadObject($h_0, x_0);
 				assume $ReadObject($h_0, $Read($h_0,x_0,$field#n) );
-			}
-			if($c#0_0 )
-			{
 				xn_0 := $t#0_0 ;
 				assume $ReadObject($h_0, $t#0_0);
-			}
-			if($c#0_0 )
-			{
 				 call $h_0:=WalkList_0(0, $h_0, $roots, xn_0); 
 			}
+			else
+			{
+
+			}
+
 
 }
 
@@ -416,14 +433,12 @@ procedure WalkList_1($strategy:int, $h:Heap, $roots:Roots, x:Ref) returns ($h_1:
      /* modifies anything */  
 {
     // declare locals
-	var $c#0_1:bool;
 	var $t#0_1:Ref;
 	var x_1:Ref;
 	var xn_1:Ref;
 	$h_1 := $h;
 
 	// initialise locals
-	$c#0_1 := false;
 	$t#0_1 := $Null;
 	x_1 := $Null;
 	xn_1 := $Null;
@@ -431,25 +446,20 @@ procedure WalkList_1($strategy:int, $h:Heap, $roots:Roots, x:Ref) returns ($h_1:
 			// inline statements
 			x_1 := x ;
 			assume $ReadObject($h_1, x);
-			if(true )
-			{
-				$c#0_1 := (x_1  != $Null ) ;
-			}
-			if($c#0_1 )
+			if((x_1  != $Null ) )
 			{
 				$t#0_1 := $Read($h_1,x_1,$field#n) ;
 				assume $ReadObject($h_1, x_1);
 				assume $ReadObject($h_1, $Read($h_1,x_1,$field#n) );
-			}
-			if($c#0_1 )
-			{
 				xn_1 := $t#0_1 ;
 				assume $ReadObject($h_1, $t#0_1);
-			}
-			if($c#0_1 )
-			{
 				 call $h_1:=WalkList_1(0, $h_1, $roots, xn_1); 
 			}
+			else
+			{
+
+			}
+
 
 }
 
@@ -482,13 +492,11 @@ procedure WalkList_WalkList($h:Heap, $roots:Roots, x:Ref)
 {
 			// declare locals for strategy 0
 			// locals for version _0
-			var $c#0_0$0:bool;
 			var $t#0_0$0:Ref;
 			var x_0$0:Ref;
 			var xn_0$0:Ref;
 			var $h_0$0:Heap;
 			// locals for version _1
-			var $c#0_1$0:bool;
 			var $t#0_1$0:Ref;
 			var x_1$0:Ref;
 			var xn_1$0:Ref;
@@ -501,13 +509,11 @@ procedure WalkList_WalkList($h:Heap, $roots:Roots, x:Ref)
 			// initialise locals for strategy 0	
 
 			// initialise locals for version _0
-			$c#0_0$0 := false;
 			$t#0_0$0 := $Null;
 			x_0$0 := $Null;
 			xn_0$0 := $Null;
 
 			// initialise locals for version _1
-			$c#0_1$0 := false;
 			$t#0_1$0 := $Null;
 			x_1$0 := $Null;
 			xn_1$0 := $Null;
@@ -532,48 +538,38 @@ procedure WalkList_WalkList($h:Heap, $roots:Roots, x:Ref)
 			// procedure body _0 start	
 		    x_0$0 := x$0 ;
 		    assume $ReadObject($h_0$0, x$0);
-		    if(true )
-		    {
-		    	$c#0_0$0 := (x_0$0  != $Null ) ;
-		    }
-		    if($c#0_0$0 )
+		    if((x_0$0  != $Null ) )
 		    {
 		    	$t#0_0$0 := $Read($h_0$0,x_0$0,$field#n) ;
 		    	assume $ReadObject($h_0$0, x_0$0);
 		    	assume $ReadObject($h_0$0, $Read($h_0$0,x_0$0,$field#n) );
-		    }
-		    if($c#0_0$0 )
-		    {
 		    	xn_0$0 := $t#0_0$0 ;
 		    	assume $ReadObject($h_0$0, $t#0_0$0);
-		    }
-		    if($c#0_0$0 )
-		    {
 		    	 call $h_0$0:=WalkList_0(0, $h_0$0, $roots, xn_0$0); 
 		    }
+		    else
+		    {
+
+		    }
+
 
 		    // procedure body _1 start
 		    x_1$0 := x$0 ;
 		    assume $ReadObject($h_1$0, x$0);
-		    if(true )
-		    {
-		    	$c#0_1$0 := (x_1$0  != $Null ) ;
-		    }
-		    if($c#0_1$0 )
+		    if((x_1$0  != $Null ) )
 		    {
 		    	$t#0_1$0 := $Read($h_1$0,x_1$0,$field#n) ;
 		    	assume $ReadObject($h_1$0, x_1$0);
 		    	assume $ReadObject($h_1$0, $Read($h_1$0,x_1$0,$field#n) );
-		    }
-		    if($c#0_1$0 )
-		    {
 		    	xn_1$0 := $t#0_1$0 ;
 		    	assume $ReadObject($h_1$0, $t#0_1$0);
-		    }
-		    if($c#0_1$0 )
-		    {
 		    	 call $h_1$0:=WalkList_1(0, $h_1$0, $roots, xn_1$0); 
 		    }
+		    else
+		    {
+
+		    }
+
 
 
 	assert 

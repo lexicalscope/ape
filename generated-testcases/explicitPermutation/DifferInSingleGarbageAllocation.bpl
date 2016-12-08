@@ -242,6 +242,14 @@ function $ReachableFromParams#2($h:Heap, $x0,$x1:Ref, $a:Ref) : bool
    $ReachableFromParams#1($h, $x0, $a) || $ReachableFromParams#1($h, $x1, $a)
 }
 
+function $ReachableFromParams#4($h:Heap, $x0,$x1,$x2,$x3:Ref, $a:Ref) : bool
+{
+      $ReachableFromParams#1($h, $x0, $a) 
+   || $ReachableFromParams#1($h, $x1, $a)
+   || $ReachableFromParams#1($h, $x2, $a)
+   || $ReachableFromParams#1($h, $x3, $a)
+}
+
 /////////////////////////////////////////////////////////////////////////////
 // Extensional Equality
 function $Heap#Equal($h_1, $h_2:Heap) : bool
@@ -287,6 +295,22 @@ function $Heap#EqualFromParams#2($h_0:Heap, $x0_0,$x1_0:Ref, $h_1:Heap, $x0_1,$x
 {
     $Heap#EqualFromParams#1($h_0, $x0_0, $h_1, $x0_1) &&
     $Heap#EqualFromParams#1($h_0, $x1_0, $h_1, $x1_1)
+}
+
+function $Heap#EqualFromParams#4($h_0:Heap, $x0_0,$x1_0,$x2_0,$x3_0:Ref, $h_1:Heap, $x0_1,$x1_1,$x2_1,$x3_1:Ref) : bool 
+{
+    $Heap#EqualFromParams#1($h_0, $x0_0, $h_1, $x0_1) &&
+    $Heap#EqualFromParams#1($h_0, $x1_0, $h_1, $x1_1) &&
+    $Heap#EqualFromParams#1($h_0, $x2_0, $h_1, $x2_1) &&
+    $Heap#EqualFromParams#1($h_0, $x3_0, $h_1, $x3_1)
+}
+
+function $Heap#SameReachableFromParams#4($h_0:Heap, $x0_0,$x1_0,$x2_0,$x3_0:Ref, $h_1:Heap, $x0_1,$x1_1,$x2_1,$x3_1:Ref) : bool
+{
+	$Heap#SameReachableFromParams#1($h_0, $x0_0, $h_1, $x0_1) &&
+    $Heap#SameReachableFromParams#1($h_0, $x1_0, $h_1, $x1_1) &&
+    $Heap#SameReachableFromParams#1($h_0, $x2_0, $h_1, $x2_1) &&
+    $Heap#SameReachableFromParams#1($h_0, $x3_0, $h_1, $x3_1)
 }
 
 function $Heap#SameReachableFromParams#2($h_0:Heap, $x0_0,$x1_0:Ref, $h_1:Heap, $x0_1,$x1_1:Ref) : bool
@@ -369,16 +393,10 @@ procedure SingleGarbageAllocation_0($strategy:int, $h:Heap, $roots:Roots, x:Ref)
 			// inline statements
 			x_0 := x ;
 			assume $ReadObject($h_0, x);
-			if(true )
-			{
-				$t#0_0 := $a#0_0 ;
-				assume $ReadObject($h_0, $a#0_0);
-			}
-			if(true )
-			{
-				t_0 := $t#0_0 ;
-				assume $ReadObject($h_0, $t#0_0);
-			}
+			$t#0_0 := $a#0_0 ;
+			assume $ReadObject($h_0, $a#0_0);
+			t_0 := $t#0_0 ;
+			assume $ReadObject($h_0, $t#0_0);
 
 }
 
@@ -505,16 +523,10 @@ procedure SingleGarbageAllocation_SingleGarbageAllocation($h:Heap, $roots:Roots,
 			// procedure body _0 start	
 		    x_0$0 := x$0 ;
 		    assume $ReadObject($h_0$0, x$0);
-		    if(true )
-		    {
-		    	$t#0_0$0 := $a#0_0$0 ;
-		    	assume $ReadObject($h_0$0, $a#0_0$0);
-		    }
-		    if(true )
-		    {
-		    	t_0$0 := $t#0_0$0 ;
-		    	assume $ReadObject($h_0$0, $t#0_0$0);
-		    }
+		    $t#0_0$0 := $a#0_0$0 ;
+		    assume $ReadObject($h_0$0, $a#0_0$0);
+		    t_0$0 := $t#0_0$0 ;
+		    assume $ReadObject($h_0$0, $t#0_0$0);
 
 		    // procedure body _1 start
 		    x_1$0 := x$0 ;

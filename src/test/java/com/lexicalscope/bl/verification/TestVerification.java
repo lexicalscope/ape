@@ -1,7 +1,6 @@
 package com.lexicalscope.bl.verification;
 
 import static com.lexicalscope.bl.compiler.AllocateUpfront.allocateUpfront;
-import static com.lexicalscope.bl.compiler.ReplaceConditionalsWithPredicatedExecution.flattenConditionals;
 import static com.lexicalscope.bl.compiler.VersionVariables.versionVariables;
 import static com.lexicalscope.bl.equiv.BoogieResult.*;
 import static com.lexicalscope.bl.equiv.ProgramCollector.programs;
@@ -26,7 +25,8 @@ public abstract class TestVerification {
     @Rule public TemporaryFolder folder = new TemporaryFolder();
     @Rule public BlAntlrRule<Multiversion> p = new BlAntlrRule<Multiversion>() {
         @Override protected Multiversion parseNow() {
-            return versionVariables(allocateUpfront(flattenConditionals(programs(parser().multiversion()))));
+            //return versionVariables(allocateUpfront(flattenConditionals(programs(parser().multiversion()))));
+            return versionVariables(allocateUpfront(programs(parser().multiversion())));
         }
     };
 
@@ -98,6 +98,10 @@ public abstract class TestVerification {
     }
 
     @Test @UseProgram("CopyCycle.bl") public void copyingACyclicalStructureWorks() throws IOException, InterruptedException {
+        assertThat(verifyWithBoogie(), verifiedWithNoErrors(6));
+    }
+
+    @Test @UseProgram("TableInsert.bl") public void tableInsert() throws IOException, InterruptedException {
         assertThat(verifyWithBoogie(), verifiedWithNoErrors(6));
     }
 

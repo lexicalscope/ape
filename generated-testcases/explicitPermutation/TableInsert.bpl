@@ -354,27 +354,266 @@ axiom (forall $h_1,$h_2:Heap, $roots:Roots :: {$Isomorphism($h_1, $h_2, $roots)}
 
 
 // abstraction of function behaviour
-function $abs_CopyList_0($strategy:int, $h_pre:Heap, x_0:Ref,y_0:Ref, $h_post:Heap):bool;
+function $abs_Last_0($strategy:int, $h_pre:Heap, x_0:Ref,r_0:Ref, $h_post:Heap):bool;
 
 // version _0 of the procedure
-procedure CopyList_0($strategy:int, $h:Heap, $roots:Roots, x:Ref,y:Ref) returns ($h_0:Heap)
-    requires $Allocated($h, x) && $Allocated($h, y);
+procedure Last_0($strategy:int, $h:Heap, $roots:Roots, x:Ref,r:Ref) returns ($h_0:Heap)
+    requires $Allocated($h, x) && $Allocated($h, r);
     requires $GoodHeap($h);
     requires $GoodRoots($roots);
     requires $Roots#Allocated($roots, $h);
     free ensures (forall $a:Ref :: $Reachable($h_0, $roots, $a) ==> $Allocated($h_0, $a)); // should be an axiom of well formed heaps
     free ensures $GoodHeap($h_0);
     free ensures $HeapSucc($h, $h_0); // this maybe introduces performance issues
-    free ensures $abs_CopyList_0($strategy, $h, x, y, $h_0);
+    free ensures $abs_Last_0($strategy, $h, x, r, $h_0);
     free ensures $Heap#Bigger($h, $h_0);
     free ensures (forall $a:Ref :: // stuff is not pulled out of the garbage
 					$Reachable($h_0, $roots, $a) ==>
 						$Reachable($h, $roots, $a) || 
 						!$Allocated($h, $a) || 
-						$ReachableFromParams#2($h , x, y, $a)); 
+						$ReachableFromParams#2($h , x, r, $a)); 
 	free ensures (forall <alpha> $a:Ref,$f:Field alpha :: // only reachable stuff is modified 
 					$a != $Null && $Allocated($h,$a) && $Read($h,$a,$f)!=$Read($h_0,$a,$f) ==> 
-						$ReachableFromParams#2($h , x, y, $a));
+						$ReachableFromParams#2($h , x, r, $a));
+     /* modifies anything */  
+{
+    // declare locals
+	var $a#0_0:Ref;
+	var $t#0_0:Ref;
+	var r_0:Ref;
+	var x_0:Ref;
+	$h_0 := $h;
+
+	// initialise locals
+	$a#0_0 := $Null;
+	$t#0_0 := $Null;
+	r_0 := $Null;
+	x_0 := $Null;
+
+			// inline statements
+			x_0 := x ;
+			assume $ReadObject($h_0, x);
+			r_0 := r ;
+			assume $ReadObject($h_0, r);
+			if((x_0  == $Null ) )
+			{
+				$t#0_0 := $a#0_0 ;
+				assume $ReadObject($h_0, $a#0_0);
+				$h_0:=$Write($h_0,r_0,$field#v,$t#0_0); assume $GoodHeap($h_0);
+			}
+			else
+			{
+
+			}
+
+
+}
+
+// abstraction of function behaviour
+function $abs_Last_1($strategy:int, $h_pre:Heap, x_1:Ref,r_1:Ref, $h_post:Heap):bool;
+
+// version _1 of the procedure
+procedure Last_1($strategy:int, $h:Heap, $roots:Roots, x:Ref,r:Ref) returns ($h_1:Heap)
+    requires $Allocated($h, x) && $Allocated($h, r);
+    requires $GoodHeap($h);
+    requires $GoodRoots($roots);
+    requires $Roots#Allocated($roots, $h);
+    free ensures (forall $a:Ref :: $Reachable($h_1, $roots, $a) ==> $Allocated($h_1, $a)); // should be an axiom of well formed heaps
+    free ensures $GoodHeap($h_1);
+    free ensures $HeapSucc($h, $h_1); // this maybe introduces performance issues
+    free ensures $abs_Last_1($strategy, $h, x, r, $h_1);
+    free ensures $Heap#Bigger($h, $h_1);
+    free ensures (forall $a:Ref :: // stuff is not pulled out of the garbage
+					$Reachable($h_1, $roots, $a) ==>
+						$Reachable($h, $roots, $a) || 
+						!$Allocated($h, $a) || 
+						$ReachableFromParams#2($h , x, r, $a)); 
+	free ensures (forall <alpha> $a:Ref,$f:Field alpha :: // only reachable stuff is modified 
+					$a != $Null && $Allocated($h,$a) && $Read($h,$a,$f)!=$Read($h_1,$a,$f) ==> 
+						$ReachableFromParams#2($h , x, r, $a));
+     /* modifies anything */  
+{
+    // declare locals
+	var $a#0_1:Ref;
+	var $t#0_1:Ref;
+	var r_1:Ref;
+	var x_1:Ref;
+	$h_1 := $h;
+
+	// initialise locals
+	$a#0_1 := $Null;
+	$t#0_1 := $Null;
+	r_1 := $Null;
+	x_1 := $Null;
+
+			// inline statements
+			x_1 := x ;
+			assume $ReadObject($h_1, x);
+			r_1 := r ;
+			assume $ReadObject($h_1, r);
+			if((x_1  == $Null ) )
+			{
+				$t#0_1 := $a#0_1 ;
+				assume $ReadObject($h_1, $a#0_1);
+				$h_1:=$Write($h_1,r_1,$field#v,$t#0_1); assume $GoodHeap($h_1);
+			}
+			else
+			{
+
+			}
+
+
+}
+
+// mutual summary class com.lexicalscope.bl.equiv.ProcedurePair
+axiom (forall 
+            $allocator:int,
+            $h0_0:Heap, x_0:Ref,r_0:Ref, $hn_0:Heap,
+			$h0_1:Heap, x_1:Ref,r_1:Ref, $hn_1:Heap ::
+			{
+				$abs_Last_0($allocator, $h0_0 , x_0, r_0, $hn_0) ,
+				$abs_Last_1($allocator, $h0_1 , x_1, r_1, $hn_1) 
+			}
+			$abs_Last_0($allocator, $h0_0 , x_0, r_0, $hn_0) &&
+			$abs_Last_1($allocator, $h0_1 , x_1, r_1, $hn_1) &&
+			$Heap#EqualFromParams#2($h0_0 , x_0, r_0, $h0_1 , x_1, r_1) ==>
+			$Heap#EqualFromParams#2($hn_0 , x_0, r_0, $hn_1 , x_1, r_1) &&
+			$Heap#SameReachableFromParams#2($hn_0 , x_0, r_0, $hn_1 , x_1, r_1) &&
+			$SameDiff($h0_0, $hn_0, $h0_1, $hn_1));
+
+
+// product procedure
+procedure Last_Last($h:Heap, $roots:Roots, x:Ref,r:Ref)
+    requires $GoodHeap($h);
+    requires $GoodRoots($roots);
+	requires $Roots#Allocated($roots, $h);
+	requires $Allocated($h, x) && $Allocated($h, r);
+	requires (forall $a:Ref :: $Allocated($h, $a) == $Root($roots, $a));
+	requires $Roots#EverythingAllocatedIsARoot($roots, $h);
+	requires (forall $a:Ref :: $Reachable($h, $roots, $a) ==> $Allocated($h, $a)); // should be an axiom of well formed heaps
+{
+			// declare locals for strategy 0
+			// locals for version _0
+			var $a#0_0$0:Ref;
+			var $t#0_0$0:Ref;
+			var r_0$0:Ref;
+			var x_0$0:Ref;
+			var $h_0$0:Heap;
+			// locals for version _1
+			var $a#0_1$0:Ref;
+			var $t#0_1$0:Ref;
+			var r_1$0:Ref;
+			var x_1$0:Ref;
+			var $h_1$0:Heap;
+
+			// declare copies of parameters for allocation strategy
+			var x$0:Ref;
+			var r$0:Ref;
+
+
+			// initialise locals for strategy 0	
+
+			// initialise locals for version _0
+			$a#0_0$0 := $Null;
+			$t#0_0$0 := $Null;
+			r_0$0 := $Null;
+			x_0$0 := $Null;
+
+			// initialise locals for version _1
+			$a#0_1$0 := $Null;
+			$t#0_1$0 := $Null;
+			r_1$0 := $Null;
+			x_1$0 := $Null;
+
+
+    assume $ReadObject($h,x);
+    assume $ReadObject($h,r);
+
+
+		    // restore heaps
+		    $h_0$0 := $h;
+		    $h_1$0 := $h;
+
+		    x$0 := x;
+		    r$0 := r;
+
+		    // prefix start
+			havoc $a#0_0$0; assume !$Allocated($h_0$0,$a#0_0$0);
+			$h_0$0:=$Allocate($h_0$0,$a#0_0$0); assume $GoodHeap($h_0$0);
+			assume $AllocatedObject($h_0$0, $a#0_0$0);
+			assert $FieldsNull($h_0$0, $a#0_0$0);
+			assert $ReachNull($h_0$0, $a#0_0$0);
+			havoc $a#0_1$0; assume !$Allocated($h_1$0,$a#0_1$0);
+			$h_1$0:=$Allocate($h_1$0,$a#0_1$0); assume $GoodHeap($h_1$0);
+			assume $AllocatedObject($h_1$0, $a#0_1$0);
+			assert $FieldsNull($h_1$0, $a#0_1$0);
+			assert $ReachNull($h_1$0, $a#0_1$0);
+
+			// assert (forall $a:Ref :: $ReachableFromParams#1($h_0$0, $a#0_0$0, $a) ==> $a==$Null);
+
+				assume $a#0_0$0 == $a#0_1$0;
+
+			// procedure body _0 start	
+		    x_0$0 := x$0 ;
+		    assume $ReadObject($h_0$0, x$0);
+		    r_0$0 := r$0 ;
+		    assume $ReadObject($h_0$0, r$0);
+		    if((x_0$0  == $Null ) )
+		    {
+		    	$t#0_0$0 := $a#0_0$0 ;
+		    	assume $ReadObject($h_0$0, $a#0_0$0);
+		    	$h_0$0:=$Write($h_0$0,r_0$0,$field#v,$t#0_0$0); assume $GoodHeap($h_0$0);
+		    }
+		    else
+		    {
+
+		    }
+
+
+		    // procedure body _1 start
+		    x_1$0 := x$0 ;
+		    assume $ReadObject($h_1$0, x$0);
+		    r_1$0 := r$0 ;
+		    assume $ReadObject($h_1$0, r$0);
+		    if((x_1$0  == $Null ) )
+		    {
+		    	$t#0_1$0 := $a#0_1$0 ;
+		    	assume $ReadObject($h_1$0, $a#0_1$0);
+		    	$h_1$0:=$Write($h_1$0,r_1$0,$field#v,$t#0_1$0); assume $GoodHeap($h_1$0);
+		    }
+		    else
+		    {
+
+		    }
+
+
+
+	assert 
+		$Isomorphism($h_0$0, $h_1$0, $roots);	
+}
+
+// abstraction of function behaviour
+function $abs_Put_0($strategy:int, $h_pre:Heap, x_0:Ref,f_0:Ref,g_0:Ref,r_0:Ref, $h_post:Heap):bool;
+
+// version _0 of the procedure
+procedure Put_0($strategy:int, $h:Heap, $roots:Roots, x:Ref,f:Ref,g:Ref,r:Ref) returns ($h_0:Heap)
+    requires $Allocated($h, x) && $Allocated($h, f) && $Allocated($h, g) && $Allocated($h, r);
+    requires $GoodHeap($h);
+    requires $GoodRoots($roots);
+    requires $Roots#Allocated($roots, $h);
+    free ensures (forall $a:Ref :: $Reachable($h_0, $roots, $a) ==> $Allocated($h_0, $a)); // should be an axiom of well formed heaps
+    free ensures $GoodHeap($h_0);
+    free ensures $HeapSucc($h, $h_0); // this maybe introduces performance issues
+    free ensures $abs_Put_0($strategy, $h, x, f, g, r, $h_0);
+    free ensures $Heap#Bigger($h, $h_0);
+    free ensures (forall $a:Ref :: // stuff is not pulled out of the garbage
+					$Reachable($h_0, $roots, $a) ==>
+						$Reachable($h, $roots, $a) || 
+						!$Allocated($h, $a) || 
+						$ReachableFromParams#4($h , x, f, g, r, $a)); 
+	free ensures (forall <alpha> $a:Ref,$f:Field alpha :: // only reachable stuff is modified 
+					$a != $Null && $Allocated($h,$a) && $Read($h,$a,$f)!=$Read($h_0,$a,$f) ==> 
+						$ReachableFromParams#4($h , x, f, g, r, $a));
      /* modifies anything */  
 {
     // declare locals
@@ -383,12 +622,12 @@ procedure CopyList_0($strategy:int, $h:Heap, $roots:Roots, x:Ref,y:Ref) returns 
 	var $t#0_0:Ref;
 	var $t#1_0:Ref;
 	var $t#2_0:Ref;
-	var $t#3_0:Ref;
+	var f_0:Ref;
+	var g_0:Ref;
+	var l_0:Ref;
+	var n_0:Ref;
 	var r_0:Ref;
-	var t_0:Ref;
 	var x_0:Ref;
-	var xn_0:Ref;
-	var y_0:Ref;
 	$h_0 := $h;
 
 	// initialise locals
@@ -397,44 +636,62 @@ procedure CopyList_0($strategy:int, $h:Heap, $roots:Roots, x:Ref,y:Ref) returns 
 	$t#0_0 := $Null;
 	$t#1_0 := $Null;
 	$t#2_0 := $Null;
-	$t#3_0 := $Null;
+	f_0 := $Null;
+	g_0 := $Null;
+	l_0 := $Null;
+	n_0 := $Null;
 	r_0 := $Null;
-	t_0 := $Null;
 	x_0 := $Null;
-	xn_0 := $Null;
-	y_0 := $Null;
 
 			// inline statements
 			x_0 := x ;
 			assume $ReadObject($h_0, x);
-			y_0 := y ;
-			assume $ReadObject($h_0, y);
+			f_0 := f ;
+			assume $ReadObject($h_0, f);
+			g_0 := g ;
+			assume $ReadObject($h_0, g);
+			r_0 := r ;
+			assume $ReadObject($h_0, r);
 			if((x_0  != $Null ) )
 			{
-				if((y_0  != $Null ) )
+				if(($Read($h_0,x_0,$field#f)  == f_0 ) )
+				{
+					$t#0_0 := $Read($h_0,x_0,$field#g) ;
+					assume $ReadObject($h_0, x_0);
+					assume $ReadObject($h_0, $Read($h_0,x_0,$field#g) );
+					$h_0:=$Write($h_0,r_0,$field#v,$t#0_0); assume $GoodHeap($h_0);
+					$h_0:=$Write($h_0,x_0,$field#g,g_0); assume $GoodHeap($h_0);
+				}
+				else
 				{
 					$t#0_0 := $a#0_0 ;
 					assume $ReadObject($h_0, $a#0_0);
-					r_0 := $t#0_0 ;
+					l_0 := $t#0_0 ;
 					assume $ReadObject($h_0, $t#0_0);
 					$t#1_0 := $Read($h_0,x_0,$field#n) ;
 					assume $ReadObject($h_0, x_0);
 					assume $ReadObject($h_0, $Read($h_0,x_0,$field#n) );
-					xn_0 := $t#1_0 ;
+					n_0 := $t#1_0 ;
 					assume $ReadObject($h_0, $t#1_0);
-					 call $h_0:=CopyList_0(0, $h_0, $roots, xn_0, r_0); 
-					$t#2_0 := $a#1_0 ;
-					assume $ReadObject($h_0, $a#1_0);
-					t_0 := $t#2_0 ;
-					assume $ReadObject($h_0, $t#2_0);
-					$t#3_0 := $Read($h_0,r_0,$field#v) ;
-					assume $ReadObject($h_0, r_0);
-					assume $ReadObject($h_0, $Read($h_0,r_0,$field#v) );
-					$h_0:=$Write($h_0,t_0,$field#n,$t#3_0); assume $GoodHeap($h_0);
-					$h_0:=$Write($h_0,y_0,$field#v,t_0); assume $GoodHeap($h_0);
-				}
-				else
-				{
+					 call $h_0:=Last_0(0, $h_0, $roots, n_0, l_0); 
+					if(($Read($h_0,l_0,$field#v)  != $Null ) )
+					{
+						$t#0_0 := $a#1_0 ;
+						assume $ReadObject($h_0, $a#1_0);
+						$h_0:=$Write($h_0,x_0,$field#n,$t#0_0); assume $GoodHeap($h_0);
+						$t#1_0 := $Read($h_0,x_0,$field#n) ;
+						assume $ReadObject($h_0, x_0);
+						assume $ReadObject($h_0, $Read($h_0,x_0,$field#n) );
+						$h_0:=$Write($h_0,$t#1_0,$field#f,f_0); assume $GoodHeap($h_0);
+						$t#2_0 := $Read($h_0,x_0,$field#n) ;
+						assume $ReadObject($h_0, x_0);
+						assume $ReadObject($h_0, $Read($h_0,x_0,$field#n) );
+						$h_0:=$Write($h_0,$t#2_0,$field#g,g_0); assume $GoodHeap($h_0);
+					}
+					else
+					{
+						 call $h_0:=Put_0(0, $h_0, $roots, n_0, f_0, g_0, r_0); 
+					}
 
 				}
 
@@ -448,83 +705,99 @@ procedure CopyList_0($strategy:int, $h:Heap, $roots:Roots, x:Ref,y:Ref) returns 
 }
 
 // abstraction of function behaviour
-function $abs_CopyList_1($strategy:int, $h_pre:Heap, x_1:Ref,y_1:Ref, $h_post:Heap):bool;
+function $abs_Put_1($strategy:int, $h_pre:Heap, x_1:Ref,f_1:Ref,g_1:Ref,r_1:Ref, $h_post:Heap):bool;
 
 // version _1 of the procedure
-procedure CopyList_1($strategy:int, $h:Heap, $roots:Roots, x:Ref,y:Ref) returns ($h_1:Heap)
-    requires $Allocated($h, x) && $Allocated($h, y);
+procedure Put_1($strategy:int, $h:Heap, $roots:Roots, x:Ref,f:Ref,g:Ref,r:Ref) returns ($h_1:Heap)
+    requires $Allocated($h, x) && $Allocated($h, f) && $Allocated($h, g) && $Allocated($h, r);
     requires $GoodHeap($h);
     requires $GoodRoots($roots);
     requires $Roots#Allocated($roots, $h);
     free ensures (forall $a:Ref :: $Reachable($h_1, $roots, $a) ==> $Allocated($h_1, $a)); // should be an axiom of well formed heaps
     free ensures $GoodHeap($h_1);
     free ensures $HeapSucc($h, $h_1); // this maybe introduces performance issues
-    free ensures $abs_CopyList_1($strategy, $h, x, y, $h_1);
+    free ensures $abs_Put_1($strategy, $h, x, f, g, r, $h_1);
     free ensures $Heap#Bigger($h, $h_1);
     free ensures (forall $a:Ref :: // stuff is not pulled out of the garbage
 					$Reachable($h_1, $roots, $a) ==>
 						$Reachable($h, $roots, $a) || 
 						!$Allocated($h, $a) || 
-						$ReachableFromParams#2($h , x, y, $a)); 
+						$ReachableFromParams#4($h , x, f, g, r, $a)); 
 	free ensures (forall <alpha> $a:Ref,$f:Field alpha :: // only reachable stuff is modified 
 					$a != $Null && $Allocated($h,$a) && $Read($h,$a,$f)!=$Read($h_1,$a,$f) ==> 
-						$ReachableFromParams#2($h , x, y, $a));
+						$ReachableFromParams#4($h , x, f, g, r, $a));
      /* modifies anything */  
 {
     // declare locals
 	var $a#0_1:Ref;
 	var $a#1_1:Ref;
 	var $t#0_1:Ref;
-	var $t#1_1:Ref;
+	var e_1:Ref;
+	var f_1:Ref;
+	var g_1:Ref;
+	var l_1:Ref;
+	var n_1:Ref;
 	var r_1:Ref;
-	var t_1:Ref;
 	var x_1:Ref;
-	var xn_1:Ref;
-	var y_1:Ref;
 	$h_1 := $h;
 
 	// initialise locals
 	$a#0_1 := $Null;
 	$a#1_1 := $Null;
 	$t#0_1 := $Null;
-	$t#1_1 := $Null;
+	e_1 := $Null;
+	f_1 := $Null;
+	g_1 := $Null;
+	l_1 := $Null;
+	n_1 := $Null;
 	r_1 := $Null;
-	t_1 := $Null;
 	x_1 := $Null;
-	xn_1 := $Null;
-	y_1 := $Null;
 
 			// inline statements
 			x_1 := x ;
 			assume $ReadObject($h_1, x);
-			y_1 := y ;
-			assume $ReadObject($h_1, y);
+			f_1 := f ;
+			assume $ReadObject($h_1, f);
+			g_1 := g ;
+			assume $ReadObject($h_1, g);
+			r_1 := r ;
+			assume $ReadObject($h_1, r);
+			$t#0_1 := $a#0_1 ;
+			assume $ReadObject($h_1, $a#0_1);
+			e_1 := $t#0_1 ;
+			assume $ReadObject($h_1, $t#0_1);
+			$h_1:=$Write($h_1,e_1,$field#f,f_1); assume $GoodHeap($h_1);
+			$h_1:=$Write($h_1,e_1,$field#g,g_1); assume $GoodHeap($h_1);
 			if((x_1  != $Null ) )
 			{
-				$t#0_1 := $a#0_1 ;
-				assume $ReadObject($h_1, $a#0_1);
-				t_1 := $t#0_1 ;
-				assume $ReadObject($h_1, $t#0_1);
-				$t#1_1 := $Read($h_1,x_1,$field#n) ;
+				$t#0_1 := $Read($h_1,x_1,$field#n) ;
 				assume $ReadObject($h_1, x_1);
 				assume $ReadObject($h_1, $Read($h_1,x_1,$field#n) );
-				xn_1 := $t#1_1 ;
-				assume $ReadObject($h_1, $t#1_1);
-				if((y_1  != $Null ) )
+				n_1 := $t#0_1 ;
+				assume $ReadObject($h_1, $t#0_1);
+				if(($Read($h_1,x_1,$field#f)  == f_1 ) )
 				{
-					$t#0_1 := $a#1_1 ;
-					assume $ReadObject($h_1, $a#1_1);
-					r_1 := $t#0_1 ;
-					assume $ReadObject($h_1, $t#0_1);
-					 call $h_1:=CopyList_1(0, $h_1, $roots, xn_1, r_1); 
-					$h_1:=$Write($h_1,y_1,$field#v,t_1); assume $GoodHeap($h_1);
-					$t#1_1 := $Read($h_1,r_1,$field#v) ;
-					assume $ReadObject($h_1, r_1);
-					assume $ReadObject($h_1, $Read($h_1,r_1,$field#v) );
-					$h_1:=$Write($h_1,t_1,$field#n,$t#1_1); assume $GoodHeap($h_1);
+					$t#0_1 := $Read($h_1,x_1,$field#g) ;
+					assume $ReadObject($h_1, x_1);
+					assume $ReadObject($h_1, $Read($h_1,x_1,$field#g) );
+					$h_1:=$Write($h_1,r_1,$field#v,$t#0_1); assume $GoodHeap($h_1);
+					$h_1:=$Write($h_1,x_1,$field#g,g_1); assume $GoodHeap($h_1);
 				}
 				else
 				{
+					$t#0_1 := $a#1_1 ;
+					assume $ReadObject($h_1, $a#1_1);
+					l_1 := $t#0_1 ;
+					assume $ReadObject($h_1, $t#0_1);
+					 call $h_1:=Last_1(0, $h_1, $roots, n_1, l_1); 
+					if(($Read($h_1,l_1,$field#v)  != $Null ) )
+					{
+						$h_1:=$Write($h_1,x_1,$field#n,e_1); assume $GoodHeap($h_1);
+					}
+					else
+					{
+						 call $h_1:=Put_1(0, $h_1, $roots, n_1, f_1, g_1, r_1); 
+					}
 
 				}
 
@@ -540,26 +813,26 @@ procedure CopyList_1($strategy:int, $h:Heap, $roots:Roots, x:Ref,y:Ref) returns 
 // mutual summary class com.lexicalscope.bl.equiv.ProcedurePair
 axiom (forall 
             $allocator:int,
-            $h0_0:Heap, x_0:Ref,y_0:Ref, $hn_0:Heap,
-			$h0_1:Heap, x_1:Ref,y_1:Ref, $hn_1:Heap ::
+            $h0_0:Heap, x_0:Ref,f_0:Ref,g_0:Ref,r_0:Ref, $hn_0:Heap,
+			$h0_1:Heap, x_1:Ref,f_1:Ref,g_1:Ref,r_1:Ref, $hn_1:Heap ::
 			{
-				$abs_CopyList_0($allocator, $h0_0 , x_0, y_0, $hn_0) ,
-				$abs_CopyList_1($allocator, $h0_1 , x_1, y_1, $hn_1) 
+				$abs_Put_0($allocator, $h0_0 , x_0, f_0, g_0, r_0, $hn_0) ,
+				$abs_Put_1($allocator, $h0_1 , x_1, f_1, g_1, r_1, $hn_1) 
 			}
-			$abs_CopyList_0($allocator, $h0_0 , x_0, y_0, $hn_0) &&
-			$abs_CopyList_1($allocator, $h0_1 , x_1, y_1, $hn_1) &&
-			$Heap#EqualFromParams#2($h0_0 , x_0, y_0, $h0_1 , x_1, y_1) ==>
-			$Heap#EqualFromParams#2($hn_0 , x_0, y_0, $hn_1 , x_1, y_1) &&
-			$Heap#SameReachableFromParams#2($hn_0 , x_0, y_0, $hn_1 , x_1, y_1) &&
+			$abs_Put_0($allocator, $h0_0 , x_0, f_0, g_0, r_0, $hn_0) &&
+			$abs_Put_1($allocator, $h0_1 , x_1, f_1, g_1, r_1, $hn_1) &&
+			$Heap#EqualFromParams#4($h0_0 , x_0, f_0, g_0, r_0, $h0_1 , x_1, f_1, g_1, r_1) ==>
+			$Heap#EqualFromParams#4($hn_0 , x_0, f_0, g_0, r_0, $hn_1 , x_1, f_1, g_1, r_1) &&
+			$Heap#SameReachableFromParams#4($hn_0 , x_0, f_0, g_0, r_0, $hn_1 , x_1, f_1, g_1, r_1) &&
 			$SameDiff($h0_0, $hn_0, $h0_1, $hn_1));
 
 
 // product procedure
-procedure CopyList_CopyList($h:Heap, $roots:Roots, x:Ref,y:Ref)
+procedure Put_Put($h:Heap, $roots:Roots, x:Ref,f:Ref,g:Ref,r:Ref)
     requires $GoodHeap($h);
     requires $GoodRoots($roots);
 	requires $Roots#Allocated($roots, $h);
-	requires $Allocated($h, x) && $Allocated($h, y);
+	requires $Allocated($h, x) && $Allocated($h, f) && $Allocated($h, g) && $Allocated($h, r);
 	requires (forall $a:Ref :: $Allocated($h, $a) == $Root($roots, $a));
 	requires $Roots#EverythingAllocatedIsARoot($roots, $h);
 	requires (forall $a:Ref :: $Reachable($h, $roots, $a) ==> $Allocated($h, $a)); // should be an axiom of well formed heaps
@@ -571,28 +844,31 @@ procedure CopyList_CopyList($h:Heap, $roots:Roots, x:Ref,y:Ref)
 			var $t#0_0$0:Ref;
 			var $t#1_0$0:Ref;
 			var $t#2_0$0:Ref;
-			var $t#3_0$0:Ref;
+			var f_0$0:Ref;
+			var g_0$0:Ref;
+			var l_0$0:Ref;
+			var n_0$0:Ref;
 			var r_0$0:Ref;
-			var t_0$0:Ref;
 			var x_0$0:Ref;
-			var xn_0$0:Ref;
-			var y_0$0:Ref;
 			var $h_0$0:Heap;
 			// locals for version _1
 			var $a#0_1$0:Ref;
 			var $a#1_1$0:Ref;
 			var $t#0_1$0:Ref;
-			var $t#1_1$0:Ref;
+			var e_1$0:Ref;
+			var f_1$0:Ref;
+			var g_1$0:Ref;
+			var l_1$0:Ref;
+			var n_1$0:Ref;
 			var r_1$0:Ref;
-			var t_1$0:Ref;
 			var x_1$0:Ref;
-			var xn_1$0:Ref;
-			var y_1$0:Ref;
 			var $h_1$0:Heap;
 
 			// declare copies of parameters for allocation strategy
 			var x$0:Ref;
-			var y$0:Ref;
+			var f$0:Ref;
+			var g$0:Ref;
+			var r$0:Ref;
 			// declare locals for strategy 1
 			// locals for version _0
 			var $a#0_0$1:Ref;
@@ -600,28 +876,31 @@ procedure CopyList_CopyList($h:Heap, $roots:Roots, x:Ref,y:Ref)
 			var $t#0_0$1:Ref;
 			var $t#1_0$1:Ref;
 			var $t#2_0$1:Ref;
-			var $t#3_0$1:Ref;
+			var f_0$1:Ref;
+			var g_0$1:Ref;
+			var l_0$1:Ref;
+			var n_0$1:Ref;
 			var r_0$1:Ref;
-			var t_0$1:Ref;
 			var x_0$1:Ref;
-			var xn_0$1:Ref;
-			var y_0$1:Ref;
 			var $h_0$1:Heap;
 			// locals for version _1
 			var $a#0_1$1:Ref;
 			var $a#1_1$1:Ref;
 			var $t#0_1$1:Ref;
-			var $t#1_1$1:Ref;
+			var e_1$1:Ref;
+			var f_1$1:Ref;
+			var g_1$1:Ref;
+			var l_1$1:Ref;
+			var n_1$1:Ref;
 			var r_1$1:Ref;
-			var t_1$1:Ref;
 			var x_1$1:Ref;
-			var xn_1$1:Ref;
-			var y_1$1:Ref;
 			var $h_1$1:Heap;
 
 			// declare copies of parameters for allocation strategy
 			var x$1:Ref;
-			var y$1:Ref;
+			var f$1:Ref;
+			var g$1:Ref;
+			var r$1:Ref;
 
 
 			// initialise locals for strategy 0	
@@ -632,23 +911,24 @@ procedure CopyList_CopyList($h:Heap, $roots:Roots, x:Ref,y:Ref)
 			$t#0_0$0 := $Null;
 			$t#1_0$0 := $Null;
 			$t#2_0$0 := $Null;
-			$t#3_0$0 := $Null;
+			f_0$0 := $Null;
+			g_0$0 := $Null;
+			l_0$0 := $Null;
+			n_0$0 := $Null;
 			r_0$0 := $Null;
-			t_0$0 := $Null;
 			x_0$0 := $Null;
-			xn_0$0 := $Null;
-			y_0$0 := $Null;
 
 			// initialise locals for version _1
 			$a#0_1$0 := $Null;
 			$a#1_1$0 := $Null;
 			$t#0_1$0 := $Null;
-			$t#1_1$0 := $Null;
+			e_1$0 := $Null;
+			f_1$0 := $Null;
+			g_1$0 := $Null;
+			l_1$0 := $Null;
+			n_1$0 := $Null;
 			r_1$0 := $Null;
-			t_1$0 := $Null;
 			x_1$0 := $Null;
-			xn_1$0 := $Null;
-			y_1$0 := $Null;
 			// initialise locals for strategy 1	
 
 			// initialise locals for version _0
@@ -657,27 +937,30 @@ procedure CopyList_CopyList($h:Heap, $roots:Roots, x:Ref,y:Ref)
 			$t#0_0$1 := $Null;
 			$t#1_0$1 := $Null;
 			$t#2_0$1 := $Null;
-			$t#3_0$1 := $Null;
+			f_0$1 := $Null;
+			g_0$1 := $Null;
+			l_0$1 := $Null;
+			n_0$1 := $Null;
 			r_0$1 := $Null;
-			t_0$1 := $Null;
 			x_0$1 := $Null;
-			xn_0$1 := $Null;
-			y_0$1 := $Null;
 
 			// initialise locals for version _1
 			$a#0_1$1 := $Null;
 			$a#1_1$1 := $Null;
 			$t#0_1$1 := $Null;
-			$t#1_1$1 := $Null;
+			e_1$1 := $Null;
+			f_1$1 := $Null;
+			g_1$1 := $Null;
+			l_1$1 := $Null;
+			n_1$1 := $Null;
 			r_1$1 := $Null;
-			t_1$1 := $Null;
 			x_1$1 := $Null;
-			xn_1$1 := $Null;
-			y_1$1 := $Null;
 
 
     assume $ReadObject($h,x);
-    assume $ReadObject($h,y);
+    assume $ReadObject($h,f);
+    assume $ReadObject($h,g);
+    assume $ReadObject($h,r);
 
 
 		    // restore heaps
@@ -685,7 +968,9 @@ procedure CopyList_CopyList($h:Heap, $roots:Roots, x:Ref,y:Ref)
 		    $h_1$0 := $h;
 
 		    x$0 := x;
-		    y$0 := y;
+		    f$0 := f;
+		    g$0 := g;
+		    r$0 := r;
 
 		    // prefix start
 			havoc $a#0_0$0; assume !$Allocated($h_0$0,$a#0_0$0);
@@ -717,34 +1002,52 @@ procedure CopyList_CopyList($h:Heap, $roots:Roots, x:Ref,y:Ref)
 			// procedure body _0 start	
 		    x_0$0 := x$0 ;
 		    assume $ReadObject($h_0$0, x$0);
-		    y_0$0 := y$0 ;
-		    assume $ReadObject($h_0$0, y$0);
+		    f_0$0 := f$0 ;
+		    assume $ReadObject($h_0$0, f$0);
+		    g_0$0 := g$0 ;
+		    assume $ReadObject($h_0$0, g$0);
+		    r_0$0 := r$0 ;
+		    assume $ReadObject($h_0$0, r$0);
 		    if((x_0$0  != $Null ) )
 		    {
-		    	if((y_0$0  != $Null ) )
+		    	if(($Read($h_0$0,x_0$0,$field#f)  == f_0$0 ) )
+		    	{
+		    		$t#0_0$0 := $Read($h_0$0,x_0$0,$field#g) ;
+		    		assume $ReadObject($h_0$0, x_0$0);
+		    		assume $ReadObject($h_0$0, $Read($h_0$0,x_0$0,$field#g) );
+		    		$h_0$0:=$Write($h_0$0,r_0$0,$field#v,$t#0_0$0); assume $GoodHeap($h_0$0);
+		    		$h_0$0:=$Write($h_0$0,x_0$0,$field#g,g_0$0); assume $GoodHeap($h_0$0);
+		    	}
+		    	else
 		    	{
 		    		$t#0_0$0 := $a#0_0$0 ;
 		    		assume $ReadObject($h_0$0, $a#0_0$0);
-		    		r_0$0 := $t#0_0$0 ;
+		    		l_0$0 := $t#0_0$0 ;
 		    		assume $ReadObject($h_0$0, $t#0_0$0);
 		    		$t#1_0$0 := $Read($h_0$0,x_0$0,$field#n) ;
 		    		assume $ReadObject($h_0$0, x_0$0);
 		    		assume $ReadObject($h_0$0, $Read($h_0$0,x_0$0,$field#n) );
-		    		xn_0$0 := $t#1_0$0 ;
+		    		n_0$0 := $t#1_0$0 ;
 		    		assume $ReadObject($h_0$0, $t#1_0$0);
-		    		 call $h_0$0:=CopyList_0(0, $h_0$0, $roots, xn_0$0, r_0$0); 
-		    		$t#2_0$0 := $a#1_0$0 ;
-		    		assume $ReadObject($h_0$0, $a#1_0$0);
-		    		t_0$0 := $t#2_0$0 ;
-		    		assume $ReadObject($h_0$0, $t#2_0$0);
-		    		$t#3_0$0 := $Read($h_0$0,r_0$0,$field#v) ;
-		    		assume $ReadObject($h_0$0, r_0$0);
-		    		assume $ReadObject($h_0$0, $Read($h_0$0,r_0$0,$field#v) );
-		    		$h_0$0:=$Write($h_0$0,t_0$0,$field#n,$t#3_0$0); assume $GoodHeap($h_0$0);
-		    		$h_0$0:=$Write($h_0$0,y_0$0,$field#v,t_0$0); assume $GoodHeap($h_0$0);
-		    	}
-		    	else
-		    	{
+		    		 call $h_0$0:=Last_0(0, $h_0$0, $roots, n_0$0, l_0$0); 
+		    		if(($Read($h_0$0,l_0$0,$field#v)  != $Null ) )
+		    		{
+		    			$t#0_0$0 := $a#1_0$0 ;
+		    			assume $ReadObject($h_0$0, $a#1_0$0);
+		    			$h_0$0:=$Write($h_0$0,x_0$0,$field#n,$t#0_0$0); assume $GoodHeap($h_0$0);
+		    			$t#1_0$0 := $Read($h_0$0,x_0$0,$field#n) ;
+		    			assume $ReadObject($h_0$0, x_0$0);
+		    			assume $ReadObject($h_0$0, $Read($h_0$0,x_0$0,$field#n) );
+		    			$h_0$0:=$Write($h_0$0,$t#1_0$0,$field#f,f_0$0); assume $GoodHeap($h_0$0);
+		    			$t#2_0$0 := $Read($h_0$0,x_0$0,$field#n) ;
+		    			assume $ReadObject($h_0$0, x_0$0);
+		    			assume $ReadObject($h_0$0, $Read($h_0$0,x_0$0,$field#n) );
+		    			$h_0$0:=$Write($h_0$0,$t#2_0$0,$field#g,g_0$0); assume $GoodHeap($h_0$0);
+		    		}
+		    		else
+		    		{
+		    			 call $h_0$0:=Put_0(0, $h_0$0, $roots, n_0$0, f_0$0, g_0$0, r_0$0); 
+		    		}
 
 		    	}
 
@@ -758,34 +1061,48 @@ procedure CopyList_CopyList($h:Heap, $roots:Roots, x:Ref,y:Ref)
 		    // procedure body _1 start
 		    x_1$0 := x$0 ;
 		    assume $ReadObject($h_1$0, x$0);
-		    y_1$0 := y$0 ;
-		    assume $ReadObject($h_1$0, y$0);
+		    f_1$0 := f$0 ;
+		    assume $ReadObject($h_1$0, f$0);
+		    g_1$0 := g$0 ;
+		    assume $ReadObject($h_1$0, g$0);
+		    r_1$0 := r$0 ;
+		    assume $ReadObject($h_1$0, r$0);
+		    $t#0_1$0 := $a#0_1$0 ;
+		    assume $ReadObject($h_1$0, $a#0_1$0);
+		    e_1$0 := $t#0_1$0 ;
+		    assume $ReadObject($h_1$0, $t#0_1$0);
+		    $h_1$0:=$Write($h_1$0,e_1$0,$field#f,f_1$0); assume $GoodHeap($h_1$0);
+		    $h_1$0:=$Write($h_1$0,e_1$0,$field#g,g_1$0); assume $GoodHeap($h_1$0);
 		    if((x_1$0  != $Null ) )
 		    {
-		    	$t#0_1$0 := $a#0_1$0 ;
-		    	assume $ReadObject($h_1$0, $a#0_1$0);
-		    	t_1$0 := $t#0_1$0 ;
-		    	assume $ReadObject($h_1$0, $t#0_1$0);
-		    	$t#1_1$0 := $Read($h_1$0,x_1$0,$field#n) ;
+		    	$t#0_1$0 := $Read($h_1$0,x_1$0,$field#n) ;
 		    	assume $ReadObject($h_1$0, x_1$0);
 		    	assume $ReadObject($h_1$0, $Read($h_1$0,x_1$0,$field#n) );
-		    	xn_1$0 := $t#1_1$0 ;
-		    	assume $ReadObject($h_1$0, $t#1_1$0);
-		    	if((y_1$0  != $Null ) )
+		    	n_1$0 := $t#0_1$0 ;
+		    	assume $ReadObject($h_1$0, $t#0_1$0);
+		    	if(($Read($h_1$0,x_1$0,$field#f)  == f_1$0 ) )
 		    	{
-		    		$t#0_1$0 := $a#1_1$0 ;
-		    		assume $ReadObject($h_1$0, $a#1_1$0);
-		    		r_1$0 := $t#0_1$0 ;
-		    		assume $ReadObject($h_1$0, $t#0_1$0);
-		    		 call $h_1$0:=CopyList_1(0, $h_1$0, $roots, xn_1$0, r_1$0); 
-		    		$h_1$0:=$Write($h_1$0,y_1$0,$field#v,t_1$0); assume $GoodHeap($h_1$0);
-		    		$t#1_1$0 := $Read($h_1$0,r_1$0,$field#v) ;
-		    		assume $ReadObject($h_1$0, r_1$0);
-		    		assume $ReadObject($h_1$0, $Read($h_1$0,r_1$0,$field#v) );
-		    		$h_1$0:=$Write($h_1$0,t_1$0,$field#n,$t#1_1$0); assume $GoodHeap($h_1$0);
+		    		$t#0_1$0 := $Read($h_1$0,x_1$0,$field#g) ;
+		    		assume $ReadObject($h_1$0, x_1$0);
+		    		assume $ReadObject($h_1$0, $Read($h_1$0,x_1$0,$field#g) );
+		    		$h_1$0:=$Write($h_1$0,r_1$0,$field#v,$t#0_1$0); assume $GoodHeap($h_1$0);
+		    		$h_1$0:=$Write($h_1$0,x_1$0,$field#g,g_1$0); assume $GoodHeap($h_1$0);
 		    	}
 		    	else
 		    	{
+		    		$t#0_1$0 := $a#1_1$0 ;
+		    		assume $ReadObject($h_1$0, $a#1_1$0);
+		    		l_1$0 := $t#0_1$0 ;
+		    		assume $ReadObject($h_1$0, $t#0_1$0);
+		    		 call $h_1$0:=Last_1(0, $h_1$0, $roots, n_1$0, l_1$0); 
+		    		if(($Read($h_1$0,l_1$0,$field#v)  != $Null ) )
+		    		{
+		    			$h_1$0:=$Write($h_1$0,x_1$0,$field#n,e_1$0); assume $GoodHeap($h_1$0);
+		    		}
+		    		else
+		    		{
+		    			 call $h_1$0:=Put_1(0, $h_1$0, $roots, n_1$0, f_1$0, g_1$0, r_1$0); 
+		    		}
 
 		    	}
 
@@ -801,7 +1118,9 @@ procedure CopyList_CopyList($h:Heap, $roots:Roots, x:Ref,y:Ref)
 		    $h_1$1 := $h;
 
 		    x$1 := x;
-		    y$1 := y;
+		    f$1 := f;
+		    g$1 := g;
+		    r$1 := r;
 
 		    // prefix start
 			havoc $a#0_0$1; assume !$Allocated($h_0$1,$a#0_0$1);
@@ -833,34 +1152,52 @@ procedure CopyList_CopyList($h:Heap, $roots:Roots, x:Ref,y:Ref)
 			// procedure body _0 start	
 		    x_0$1 := x$1 ;
 		    assume $ReadObject($h_0$1, x$1);
-		    y_0$1 := y$1 ;
-		    assume $ReadObject($h_0$1, y$1);
+		    f_0$1 := f$1 ;
+		    assume $ReadObject($h_0$1, f$1);
+		    g_0$1 := g$1 ;
+		    assume $ReadObject($h_0$1, g$1);
+		    r_0$1 := r$1 ;
+		    assume $ReadObject($h_0$1, r$1);
 		    if((x_0$1  != $Null ) )
 		    {
-		    	if((y_0$1  != $Null ) )
+		    	if(($Read($h_0$1,x_0$1,$field#f)  == f_0$1 ) )
+		    	{
+		    		$t#0_0$1 := $Read($h_0$1,x_0$1,$field#g) ;
+		    		assume $ReadObject($h_0$1, x_0$1);
+		    		assume $ReadObject($h_0$1, $Read($h_0$1,x_0$1,$field#g) );
+		    		$h_0$1:=$Write($h_0$1,r_0$1,$field#v,$t#0_0$1); assume $GoodHeap($h_0$1);
+		    		$h_0$1:=$Write($h_0$1,x_0$1,$field#g,g_0$1); assume $GoodHeap($h_0$1);
+		    	}
+		    	else
 		    	{
 		    		$t#0_0$1 := $a#0_0$1 ;
 		    		assume $ReadObject($h_0$1, $a#0_0$1);
-		    		r_0$1 := $t#0_0$1 ;
+		    		l_0$1 := $t#0_0$1 ;
 		    		assume $ReadObject($h_0$1, $t#0_0$1);
 		    		$t#1_0$1 := $Read($h_0$1,x_0$1,$field#n) ;
 		    		assume $ReadObject($h_0$1, x_0$1);
 		    		assume $ReadObject($h_0$1, $Read($h_0$1,x_0$1,$field#n) );
-		    		xn_0$1 := $t#1_0$1 ;
+		    		n_0$1 := $t#1_0$1 ;
 		    		assume $ReadObject($h_0$1, $t#1_0$1);
-		    		 call $h_0$1:=CopyList_0(1, $h_0$1, $roots, xn_0$1, r_0$1); 
-		    		$t#2_0$1 := $a#1_0$1 ;
-		    		assume $ReadObject($h_0$1, $a#1_0$1);
-		    		t_0$1 := $t#2_0$1 ;
-		    		assume $ReadObject($h_0$1, $t#2_0$1);
-		    		$t#3_0$1 := $Read($h_0$1,r_0$1,$field#v) ;
-		    		assume $ReadObject($h_0$1, r_0$1);
-		    		assume $ReadObject($h_0$1, $Read($h_0$1,r_0$1,$field#v) );
-		    		$h_0$1:=$Write($h_0$1,t_0$1,$field#n,$t#3_0$1); assume $GoodHeap($h_0$1);
-		    		$h_0$1:=$Write($h_0$1,y_0$1,$field#v,t_0$1); assume $GoodHeap($h_0$1);
-		    	}
-		    	else
-		    	{
+		    		 call $h_0$1:=Last_0(1, $h_0$1, $roots, n_0$1, l_0$1); 
+		    		if(($Read($h_0$1,l_0$1,$field#v)  != $Null ) )
+		    		{
+		    			$t#0_0$1 := $a#1_0$1 ;
+		    			assume $ReadObject($h_0$1, $a#1_0$1);
+		    			$h_0$1:=$Write($h_0$1,x_0$1,$field#n,$t#0_0$1); assume $GoodHeap($h_0$1);
+		    			$t#1_0$1 := $Read($h_0$1,x_0$1,$field#n) ;
+		    			assume $ReadObject($h_0$1, x_0$1);
+		    			assume $ReadObject($h_0$1, $Read($h_0$1,x_0$1,$field#n) );
+		    			$h_0$1:=$Write($h_0$1,$t#1_0$1,$field#f,f_0$1); assume $GoodHeap($h_0$1);
+		    			$t#2_0$1 := $Read($h_0$1,x_0$1,$field#n) ;
+		    			assume $ReadObject($h_0$1, x_0$1);
+		    			assume $ReadObject($h_0$1, $Read($h_0$1,x_0$1,$field#n) );
+		    			$h_0$1:=$Write($h_0$1,$t#2_0$1,$field#g,g_0$1); assume $GoodHeap($h_0$1);
+		    		}
+		    		else
+		    		{
+		    			 call $h_0$1:=Put_0(1, $h_0$1, $roots, n_0$1, f_0$1, g_0$1, r_0$1); 
+		    		}
 
 		    	}
 
@@ -874,34 +1211,48 @@ procedure CopyList_CopyList($h:Heap, $roots:Roots, x:Ref,y:Ref)
 		    // procedure body _1 start
 		    x_1$1 := x$1 ;
 		    assume $ReadObject($h_1$1, x$1);
-		    y_1$1 := y$1 ;
-		    assume $ReadObject($h_1$1, y$1);
+		    f_1$1 := f$1 ;
+		    assume $ReadObject($h_1$1, f$1);
+		    g_1$1 := g$1 ;
+		    assume $ReadObject($h_1$1, g$1);
+		    r_1$1 := r$1 ;
+		    assume $ReadObject($h_1$1, r$1);
+		    $t#0_1$1 := $a#0_1$1 ;
+		    assume $ReadObject($h_1$1, $a#0_1$1);
+		    e_1$1 := $t#0_1$1 ;
+		    assume $ReadObject($h_1$1, $t#0_1$1);
+		    $h_1$1:=$Write($h_1$1,e_1$1,$field#f,f_1$1); assume $GoodHeap($h_1$1);
+		    $h_1$1:=$Write($h_1$1,e_1$1,$field#g,g_1$1); assume $GoodHeap($h_1$1);
 		    if((x_1$1  != $Null ) )
 		    {
-		    	$t#0_1$1 := $a#0_1$1 ;
-		    	assume $ReadObject($h_1$1, $a#0_1$1);
-		    	t_1$1 := $t#0_1$1 ;
-		    	assume $ReadObject($h_1$1, $t#0_1$1);
-		    	$t#1_1$1 := $Read($h_1$1,x_1$1,$field#n) ;
+		    	$t#0_1$1 := $Read($h_1$1,x_1$1,$field#n) ;
 		    	assume $ReadObject($h_1$1, x_1$1);
 		    	assume $ReadObject($h_1$1, $Read($h_1$1,x_1$1,$field#n) );
-		    	xn_1$1 := $t#1_1$1 ;
-		    	assume $ReadObject($h_1$1, $t#1_1$1);
-		    	if((y_1$1  != $Null ) )
+		    	n_1$1 := $t#0_1$1 ;
+		    	assume $ReadObject($h_1$1, $t#0_1$1);
+		    	if(($Read($h_1$1,x_1$1,$field#f)  == f_1$1 ) )
 		    	{
-		    		$t#0_1$1 := $a#1_1$1 ;
-		    		assume $ReadObject($h_1$1, $a#1_1$1);
-		    		r_1$1 := $t#0_1$1 ;
-		    		assume $ReadObject($h_1$1, $t#0_1$1);
-		    		 call $h_1$1:=CopyList_1(1, $h_1$1, $roots, xn_1$1, r_1$1); 
-		    		$h_1$1:=$Write($h_1$1,y_1$1,$field#v,t_1$1); assume $GoodHeap($h_1$1);
-		    		$t#1_1$1 := $Read($h_1$1,r_1$1,$field#v) ;
-		    		assume $ReadObject($h_1$1, r_1$1);
-		    		assume $ReadObject($h_1$1, $Read($h_1$1,r_1$1,$field#v) );
-		    		$h_1$1:=$Write($h_1$1,t_1$1,$field#n,$t#1_1$1); assume $GoodHeap($h_1$1);
+		    		$t#0_1$1 := $Read($h_1$1,x_1$1,$field#g) ;
+		    		assume $ReadObject($h_1$1, x_1$1);
+		    		assume $ReadObject($h_1$1, $Read($h_1$1,x_1$1,$field#g) );
+		    		$h_1$1:=$Write($h_1$1,r_1$1,$field#v,$t#0_1$1); assume $GoodHeap($h_1$1);
+		    		$h_1$1:=$Write($h_1$1,x_1$1,$field#g,g_1$1); assume $GoodHeap($h_1$1);
 		    	}
 		    	else
 		    	{
+		    		$t#0_1$1 := $a#1_1$1 ;
+		    		assume $ReadObject($h_1$1, $a#1_1$1);
+		    		l_1$1 := $t#0_1$1 ;
+		    		assume $ReadObject($h_1$1, $t#0_1$1);
+		    		 call $h_1$1:=Last_1(1, $h_1$1, $roots, n_1$1, l_1$1); 
+		    		if(($Read($h_1$1,l_1$1,$field#v)  != $Null ) )
+		    		{
+		    			$h_1$1:=$Write($h_1$1,x_1$1,$field#n,e_1$1); assume $GoodHeap($h_1$1);
+		    		}
+		    		else
+		    		{
+		    			 call $h_1$1:=Put_1(1, $h_1$1, $roots, n_1$1, f_1$1, g_1$1, r_1$1); 
+		    		}
 
 		    	}
 

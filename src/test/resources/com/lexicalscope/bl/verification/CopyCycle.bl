@@ -8,12 +8,12 @@ VERSION
 	}
 	
 	procedure CopyRingUntil(x,y,f,r) {
+	    g := new();
 	    if(x==y) {
 	       r.v := f;
 	    } else {
-	       l := new();
-	       g := new();
 	       n := x.n;
+	       l := new();
 	       call CopyRingUntil(n,y,f,l);
 	       g.n := l.v;
 	       r.v := g;
