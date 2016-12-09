@@ -2,7 +2,7 @@
 
 APE is a tool for automatically proving the equivalence of programs using modular program verification technology. It showcases an approach to proving the equivalence of programs that differ in the order and amount of dynamic memory allocation. It supports a simple recursive language called *L*. Underlying APE are the tools [Boogie](https://github.com/boogie-org/boogie) and [Z3](https://github.com/Z3Prover/z3).
 
-Details of the tool can be found in [Tim Wood's Phd Thesis (draft pending corrections)](docs/thesis_timwood_20161026.pdf), including a formal proof of the soundness of the methodology.
+Details of the tool can be found in [Tim Wood's Phd Thesis (draft pending corrections)](docs/thesis_timwood_20161026.pdf), including a formal proof of the soundness of the methodology. The rest of this document illustrates the capabilities of APE by giving examples, that APE can verify are equivalent, and commentary on the examples.
 
 Table of Contents
 =================
