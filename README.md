@@ -6,7 +6,7 @@ Details of the tool can be found in [Tim Wood's Phd Thesis (draft pending correc
 
 ## Tool Capabilities
 
-The tool was evaluated against a number of micro-testcases and also against several larger examples. In order to illuminate the tool's capabilities we describe here the most important testcases and explain why they are interesting.
+The tool was evaluated against a number of micro-testcases and also against several larger examples. In order to illuminate the tool's capabilities we describe here the most important testcases and explain why they are interesting. The [code for the tests cases](src/test/resources) and the [associated generated boogie code](generated-testcases/explicitPermutation) are also available.
 
 ### Changing the order of allocations
 
@@ -70,6 +70,8 @@ In the following test case v0 allocates more memory that v1. APE proves that the
 
 APE is a modular verification tool. It proves the equivalence of pairs of similarly named procedures by assuming that calls to similarly named procedures behave equivalently. If it can verify the equivalence of all such pairs of procedures then the assumptions are justified and the equivalence proof is sound.
 
+#### Modular Verification 
+
 The following example shows a pair of procedures that make a single call to another procedure. APE proves that they are equivalent by proving that the versions of `Caller` are equivalent (under the assumption that the versions of `Callee` are equivalent) and then proving that the versions of `Callee` are equivalent.  
 
 	VERSION 0
@@ -90,6 +92,7 @@ The following example shows a pair of procedures that make a single call to anot
 	   ...
 	}
 
+#### Allocations before a call
 
 Allocations may occur before a procedure call. In the following example the order of the allocations differ between v0 and v1.
 
@@ -123,11 +126,10 @@ Allocations may occur before a procedure call. In the following example the orde
 		...
 	}
 
+#### Isomorphism of heap region reachable from call parameters
 
-In order to establish the equivalence of a pair of procedure calls APE attempts to find an isomorphism between the part of the heap reachable from their procedure parameters. In the following example the order of the allocations is reversed between v0 and v1. Note that:
+In order to establish the equivalence of a pair of procedure calls APE attempts to find an isomorphism between the part of the heap reachable from their procedure parameters. In the following example the order of the allocations is reversed between v0 and v1. Note that the result of calling `Callee` is made reachable from the parameter of `Caller`.
 
-1. The result of calling `Callee` is made reachable from the parameter of `Caller`.
-1. Knowledge that the shape of the memory pointed to by `u` in v0 is the same as the shape of the memory pointed to by `t` in v1 persists over the calls to `Callee`. This is possible due to the frame axioms automatically used by APE and described in Tim's thesis.
 
 	VERSION 0
 	procedure Caller(x)
@@ -158,4 +160,38 @@ In order to establish the equivalence of a pair of procedure calls APE attempts 
 	{
 		
 	}
-  
+
+#### Equivalent calls from non-isomorphic stores
+
+APE can deduce that procedures have equivalent effects even when the pre-stores of the calls are not isomorphic. Instead of checking for isomorphism of the whole store it only checks that the parts of the stores reachable from the call parameters are isomorphic. The following testcases illustrate this. 
+
+##### Allocations may move past calls
+
+Allocations may be moved past calls, provided they are not reachable from the call parameters. In the following example an object is allocated before the call in v0 but after it in v1. Since the allocate memory is not reachable from the call parameter `x` in v0, APE is still able to prove equivalence.
+
+Note that knowledge that the shape of the memory pointed to by `t` in v0 is the same as the shape of the memory pointed to by `t` in v1 persists over the v0 call to `Callee`. This is possible due to the frame axioms automatically used by APE and described in Tim's thesis.
+
+	VERSION 0
+	procedure Caller(x) {
+	   t := new();
+		call Callee(x);
+		x.f := t;
+	}
+	
+	procedure Callee(x) {
+	   ...
+	}
+	
+	VERSION 1
+	procedure Caller(x) {
+		call Callee(x);
+		t := new();
+		x.f := t;
+	}
+	
+	procedure Callee(x) {
+	   ...
+	}
+
+
+### Larger Examples  
