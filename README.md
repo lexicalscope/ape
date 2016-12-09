@@ -23,6 +23,7 @@ Table of Contents
         * [Recursively inserting a row into a table](#recursively-inserting-a-row-into-a-table)
         * [Recursively copy a list](#recursively-copy-a-list)
         * [Copy the sides of a tree in different orders](#copy-the-sides-of-a-tree-in-different-orders)
+      * [Tabulation of Testcases](#tabulation-of-testcases)        
 
 ## Test Cases and Examples
 
@@ -490,5 +491,42 @@ Verification time ~130s
 		}
 	}
 
-### Test Case Table
+### Tabulation of Testcases
 
+Here we tabulate the other micro-benchmarks and testcases with a brief explaination of what each one shows
+
+|Description|Reason|Case|
+|-----------|------|----|
+|Allocation moves past a call|Testing framing of unreachable allocations|[AllocationMovesPastCall.bl](src/test/resources/com/lexicalscope/bl/verification/AllocationMovesPastCall.bl)|
+|Allocations passed to call out of order|Testing procedure parameter isomorphism|[AllocationsPassedToCall.bl](src/test/resources/com/lexicalscope/bl/verification/AllocationsPassedToCall.bl)|
+|A procedure with a call|Testing modular verification|[Call001.bl](src/test/resources/com/lexicalscope/bl/verification/Call001.bl)|
+|A procedure with several calls|Testing modular verification|[Call002.bl](src/test/resources/com/lexicalscope/bl/verification/Call002.bl)|
+|A conditional is reversed and some procedures called|Testing solving of conditions|[Conditional001.bl](src/test/resources/com/lexicalscope/bl/verification/Conditional001.bl)|
+|Then else branches swapped|Test that non-equivalent conditionals fail to verify|[Conditional002.bl](src/test/resources/com/lexicalscope/bl/verification/Conditional002.bl)|
+|Longer example of a cycle|Testing [several features together](#recursively-copying-a-cyclic-data-structure)|[CopyCycle.bl](src/test/resources/com/lexicalscope/bl/verification/CopyCycle.bl)|
+|A procedure is called with non-isomorphic parameters|Check that non-isomorphic parameters cause erification failure|[DifferentParameters.bl](src/test/resources/com/lexicalscope/bl/verification/DifferentParameters.bl)|
+|More garbage allocations in one version|Test that garbage with a [complex shape is ignored](#changing-the-amount-allocated)|[DifferInShapeOfGarbage.bl](src/test/resources/com/lexicalscope/bl/verification/DifferInShapeOfGarbage.bl)|
+|Extra garbage is allocated|Test that garbage is ignored|[DifferInSingleGarbageAllocation.bl](src/test/resources/com/lexicalscope/bl/verification/DifferInSingleGarbageAllocation.bl)|
+|Memory allocated in different orders is made reachable|Test that allocation order is ignored|[DoubleAllocationInDifferentOrders.bl](src/test/resources/com/lexicalscope/bl/verification/DoubleAllocationInDifferentOrders.bl)|
+|Empty procedures|Test that empty procedures are equivalent|[Empty.bl](src/test/resources/com/lexicalscope/bl/verification/Empty.bl)|
+|Allocation and call reordering|Test framing axioms|[Frame001.bl](src/test/resources/com/lexicalscope/bl/verification/Frame001.bl)|
+|Memory allocated before a call is made reachable|Test framing axioms|[Frame002.bl](src/test/resources/com/lexicalscope/bl/verification/Frame002.bl)|
+|Memory allocated before a call is modified non-isomorphically afterwards|Test that verification fails for non isomorphic memory when frame axioms are active|[Frame003.bl](src/test/resources/com/lexicalscope/bl/verification/Frame003.bl)|
+|A procedure modifies something not in its modifies clause|Test that incorrect modifies clauses are detected|[Frame005.bl](src/test/resources/com/lexicalscope/bl/verification/Frame005.bl)|
+|Pure procedures are called with non isomorphic parameters|Test that side effect free procedures can be reasoned about|[Frame006.bl](src/test/resources/com/lexicalscope/bl/verification/Frame006.bl)|
+|The results of a procedure are ignored|Check that garbage created by a called procedure is ignored|[FramedGarbageOnlyProcedure.bl](src/test/resources/com/lexicalscope/bl/verification/FramedGarbageOnlyProcedure.bl)|
+|Side effect free procedures are called|Procedures without side effects are reasoned about|[FramedNoopProcedure.bl](src/test/resources/com/lexicalscope/bl/verification/FramedNoopProcedure.bl)
+|Procedures assign different values to fields|non-equivalence is detected||[NonEquiv001.bl](src/test/resources/com/lexicalscope/bl/verification/NonEquiv001.bl)|
+|Procedures allocate a list of length 4 and length 5|non-equivalence deeper in the heap is detected|[NonEquiv002.bl](src/test/resources/com/lexicalscope/bl/verification/NonEquiv002.bl)|
+|Procedures create a deep heap structure with a difference|non-equivalence deeper in the heap is detected|[NonEquiv003.bl](src/test/resources/com/lexicalscope/bl/verification/NonEquiv003.bl)|
+|A tree is copied. One version copies the left side first the other the right side|Tests that a complex data structure and out-of-order procedure calls can be verified together|[ProcedureReturnsValuesViaFramedTemporary.bl](src/test/resources/com/lexicalscope/bl/verification/ProcedureReturnsValuesViaFramedTemporary.bl)|
+|Copies a list|Tests that recursive calls with out-of-order allocation and differences in garbage can be verified together|[RecursiveListCopyExample.bl](src/test/resources/com/lexicalscope/bl/verification/RecursiveListCopyExample.bl)|
+|Walks a list recursively|Tests that examples with no allocations verify|[RecursivelyWalkList.bl](src/test/resources/com/lexicalscope/bl/verification/RecursivelyWalkList.bl)|
+|||[ReorderCalls.bl](src/test/resources/com/lexicalscope/bl/verification/ReorderCalls.bl)|
+|||[ReverseAllocationsBeforeCall.bl](src/test/resources/com/lexicalscope/bl/verification/ReverseAllocationsBeforeCall.bl)|
+|||[SingleAllocation.bl](src/test/resources/com/lexicalscope/bl/verification/SingleAllocation.bl)|
+|||[SingleCall.bl](src/test/resources/com/lexicalscope/bl/verification/SingleCall.bl)|
+|||[SingleCallToDifferentProcedures.bl](src/test/resources/com/lexicalscope/bl/verification/SingleCallToDifferentProcedures.bl)|
+|||[Swap.bl](src/test/resources/com/lexicalscope/bl/verification/Swap.bl)|
+|||[TableInsert.bl](src/test/resources/com/lexicalscope/bl/verification/TableInsert.bl)|
+|||[TableInsertNiceNames.bl](src/test/resources/com/lexicalscope/bl/verification/TableInsertNiceNames.bl)|
