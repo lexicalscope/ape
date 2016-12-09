@@ -252,3 +252,70 @@ The verification time is ~4s
 			r.v := head';
 		}
 	}
+	
+#### Inserting a row into a table
+
+The following example i nserts a key/value pair into a table, replacing any existing occurrence of the key. The versions vary in several ways:
+
+1. In v1 the new row is always allocated at the start, and becomes garbage when the procedure eventually returns. Thus v1 sometimes allocates much more memory than v0.
+1. The order of several other instructions differ.
+ 
+Verification time ~31s
+
+	VERSION 0
+	procedure Put(table,key,value,r) {
+		if(table!=null) {
+			if(table.key == key) {
+				r.v := table.value;
+				table.value := value;
+			} else {
+				l := new();
+				next := table.next;
+				call Last(next,l);
+				if(l.v != null) {
+					table.next := new();
+					table.next.key := key;
+					table.next.value := value;
+				} else {
+					call Put(next,key,value,r);
+				}
+			}
+		}
+	}
+
+	procedure Last(table,r)
+	{
+		if(table == null) {
+			r.v := new();
+		}
+	}
+
+	VERSION 1
+	procedure Put(table,key,value,r) {
+		row := new();
+		row.key := key;
+		row.value := value;
+	
+		if(table!=null) {
+			next := table.next;
+			if(table.key == key) {
+				r.v := table.value;
+				table.value := value;
+			} else {
+				l := new();
+				call Last(next,l);
+				if(l.v != null) {
+					table.next := row;
+				} else {
+					call Put(next,key,value,r);
+				}
+			}
+		}
+	}
+
+	procedure Last(table,r)
+	{
+		if(table == null) {
+			r.v := new();
+		}
+	}
