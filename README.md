@@ -4,6 +4,26 @@ APE is a tool for automatically proving the equivalence of programs using modula
 
 Details of the tool can be found in [Tim Wood's Phd Thesis (draft pending corrections)](docs/thesis_timwood_20161026.pdf), including a formal proof of the soundness of the methodology.
 
+Table of Contents
+=================
+
+  * [<em>A</em>utomatic <em>P</em>rocedure <em>E</em>quivalence Tool](#automatic-procedure-equivalence-tool)
+    * [Tool Capabilities](#tool-capabilities)
+      * [Changing the order of allocations](#changing-the-order-of-allocations)
+      * [Changing the amount allocated](#changing-the-amount-allocated)
+      * [Procedure Calls](#procedure-calls)
+        * [Modular Verification](#modular-verification)
+        * [Allocations before a call](#allocations-before-a-call)
+        * [Isomorphism of heap region reachable from call parameters](#isomorphism-of-heap-region-reachable-from-call-parameters)
+        * [Equivalent calls from non\-isomorphic stores](#equivalent-calls-from-non-isomorphic-stores)
+          * [Allocations may move past calls](#allocations-may-move-past-calls)
+          * [Recursive calls may be reordered](#recursive-calls-may-be-reordered)
+      * [Larger Examples](#larger-examples)
+        * [Recursively copying a cyclic data structure](#recursively-copying-a-cyclic-data-structure)
+        * [Recursively inserting a row into a table](#recursively-inserting-a-row-into-a-table)
+        * [Recursively copy a list](#recursively-copy-a-list)
+        * [Copy the sides of a tree in different orders](#copy-the-sides-of-a-tree-in-different-orders)
+
 ## Tool Capabilities
 
 The tool was evaluated against a number of micro-testcases and also against several larger examples. In order to illuminate the tool's capabilities we describe here the most important testcases and explain why they are interesting. The [code for the tests cases](src/test/resources) and the [associated generated boogie code](generated-testcases/explicitPermutation) are also available.
@@ -195,7 +215,7 @@ Note that knowledge that the shape of the memory pointed to by `t` in v0 is the 
 	   ...
 	}
 
-#### Recursive calls may be reordered
+##### Recursive calls may be reordered
 
 In the following testcase the order of the recursive calls is reversed. APE uses an encoding of mutual summaries to allow it to search for equivalences between procedure calls, please see [Tim's Phd Thesis](docs/thesis_timwood_20161026.pdf) for further details. This testcase also shows how APE takes advantage of procedure specifications that are available. Here the postcondition annotation `modifies {r}` is present and helps APE to prove that the procedures are equivalent. APE also checks that such annotations are correct.   
 
