@@ -52,7 +52,7 @@ In the following test case two objects are allocated and assigned to fields of t
      
 ### Changing the amount allocated
 
-In the following test case v1 allocates a single object, whereas v2 allocates on objects. APE uses a definition of equivalence that is insensitive to the amount of garbage. APE proves that these procedures always result in isomorphic final stores despite the different numbers of allocations.
+In the following test case v1 allocates a single object, whereas v2 allocates no objects. APE uses a definition of equivalence that is insensitive to the amount of garbage. APE proves that these procedures always result in isomorphic final stores despite the different numbers of allocations.
 
 	VERSION 0
 	procedure SingleGarbageAllocation(x) {
@@ -224,34 +224,38 @@ In the following testcase the order of the recursive calls is reversed. APE uses
 	procedure Caller(x, r)
   		modifies {r}; 
 	{
-		r0 := new();
-		r1 := new();
-			    
-	    t0 := x.f;
-		call Caller(t0, r0);
-				
-		t1 := x.g;
-		call Caller(t1, r1);
-				
-		r.f := r0.v;
-		r.g := r1.v;
+		if(x != null) {
+			r0 := new();
+			r1 := new();
+				    
+		    t0 := x.f;
+			call Caller(t0, r0);
+					
+			t1 := x.g;
+			call Caller(t1, r1);
+					
+			r.f := r0.v;
+			r.g := r1.v;
+		}
 	}
 	
 	VERSION 1
 	procedure Caller(x, r)
 	  modifies {r}; 
 	{
-		r0 := new();
-		r1 := new();
-			    
-	    t0 := x.g;
-		call Caller(t0, r0);
-				
-		t1 := x.f;
-		call Caller(t1, r1);
-				
-		r.g := r0.v;
-		r.f := r1.v;
+		if(x != null) {
+			r0 := new();
+			r1 := new();
+				    
+		   t0 := x.g;
+			call Caller(t0, r0);
+					
+			t1 := x.f;
+			call Caller(t1, r1);
+					
+			r.g := r0.v;
+			r.f := r1.v;
+		}
 	}
 
 ### Larger Examples  
