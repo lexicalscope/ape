@@ -42,6 +42,14 @@ public abstract class TestVerification {
         assertThat(verifyWithBoogie(), verifiedWithNoErrors(3));
     }
 
+    @Test @UseProgram("CopyCycle.bl") public void copyingACyclicalStructureWorks() throws IOException, InterruptedException {
+        assertThat(verifyWithBoogie(), verifiedWithNoErrors(6));
+    }
+
+    @Test @UseProgram("TableInsert.bl") public void tableInsert() throws IOException, InterruptedException {
+        assertThat(verifyWithBoogie(), verifiedWithNoErrors(6));
+    }
+
     ////////////////////////////////////////////
     // Single Feature Tests
     ///////////////////////////////////////////
@@ -95,14 +103,6 @@ public abstract class TestVerification {
 
     @Test @UseProgram("FramedGarbageOnlyProcedure.bl") public void effectivelyNoopCallVerifies() throws IOException, InterruptedException {
         assertThat(verifyWithBoogie(), verifiedWithNoErrors(9));
-    }
-
-    @Test @UseProgram("CopyCycle.bl") public void copyingACyclicalStructureWorks() throws IOException, InterruptedException {
-        assertThat(verifyWithBoogie(), verifiedWithNoErrors(6));
-    }
-
-    @Test @UseProgram("TableInsert.bl") public void tableInsert() throws IOException, InterruptedException {
-        assertThat(verifyWithBoogie(), verifiedWithNoErrors(6));
     }
 
     ////////////////////////////////// VVVV OLD VVVV
