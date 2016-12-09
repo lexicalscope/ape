@@ -47,7 +47,9 @@ In the following test case v0 allocates more memory that v1. APE proves that the
 
 1. some of the memory that is garbage at the end of the procedure is made reachable during execution of v0  
 1. the garbage from v0 has different shape than the garbage from v1
-1. the procedure parameter is reachable from the garbage at the end of vv
+1. the procedure parameter is reachable from the garbage at the end of v0
+
+&nbsp;
  
 	VERSION 0
 	procedure DifferentShapedGarbage(x) {
@@ -195,3 +197,58 @@ Note that knowledge that the shape of the memory pointed to by `t` in v0 is the 
 
 
 ### Larger Examples  
+
+#### Copying a cyclic data structure
+
+The following examples copies a cyclic data structure. The versions vary in several ways:
+
+1. the nodes of the ring are allocated in the reverse order
+1. version 0 allocates an extra garbage element in the base case
+1. the sense and order of the conditional is reversed
+1. the order of several other instructions differ
+
+The verification time is ~4s
+
+	VERSION 0
+	procedure CopyRing(head,r) {
+		if(head!=null) {
+			head' := new();
+			next := head.next;
+			call CopyRingUntil(next,head,head',r);
+		}
+    }
+
+    procedure CopyRingUntil(node,until,head',r) {
+		node' := new();
+		if(node==until) {
+			r.v := head';
+		} else {
+			next := node.next;
+			r' := new();
+			call CopyRingUntil(next,until,head',r');
+			node'.next := r'.v;
+			r.v := node';
+		}
+	}
+	
+	VERSION 1
+	procedure CopyRing(head,r) {
+		if(head!=null) {
+			head' := new();
+			next := head.next;
+			call CopyRingUntil(next,head,head',r);
+		}
+	}
+
+	procedure CopyRingUntil(node,until,head',r) {
+		if(node!=until) {
+			r' := new();
+			next := node.next;
+			call CopyRingUntil(next,until,head',r');
+			node' := new();
+			r.v := node';
+			node'.next := r'.v;
+		} else {
+			r.v := head';
+		}
+	}
