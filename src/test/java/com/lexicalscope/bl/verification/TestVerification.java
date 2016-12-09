@@ -101,6 +101,10 @@ public abstract class TestVerification {
         assertThat(verifyWithBoogie(), verifiedWithNoErrors(6));
     }
 
+    @Test @UseProgram("ReorderCalls.bl") public void reorderRecursiveCalls() throws IOException, InterruptedException {
+        assertThat(verifyWithBoogie(), verifiedWithNoErrors(3));
+    }
+
     @Test @UseProgram("FramedNoopProcedure.bl") public void noopCallVerifies() throws IOException, InterruptedException {
         assertThat(verifyWithBoogie(), verifiedWithNoErrors(9));
     }

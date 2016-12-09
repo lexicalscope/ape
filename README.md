@@ -195,6 +195,44 @@ Note that knowledge that the shape of the memory pointed to by `t` in v0 is the 
 	   ...
 	}
 
+#### Recursive calls may be reordered
+
+In the following testcase the order of the recursive calls is reversed. APE uses an encoding of mutual summaries to allow it to search for equivalences between procedure calls, please see [Tim's Phd Thesis](docs/thesis_timwood_20161026.pdf) for further details. This testcase also shows how APE takes advantage of procedure specifications that are available. Here the postcondition annotation `modifies {r}` is present and helps APE to prove that the procedures are equivalent. APE also checks that such annotations are correct.   
+
+
+	VERSION 0
+	procedure Caller(x, r)
+  		modifies {r}; 
+	{
+		r0 := new();
+		r1 := new();
+			    
+	    t0 := x.f;
+		call Caller(t0, r0);
+				
+		t1 := x.g;
+		call Caller(t1, r1);
+				
+		r.f := r0.v;
+		r.g := r1.v;
+	}
+	
+	VERSION 1
+	procedure Caller(x, r)
+	  modifies {r}; 
+	{
+		r0 := new();
+		r1 := new();
+			    
+	    t0 := x.g;
+		call Caller(t0, r0);
+				
+		t1 := x.f;
+		call Caller(t1, r1);
+				
+		r.g := r0.v;
+		r.f := r1.v;
+	}
 
 ### Larger Examples  
 
@@ -375,7 +413,10 @@ Verification time ~7s
 
 #### Copy the sides of a tree in different orders
 
-The following testcase recursively copies a tree. The order of the recursive calls is reversed; v0 copies the left side of the tree first whereas v1 copies the right side first. APE uses an encoding of mutual summaries to allow it to search for equivalences between procedure calls, please see [Tim Wood's Phd Thesis](docs/thesis_timwood_20161026.pdf) for further details. This testcase also shows how APE takes advantage of procedure specifications that are available. In this case, the postcondition annotation `modifies {r}` is present and helps APE to prove that the procedures are equivalent. APE also checks that such annotations are correct.   
+The following testcase recursively copies a tree. The versions vary in several ways:
+
+1. The order of the recursive calls is reversed; v0 copies the left side of the tree first whereas v1 copies the right side first. APE uses an encoding of mutual summaries to allow it to search for equivalences between procedure calls, please see [Tim Wood's Phd Thesis](docs/thesis_timwood_20161026.pdf) for further details. 
+1. This testcase also shows how APE takes advantage of procedure specifications that are available. In this case, the postcondition annotation `modifies {r}` is present and helps APE to prove that the procedures are equivalent. APE also checks that such annotations are correct.   
 
 Verification time ~130s
 

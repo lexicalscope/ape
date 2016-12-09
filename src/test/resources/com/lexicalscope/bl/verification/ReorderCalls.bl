@@ -1,0 +1,32 @@
+VERSION
+procedure Caller(x, r)
+  modifies {r}; 
+{
+	r0 := new();
+	r1 := new();
+		    
+    t0 := x.f;
+	call Caller(t0, r0);
+			
+	t1 := x.g;
+	call Caller(t1, r1);
+			
+	r.f := r0.v;
+	r.g := r1.v;
+}
+VERSION
+procedure Caller(x, r)
+  modifies {r}; 
+{
+	r0 := new();
+	r1 := new();
+		    
+    t0 := x.g;
+	call Caller(t0, r0);
+			
+	t1 := x.f;
+	call Caller(t1, r1);
+			
+	r.g := r0.v;
+	r.f := r1.v;
+}
