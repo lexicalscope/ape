@@ -26,7 +26,7 @@ Table of Contents
 
 ## Test Cases and Examples
 
-The tool was evaluated against a number of micro-testcases and also against several larger examples. In order to illuminate the tool's capabilities we describe here the most important testcases and explain why they are interesting. The [code for the tests cases](src\test\resources\com\lexicalscope\bl\verification) and the [associated generated boogie code](generated-testcases/explicitPermutation) are also available.
+The tool was evaluated against a number of micro-testcases and also against several larger examples. In order to illuminate the tool's capabilities we describe here the *most important* testcases and explain why they are interesting. The [code for all 30+ tests cases](src\test\resources\com\lexicalscope\bl\verification) and the [associated generated boogie code](generated-testcases/explicitPermutation) are also available.
 
 ### Changing the order of allocations
 
