@@ -1,41 +1,44 @@
 VERSION
+procedure CopyTree(x, r)
+  modifies {r}; 
+{
+	if(x!=null) { 
+   		if(r!= null) {
+			r0 := new();
+		    r1 := new();
+		    n := new();
+		    
+		    t0 := x.f;
+			call CopyTree(t0, r0);
+			
+			t1 := x.g;
+			call CopyTree(t1, r1);
+			
+			n.f := r0.v;
+			n.g := r1.v;
+			r.v := n;
+  		}
+  	}
+}
+VERSION
 	procedure CopyTree(x, r)
 	  modifies {r}; 
 	{
-	   if(x!=null) { if(r!= null) {
-	    r0 := new();
-	    r1 := new();
-	    n := new();
-	    
-	    t0 := x.f;
-		call CopyTree(t0, r0);
-		
-		t1 := x.g;
-		call CopyTree(t1, r1);
-		
-		n.f := r0.v;
-		n.g := r1.v;
-		r.v := n;
-	  }}
+		if(x!=null) { 
+			if(r!= null) {
+				r0 := new();
+				r1 := new();
+			    
+				t0 := x.g;
+				call CopyTree(t0, r1);
+				
+				t1 := x.f;
+				call CopyTree(t1, r0);
+				
+				n := new();
+				n.f := r0.v;
+				n.g := r1.v;
+				r.v := n;
+			}
+		}
 	}
-VERSION
-    procedure CopyTree(x, r)
-      modifies {r}; 
-    {
-      if(x!=null) { if(r!= null) {
-		r0 := new();
-	    r1 := new();
-	    
-	    t0 := x.g;
-		call CopyTree(t0, r1);
-		
-		t1 := x.f;
-		call CopyTree(t1, r0);
-		
-		n := new();
-		n.f := r0.v;
-		n.g := r1.v;
-		r.v := n;
-	  }}
-	}
-	

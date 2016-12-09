@@ -198,7 +198,7 @@ Note that knowledge that the shape of the memory pointed to by `t` in v0 is the 
 
 ### Larger Examples  
 
-#### Copying a cyclic data structure
+#### Recursively copying a cyclic data structure
 
 The following examples copies a cyclic data structure. The versions vary in several ways:
 
@@ -253,9 +253,9 @@ The verification time is ~4s
 		}
 	}
 	
-#### Inserting a row into a table
+#### Recursively inserting a row into a table
 
-The following example i nserts a key/value pair into a table, replacing any existing occurrence of the key. The versions vary in several ways:
+The following testcase inserts a key/value pair into a table, replacing any existing occurrence of the key. The versions vary in several ways:
 
 1. In v1 the new row is always allocated at the start, and becomes garbage when the procedure eventually returns. Thus v1 sometimes allocates much more memory than v0.
 1. The order of several other instructions differ.
@@ -317,5 +317,110 @@ Verification time ~31s
 	{
 		if(table == null) {
 			r.v := new();
+		}
+	}
+
+
+#### Recursively copy a list
+
+The following testcase copies a list. The versions vary in several ways:
+
+1. The order of the allocations is reversed.
+1. v1 allocates the new node under different conditions to v0. This causes extra garbage for some executions of v1.
+1. An allocation that happens before the recursive call in v1 happens after in v0.
+1. The conditions for some instructions and the order of some assignments vary
+
+Verification time ~7s
+
+	VERSION 0
+	procedure CopyList(x,y)
+	{
+	   	if(x!=null) 
+		{
+			if(y!=null)
+			{
+			   r := new();
+			   xn := x.n;
+				call CopyList(xn, r);
+				
+				t := new();
+				// copy head data here
+				
+				t.n := r.v;
+				y.v := t;
+			}
+		}
+	}
+
+	VERSION 1
+	procedure CopyList(x,y)
+	{
+	   	if(x!=null) 
+		{
+			t := new();
+			// copy head data here
+
+		   xn := x.n;
+		    
+			if(y!=null)
+			{
+			   r := new();
+				call CopyList(xn, r);
+				
+				y.v := t;
+				t.n := r.v;
+			}
+		}
+	}
+
+#### Copy the sides of a tree in different orders
+
+The following testcase recursively copies a tree. The order of the recursive calls is reversed; v0 copies the left side of the tree first whereas v1 copies the right side first. APE uses an encoding of mutual summaries to allow it to search for equivalences between procedure calls, please see [Tim Wood's Phd Thesis](docs/thesis_timwood_20161026.pdf) for further details. This testcase also shows how APE takes advantage of procedure specifications that are available. In this case, the postcondition annotation `modifies {r}` is present and helps APE to prove that the procedures are equivalent. APE also checks that such annotations are correct.   
+
+Verification time ~130s
+
+	VERSION 0
+	procedure CopyTree(x, r)
+	  modifies {r}; 
+	{
+		if(x!=null) { 
+	   		if(r!= null) {
+				r0 := new();
+			   r1 := new();
+			   n := new();
+			    
+			   t0 := x.f;
+				call CopyTree(t0, r0);
+				
+				t1 := x.g;
+				call CopyTree(t1, r1);
+				
+				n.f := r0.v;
+				n.g := r1.v;
+				r.v := n;
+	  		}
+	  	}
+	}
+
+	VERSION 1
+	procedure CopyTree(x, r)
+	  modifies {r}; 
+	{
+		if(x!=null) { 
+			if(r!= null) {
+				r0 := new();
+				r1 := new();
+			    
+				t0 := x.g;
+				call CopyTree(t0, r1);
+				
+				t1 := x.f;
+				call CopyTree(t1, r0);
+				
+				n := new();
+				n.f := r0.v;
+				n.g := r1.v;
+				r.v := n;
+			}
 		}
 	}
