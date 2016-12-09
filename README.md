@@ -1,6 +1,6 @@
 # *A*utomatic *P*rocedure *E*quivalence Tool
 
-APE is a tool for automatically proving the equivalence of programs using modular program verification technology. It showcases an approach to proving the equivalence of programs that differ in the order and amount of dynamic memory allocation. It supports a simple recursive language called *L*. Underlying APE are the tools [Boogie](https://github.com/boogie-org/boogie) and [Z3](https://github.com/Z3Prover/z3).
+APE is a tool for automatically proving the equivalence of programs using modular program verification technology. It show cases an approach to proving the equivalence of programs that differ in the order and amount of dynamic memory allocation. It supports a simple recursive language called *L*. Underlying APE are the tools [Boogie](https://github.com/boogie-org/boogie) and [Z3](https://github.com/Z3Prover/z3).
 
 Details of the tool can be found in [Tim Wood's Phd Thesis (draft pending corrections)](thesis/thesis_timwood_20161026_draft.pdf), including a formal proof of the soundness of the methodology. The rest of this document illustrates the capabilities of APE by giving examples, that APE can verify, and commentary on the examples.
 
@@ -27,7 +27,7 @@ Table of Contents
 
 ## Test Cases and Examples
 
-The tool was evaluated against a number of micro-testcases and also against several larger examples. In order to illuminate the tool's capabilities we describe here the *most important* testcases and explain why they are interesting. The [code for all 30+ tests cases](src/test/resources/com/lexicalscope/bl/verification) and the [associated generated boogie code](generated-testcases/explicitPermutation) is also available. The [test case are tabulated at the end](#tabulation-of-testcases) of this document.
+The tool was evaluated against a number of micro-test cases and also against several larger examples. In order to illuminate the tool's capabilities we describe here the *most important* test cases and explain why they are interesting. The [code for all 30+ tests cases](src/test/resources/com/lexicalscope/bl/verification) and the [associated generated boogie code](generated-testcases/explicitPermutation) is also available. The [test cases are tabulated at the end](#tabulation-of-testcases) of this document.
 
 ### Changing the order of allocations
 
@@ -186,7 +186,7 @@ In order to establish the equivalence of a pair of procedure calls APE attempts 
 
 #### Equivalent calls from non-isomorphic stores
 
-APE can deduce that procedures have equivalent effects even when the pre-stores of the calls are not isomorphic. Instead of checking for isomorphism of the whole store it only checks that the parts of the stores reachable from the call parameters are isomorphic. The following testcases illustrate this. 
+APE can deduce that procedures have equivalent effects even when the pre-stores of the calls are not isomorphic. Instead of checking for isomorphism of the whole store it only checks that the parts of the stores reachable from the call parameters are isomorphic. The following test cases illustrate this. 
 
 ##### Allocations may move past calls
 
@@ -218,7 +218,7 @@ Note that knowledge that the shape of the memory pointed to by `t` in v0 is the 
 
 ##### Recursive calls may be reordered
 
-In the following testcase the order of the recursive calls is reversed. APE uses an encoding of mutual summaries to allow it to search for equivalences between procedure calls, please see [Tim's Phd Thesis](docs/thesis_timwood_20161026.pdf) for further details. This testcase also shows how APE takes advantage of procedure specifications that are available. Here the postcondition annotation `modifies {r}` is present and helps APE to prove that the procedures are equivalent. APE also checks that such annotations are correct.   
+In the following test case the order of the recursive calls is reversed. APE uses an encoding of mutual summaries to allow it to search for equivalences between procedure calls, please see [Tim's Phd Thesis](docs/thesis_timwood_20161026.pdf) for further details. This test case also shows how APE takes advantage of procedure specifications that are available. Here the postcondition annotation `modifies {r}` is present and helps APE to prove that the procedures are equivalent. APE also checks that such annotations are correct.   
 
 
 	VERSION 0
@@ -318,7 +318,7 @@ The verification time is ~4s
 	
 #### Recursively inserting a row into a table
 
-The following testcase inserts a key/value pair into a table, replacing any existing occurrence of the key. The versions vary in several ways:
+The following test case inserts a key/value pair into a table, replacing any existing occurrence of the key. The versions vary in several ways:
 
 1. In v1 the new row is always allocated at the start, and becomes garbage when the procedure eventually returns. Thus v1 sometimes allocates much more memory than v0.
 1. The order of several other instructions differ.
@@ -386,7 +386,7 @@ Verification time ~31s
 
 #### Recursively copy a list
 
-The following testcase copies a list. The versions vary in several ways:
+The following test case copies a list. The versions vary in several ways:
 
 1. The order of the allocations is reversed.
 1. v1 allocates the new node under different conditions to v0. This causes extra garbage for some executions of v1.
@@ -438,10 +438,10 @@ Verification time ~7s
 
 #### Copy the sides of a tree in different orders
 
-The following testcase recursively copies a tree. The versions vary in several ways:
+The following test case recursively copies a tree. The versions vary in several ways:
 
 1. The order of the recursive calls is reversed; v0 copies the left side of the tree first whereas v1 copies the right side first. APE uses an encoding of mutual summaries to allow it to search for equivalences between procedure calls, please see [Tim Wood's Phd Thesis](docs/thesis_timwood_20161026.pdf) for further details. 
-1. This testcase also shows how APE takes advantage of procedure specifications that are available. In this case, the postcondition annotation `modifies {r}` is present and helps APE to prove that the procedures are equivalent. APE also checks that such annotations are correct.   
+1. This test case also shows how APE takes advantage of procedure specifications that are available. In this case, the postcondition annotation `modifies {r}` is present and helps APE to prove that the procedures are equivalent. APE also checks that such annotations are correct.   
 
 Verification time ~130s
 
@@ -493,7 +493,7 @@ Verification time ~130s
 
 ### Tabulation of Testcases
 
-Here we tabulate the other micro-benchmarks and testcases with a brief explaination of what each one shows
+Here we tabulate the other micro-benchmarks and test cases with a brief explaination of what each one shows
 
 |Description|Reason|Case|
 |-----------|------|----|
@@ -522,11 +522,11 @@ Here we tabulate the other micro-benchmarks and testcases with a brief explainat
 |A tree is copied. One version copies the left side first the other the right side|Tests that a complex data structure and out-of-order procedure calls can be verified together|[ProcedureReturnsValuesViaFramedTemporary.bl](src/test/resources/com/lexicalscope/bl/verification/ProcedureReturnsValuesViaFramedTemporary.bl)|
 |Copies a list|Tests that recursive calls with out-of-order allocation and differences in garbage can be verified together|[RecursiveListCopyExample.bl](src/test/resources/com/lexicalscope/bl/verification/RecursiveListCopyExample.bl)|
 |Walks a list recursively|Tests that examples with no allocations verify|[RecursivelyWalkList.bl](src/test/resources/com/lexicalscope/bl/verification/RecursivelyWalkList.bl)|
-|||[ReorderCalls.bl](src/test/resources/com/lexicalscope/bl/verification/ReorderCalls.bl)|
-|||[ReverseAllocationsBeforeCall.bl](src/test/resources/com/lexicalscope/bl/verification/ReverseAllocationsBeforeCall.bl)|
-|||[SingleAllocation.bl](src/test/resources/com/lexicalscope/bl/verification/SingleAllocation.bl)|
-|||[SingleCall.bl](src/test/resources/com/lexicalscope/bl/verification/SingleCall.bl)|
-|||[SingleCallToDifferentProcedures.bl](src/test/resources/com/lexicalscope/bl/verification/SingleCallToDifferentProcedures.bl)|
-|||[Swap.bl](src/test/resources/com/lexicalscope/bl/verification/Swap.bl)|
-|||[TableInsert.bl](src/test/resources/com/lexicalscope/bl/verification/TableInsert.bl)|
-|||[TableInsertNiceNames.bl](src/test/resources/com/lexicalscope/bl/verification/TableInsertNiceNames.bl)|
+|Calls are reordered|Tests that reordered calls can be verified|[ReorderCalls.bl](src/test/resources/com/lexicalscope/bl/verification/ReorderCalls.bl)|
+|Allocations are allocated out of order before a call|Enough information persists over the call to allow verification|[ReverseAllocationsBeforeCall.bl](src/test/resources/com/lexicalscope/bl/verification/ReverseAllocationsBeforeCall.bl)|
+|A single non-garbage allocation|A single allocation verifies|[SingleAllocation.bl](src/test/resources/com/lexicalscope/bl/verification/SingleAllocation.bl)|
+|Procedure call|A procedure call verifies|[SingleCall.bl](src/test/resources/com/lexicalscope/bl/verification/SingleCall.bl)|
+|Calls to different procedures|Calls to different procedure are not equivalent|[SingleCallToDifferentProcedures.bl](src/test/resources/com/lexicalscope/bl/verification/SingleCallToDifferentProcedures.bl)|
+|A heap swap vs a stack swap|Tests that allocated memory can be used then discarded as garbage|[Swap.bl](src/test/resources/com/lexicalscope/bl/verification/Swap.bl)|
+|Inserts a row into a table|Tests that several features can be verified together, particularly [that garbage is ignored correctly](#recursively-inserting-a-row-into-a-table)|[TableInsert.bl](src/test/resources/com/lexicalscope/bl/verification/TableInsert.bl)|
+
