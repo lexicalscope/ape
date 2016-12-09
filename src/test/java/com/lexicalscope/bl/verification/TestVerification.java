@@ -97,6 +97,10 @@ public abstract class TestVerification {
         assertThat(verifyWithBoogie(), verifiedWithNoErrors(6));
     }
 
+    @Test @UseProgram("AllocationsPassedToCall.bl") public void passingAllocatedMemoryToACallVerifies() throws IOException, InterruptedException {
+        assertThat(verifyWithBoogie(), verifiedWithNoErrors(6));
+    }
+
     @Test @UseProgram("FramedNoopProcedure.bl") public void noopCallVerifies() throws IOException, InterruptedException {
         assertThat(verifyWithBoogie(), verifiedWithNoErrors(9));
     }
