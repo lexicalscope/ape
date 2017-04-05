@@ -157,8 +157,8 @@ In order to establish the equivalence of a pair of procedure calls APE attempts 
 	VERSION 0
 	procedure Caller(x)
 	{
-	   t := new();
-	   u := new();
+		t := new();
+		u := new();
 		call Callee(x,t);
 		x.f := t.v;
 		x.g := u;
@@ -172,8 +172,8 @@ In order to establish the equivalence of a pair of procedure calls APE attempts 
 	VERSION 1
 	procedure Caller(x)
 	{
-	   t := new();
-	   u := new();
+		t := new();
+		u := new();
 		call Callee(x, u);
 		x.f := u.v;
 		x.g := t;
@@ -196,7 +196,7 @@ Note that knowledge that the shape of the memory pointed to by `t` in v0 is the 
 
 	VERSION 0
 	procedure Caller(x) {
-	   t := new();
+		t := new();
 		call Callee(x);
 		x.f := t;
 	}
@@ -229,7 +229,7 @@ In the following test case the order of the recursive calls is reversed. APE use
 			r0 := new();
 			r1 := new();
 				    
-		    t0 := x.f;
+			t0 := x.f;
 			call Caller(t0, r0);
 					
 			t1 := x.g;
@@ -248,7 +248,7 @@ In the following test case the order of the recursive calls is reversed. APE use
 			r0 := new();
 			r1 := new();
 				    
-		   t0 := x.g;
+			t0 := x.g;
 			call Caller(t0, r0);
 					
 			t1 := x.f;
@@ -402,8 +402,8 @@ Verification time ~7s
 		{
 			if(y!=null)
 			{
-			   r := new();
-			   xn := x.n;
+				r := new();
+				xn := x.n;
 				call CopyList(xn, r);
 				
 				t := new();
@@ -423,11 +423,11 @@ Verification time ~7s
 			t := new();
 			// copy head data here
 
-		   xn := x.n;
+			xn := x.n;
 		    
 			if(y!=null)
 			{
-			   r := new();
+				r := new();
 				call CopyList(xn, r);
 				
 				y.v := t;
@@ -452,10 +452,10 @@ Verification time ~130s
 		if(x!=null) { 
 	   		if(r!= null) {
 				r0 := new();
-			   r1 := new();
-			   n := new();
+				r1 := new();
+				n := new();
 			    
-			   t0 := x.f;
+				t0 := x.f;
 				call CopyTree(t0, r0);
 				
 				t1 := x.g;
