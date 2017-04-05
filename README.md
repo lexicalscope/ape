@@ -192,7 +192,7 @@ APE can deduce that procedures have equivalent effects even when the pre-stores 
 
 Allocations may be moved past calls, provided they are not reachable from the call parameters. In the following example an object is allocated before the call in v0 but after it in v1. Since the allocate memory is not reachable from the call parameter `x` in v0, APE is still able to prove equivalence.
 
-Note that knowledge that the shape of the memory pointed to by `t` in v0 is the same as the shape of the memory pointed to by `t` in v1 persists over the v0 call to `Callee`. This is possible due to the frame axioms automatically used by APE and described in Tim's thesis.
+Note that knowledge that the shape of the memory pointed to by `t` in v0 is the same as the shape of the memory pointed to by `t` in v1 persists over the v0 call to `Callee`. This is possible due to the frame axioms automatically used by APE and described in [Tim's thesis](thesis/Wood-T-2017-PhD-Thesis.pdf).
 
 	VERSION 0
 	procedure Caller(x) {
@@ -218,7 +218,7 @@ Note that knowledge that the shape of the memory pointed to by `t` in v0 is the 
 
 ##### Recursive calls may be reordered
 
-In the following test case the order of the recursive calls is reversed. APE uses an encoding of mutual summaries to allow it to search for equivalences between procedure calls, please see [Tim's Phd Thesis](docs/thesis_timwood_20161026.pdf) for further details. This test case also shows how APE takes advantage of procedure specifications that are available. Here the postcondition annotation `modifies {r}` is present and helps APE to prove that the procedures are equivalent. APE also checks that such annotations are correct.   
+In the following test case the order of the recursive calls is reversed. APE uses an encoding of mutual summaries to allow it to search for equivalences between procedure calls, please see [Tim's thesis](thesis/Wood-T-2017-PhD-Thesis.pdf) for further details. This test case also shows how APE takes advantage of procedure specifications that are available. Here the postcondition annotation `modifies {r}` is present and helps APE to prove that the procedures are equivalent. APE also checks that such annotations are correct.   
 
 
 	VERSION 0
@@ -440,7 +440,7 @@ Verification time ~7s
 
 The following test case recursively copies a tree. The versions vary in several ways:
 
-1. The order of the recursive calls is reversed; v0 copies the left side of the tree first whereas v1 copies the right side first. APE uses an encoding of mutual summaries to allow it to search for equivalences between procedure calls, please see [Tim Wood's Phd Thesis](docs/thesis_timwood_20161026.pdf) for further details. 
+1. The order of the recursive calls is reversed; v0 copies the left side of the tree first whereas v1 copies the right side first. APE uses an encoding of mutual summaries to allow it to search for equivalences between procedure calls, please see [Tim Wood's Phd Thesis](thesis/Wood-T-2017-PhD-Thesis.pdf) for further details. 
 1. This test case also shows how APE takes advantage of procedure specifications that are available. In this case, the postcondition annotation `modifies {r}` is present and helps APE to prove that the procedures are equivalent. APE also checks that such annotations are correct.   
 
 Verification time ~130s
